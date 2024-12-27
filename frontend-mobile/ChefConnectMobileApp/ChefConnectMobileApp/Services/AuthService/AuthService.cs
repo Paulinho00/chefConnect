@@ -17,4 +17,12 @@ public class AuthService : IAuthService
 
         return result;
     }
+
+    public async Task<Result<string>> SignInAsync(string email, string password)
+    {
+        //TODO: Add  call to API/Cognito
+        var result = new Result<string>();
+
+        return result;
+    }
 }

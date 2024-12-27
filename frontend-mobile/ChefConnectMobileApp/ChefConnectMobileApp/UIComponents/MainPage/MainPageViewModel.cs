@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.Content.Res;
-using ChefConnectMobileApp.DI;
+﻿using ChefConnectMobileApp.DI;
 using ChefConnectMobileApp.Services.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +13,12 @@ namespace ChefConnectMobileApp.UIComponents.MainPage
         private async Task GoToRegistrationPage()
         {
             await _navigationService.TransitToPageAsync(new RegisterPage.RegisterPage());
+        }
+
+        [RelayCommand]
+        private async Task GoToLoginPage()
+        {
+            await _navigationService.TransitToPageAsync(new LoginPage.LoginPage());
         }
     }
 }

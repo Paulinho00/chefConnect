@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" VerticalOptions="Center">ChefConnect</Label>
             <Button x:Name="RegisterButton" Grid.Column="1" Text="Rejestracja" Command="{Binding GoToRegistrationPageCommand}" HeightRequest="50" WidthRequest="100" HorizontalOptions="End" BackgroundColor="White"></Button>
-            <Button x:Name="SignInButton" Grid.Column="2" Text="Logowanie" HeightRequest="50" WidthRequest="100" HorizontalOptions="End" BackgroundColor="White"></Button>
+            <Button x:Name="SignInButton" Grid.Column="2" Text="Logowanie" Command="{Binding GoToLoginPageCommand}" HeightRequest="50" WidthRequest="100" HorizontalOptions="End" BackgroundColor="White"></Button>
         </Grid>
     </NavigationPage.TitleView>
     <StackLayout>

@@ -1,6 +1,7 @@
 ﻿using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.AuthService;
 using ChefConnectMobileApp.Services.Navigation;
+using ChefConnectMobileApp.UIComponents.LoginPage;
 using ChefConnectMobileApp.UIComponents.MainPage;
 using ChefConnectMobileApp.UIComponents.RegisterPage;
 
@@ -15,7 +16,8 @@ public static class DependencyInjection
             .AddSingleton<INavigationService, NavigationService>()
             .AddTransient<IAlertService, AlertService>()
             .AddTransient<MainPage>()
-            .AddTransient<MainPageViewModel>()
-            .AddTransient<RegisterPage>();
+            .AddTransient<RegisterPage>()
+            .AddTransient<LoginPage>();
+
     }
 }

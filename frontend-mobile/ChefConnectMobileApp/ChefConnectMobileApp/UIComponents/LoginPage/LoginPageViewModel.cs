@@ -39,7 +39,7 @@ public partial class LoginPageViewModel : ObservableValidator
         }
         else
         {
-            await _navigationService.ReturnToPreviousPageAsync();
+            await _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
         }
 
     }

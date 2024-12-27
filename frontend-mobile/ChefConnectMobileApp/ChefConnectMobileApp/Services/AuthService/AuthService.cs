@@ -23,6 +23,14 @@ public class AuthService : IAuthService
         //TODO: Add  call to API/Cognito
         var result = new Result<string>();
 
+        _currentUser = new User
+        {
+            Email = "test@gmail.com",
+            FirstName = "test",
+            LastName = "Test",
+            Password = "test123"
+        };
+
         return result;
     }
 }

@@ -14,6 +14,8 @@ namespace ChefConnectMobileApp.Services.Navigation
             if (clearStack)
             {
                 _navigationpage = new NavigationPage(page);
+                _navigationpage.BarBackgroundColor = Colors.Chocolate;
+                App.Current.MainPage = _navigationpage;
             }
             else
             {

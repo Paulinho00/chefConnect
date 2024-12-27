@@ -3,53 +3,49 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:registerPage="clr-namespace:ChefConnectMobileApp.UIComponents.RegisterPage"
              x:Class="ChefConnectMobileApp.UIComponents.RegisterPage.RegisterPage">
+    <ContentPage.BindingContext>
+        <registerPage:RegisterPageViewModel/>
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid Margin="10, 10, 10, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" VerticalOptions="Center">ChefConnect</Label>
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <VerticalStackLayout
             Margin="25, 25, 25, 25">
             <Label>Email:</Label>
             <Entry
-                Keyboard="Email"
-                x:Name="EmailEntry">
-                <Entry.Behaviors>
-                    <toolkit:TextValidationBehavior 
-                        Flags="ValidateOnValueChanged"
-                        MinimumLength="5"
-                        MaximumLength="25" 
-                        RegexPattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"/>
-                </Entry.Behaviors>
+                Text="{Binding Email}"
+                Keyboard="Email">
             </Entry>
             <Label>Imię:</Label>
             <Entry
-                x:Name="FirstNameEntry">
-                <Entry.Behaviors>
-                    <toolkit:TextValidationBehavior 
-                        Flags="ValidateOnValueChanged"
-                        MinimumLength="5"
-                        MaximumLength="25" />
-                </Entry.Behaviors>
+                Text="{Binding FirstName}">
             </Entry>
             <Label>Nazwisko:</Label>
             <Entry
-                x:Name="LastNameEntry">
-                <Entry.Behaviors>
-                    <toolkit:TextValidationBehavior 
-                        Flags="ValidateOnValueChanged"
-                        MinimumLength="5"
-                        MaximumLength="25" />
-                </Entry.Behaviors>
+                Text="{Binding LastName}">
             </Entry>
             <Label>Hasło:</Label>
             <Entry
-                x:Name="PasswordEntry"
+                Text="{Binding Password}"
                 IsPassword="True">
-                <Entry.Behaviors>
-                    <toolkit:TextValidationBehavior 
-                        Flags="ValidateOnValueChanged"
-                        MinimumLength="5"
-                        MaximumLength="25" />
-                </Entry.Behaviors>
             </Entry>
+            <Button x:Name="SignInButton" Grid.Column="2"
+                    Command="{Binding Path=SignUpCommand, Mode=TwoWay}"
+                    Margin="20, 20, 20, 20" 
+                    Text="Zatwierdź" HeightRequest="50"
+                    WidthRequest="100" HorizontalOptions="Center" 
+                    BackgroundColor="White">
+            </Button>
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

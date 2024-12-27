@@ -9,7 +9,7 @@ namespace ChefConnectMobileApp.Services.Navigation
     internal class NavigationService : INavigationService
     {
         private NavigationPage _navigationpage;
-        public async Task TransitToPage(Page page, bool clearStack = false)
+        public async Task TransitToPageAsync(Page page, bool clearStack = false)
         {
             if (clearStack)
             {
@@ -24,6 +24,11 @@ namespace ChefConnectMobileApp.Services.Navigation
         public void SetNavigationPage(NavigationPage page)
         {
             _navigationpage = page;
+        }
+
+        public async Task ReturnToPreviousPageAsync()
+        {
+            await _navigationpage.Navigation.PopAsync();
         }
     }
 }

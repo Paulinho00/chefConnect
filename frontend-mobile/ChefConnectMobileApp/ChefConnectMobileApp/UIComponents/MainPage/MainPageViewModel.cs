@@ -18,7 +18,7 @@ namespace ChefConnectMobileApp.UIComponents.MainPage
         [RelayCommand]
         private async Task GoToRegistrationPage()
         {
-            await _navigationService.TransitToPage(new RegisterPage.RegisterPage());
+            await _navigationService.TransitToPageAsync(new RegisterPage.RegisterPage());
         }
     }
 }

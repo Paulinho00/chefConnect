@@ -9,7 +9,8 @@ namespace ChefConnectMobileApp.Services.Navigation
 {
     public interface INavigationService
     {
-        Task TransitToPage(Page page, bool clearStack = false);
+        Task TransitToPageAsync(Page page, bool clearStack = false);
         void SetNavigationPage(NavigationPage page);
+        Task ReturnToPreviousPageAsync();
     }
 }

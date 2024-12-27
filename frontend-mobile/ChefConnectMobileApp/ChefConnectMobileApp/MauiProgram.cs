@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ChefConnectMobileApp.DI;
+using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 
 namespace ChefConnectMobileApp;
 
@@ -9,11 +11,16 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+			.Services
+			.RegisterServices();
+
+        ServiceHelper.Initialize(builder.Services.BuildServiceProvider());
 
 #if DEBUG
 		builder.Logging.AddDebug();

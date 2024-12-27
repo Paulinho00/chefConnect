@@ -1,4 +1,8 @@
-﻿namespace ChefConnectMobileApp;
+﻿using ChefConnectMobileApp.DI;
+using ChefConnectMobileApp.Services.Navigation;
+using ChefConnectMobileApp.UIComponents.RegisterPage;
+
+namespace ChefConnectMobileApp;
 
 public partial class App : Application
 {
@@ -9,6 +13,10 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new AppShell());
+        var navigationPage = new NavigationPage(new MainPage());
+        navigationPage.BarBackgroundColor = Colors.Chocolate;
+        var navigationService = ServiceHelper.GetService<INavigationService>();
+        navigationService.SetNavigationPage(navigationPage);
+        return new Window(navigationPage);
     }
 }

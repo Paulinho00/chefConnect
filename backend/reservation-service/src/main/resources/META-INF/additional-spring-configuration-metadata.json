@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "events.queues.eventQueue",
+      "type": "java.lang.String",
+      "description": "Queue for application events."
+    }
+  ] }

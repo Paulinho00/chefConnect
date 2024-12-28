@@ -1,6 +1,4 @@
-﻿using AsyncAwaitBestPractices;
-using ChefConnectMobileApp.DI;
-using ChefConnectMobileApp.Models;
+﻿using ChefConnectMobileApp.DI;
 using ChefConnectMobileApp.Services;
 using ChefConnectMobileApp.UIComponents.RestaurantListElement;
 using CommunityToolkit.Mvvm.ComponentModel;

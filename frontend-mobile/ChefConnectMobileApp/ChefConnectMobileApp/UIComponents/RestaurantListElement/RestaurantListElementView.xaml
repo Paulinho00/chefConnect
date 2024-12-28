@@ -4,58 +4,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:restaurantListElement="using:ChefConnectMobileApp.UIComponents.RestaurantListElement"
              x:Class="ChefConnectMobileApp.UIComponents.RestaurantListElement.RestaurantListElementView">
-    <Grid
-        Margin="10, 10, 10, 10"
-        BackgroundColor="Goldenrod">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0" BackgroundColor="Chocolate">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
+    <Border>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding GoToRestaurantsDetailsCommand}"/>
+        </Border.GestureRecognizers>
+        <Grid
+            Margin="10, 10, 10, 10"
+            BackgroundColor="Goldenrod">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
-            <CheckBox
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
-                Color="Goldenrod"
-                IsChecked="{Binding IsFavourite}"
-                CheckedChanged="CheckBox_OnCheckedChanged"/>
 
-            <HorizontalStackLayout
-                Grid.Column="2" 
-                Grid.Row="0">
-                <Label Margin="0, 0, 5, 0" >Nazwa: </Label>
-                <Label Text="{Binding Restaurant.Name}"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout
-                Grid.Column="2" 
-                Grid.Row="1">
-                <Label Margin="0, 0, 5, 0" >Liczba stolików: </Label>
-                <Label Text="{Binding Restaurant.NumberOfTables}"/>
-            </HorizontalStackLayout>
+            <Grid Grid.Row="0" Grid.Column="0" BackgroundColor="Chocolate">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+                <CheckBox
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                    Color="Goldenrod"
+                    IsChecked="{Binding IsFavourite}"
+                    CheckedChanged="CheckBox_OnCheckedChanged"/>
+
+                <HorizontalStackLayout
+                    Grid.Column="2" 
+                    Grid.Row="0">
+                    <Label Margin="0, 0, 5, 0" >Nazwa: </Label>
+                    <Label Text="{Binding Restaurant.Name}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout
+                    Grid.Column="2" 
+                    Grid.Row="1">
+                    <Label Margin="0, 0, 5, 0" >Liczba stolików: </Label>
+                    <Label Text="{Binding Restaurant.NumberOfTables}"/>
+                </HorizontalStackLayout>
 
 
-            <HorizontalStackLayout Grid.Column="2" Grid.Row="2">
-                <Label >Odległość: </Label>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" Grid.Row="3">
-                <Label Margin="0, 0, 5, 0">Ocena:</Label>
-                <Label  Text="{Binding Rating}"/>
-                <Label>/5</Label>
-            </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2" Grid.Row="2">
+                    <Label >Odległość: </Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2" Grid.Row="3">
+                    <Label Margin="0, 0, 5, 0">Ocena:</Label>
+                    <Label  Text="{Binding Rating}"/>
+                    <Label>/5</Label>
+                </HorizontalStackLayout>
 
+            </Grid>
+            <Label Margin="5, 5, 5, 5" HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Restaurant.Address}"/>
         </Grid>
-        <Label Margin="5, 5, 5, 5" HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Restaurant.Address}"/>
-    </Grid>
+    </Border>
 </ContentView>

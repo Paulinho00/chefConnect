@@ -2,11 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:topBar="using:ChefConnectMobileApp.UIComponents.TopBar"
+             xmlns:restaurantsListPage="using:ChefConnectMobileApp.UIComponents.RestaurantsListPage"
+             xmlns:restaurantListElement="using:ChefConnectMobileApp.UIComponents.RestaurantListElement"
+             xmlns:models="using:ChefConnectMobileApp.Models"
              x:Class="ChefConnectMobileApp.UIComponents.RestaurantsListPage.RestaurantsListPage">
     <NavigationPage.TitleView>
         <topBar:TopBar/>
     </NavigationPage.TitleView>
+    
+    <ContentPage.BindingContext>
+        <restaurantsListPage:RestaurantListPageViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        
+        <ScrollView>
+            <StackLayout BindableLayout.ItemsSource="{Binding Restaurants}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="restaurantListElement:RestaurantListElementViewModel">
+                        <restaurantListElement:RestaurantListElementView />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

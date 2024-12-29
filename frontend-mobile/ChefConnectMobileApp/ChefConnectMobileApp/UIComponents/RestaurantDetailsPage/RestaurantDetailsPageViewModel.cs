@@ -2,6 +2,7 @@
 using ChefConnectMobileApp.DI;
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services;
+using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.ReservationService;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,6 +14,7 @@ namespace ChefConnectMobileApp.UIComponents.RestaurantDetailsPage
     {
         private IRestaurantService _restaurantService = ServiceHelper.GetService<IRestaurantService>();
         private IReservationService _reservationService = ServiceHelper.GetService<IReservationService>();
+        private IAlertService _alertService = ServiceHelper.GetService<IAlertService>();
 
         [ObservableProperty]
         private Restaurant _restaurant;
@@ -90,6 +92,23 @@ namespace ChefConnectMobileApp.UIComponents.RestaurantDetailsPage
             if (IsReservationsVisible)
             {
                 SelectedDate = MinimumDate;
+            }
+        }
+
+        [RelayCommand]
+        private async Task MakeReservation()
+        {
+            var date = SelectedDate + TimeSpan.Parse(SelectedTimeSlot);
+            var result = await _reservationService.MakeReservation(Restaurant.Id, date, NumberOfFreeTablesForTimeSlot);
+            if (result.IsFailure)
+            {
+                await _alertService.ShowAlertAsync("Rezerwacja nieudana", result.Error);
+            }
+            else
+            {
+                IsReservationsVisible = false;
+                await _alertService.ShowAlertAsync("Rezerwacja udana",
+                    "Twoja rezerwacja została zapisana. Sprawdź jej status, czy została zaakceptowana przez naszego pracownika");
             }
         }
     }

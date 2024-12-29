@@ -1,4 +1,7 @@
-﻿namespace ChefConnectMobileApp.Services.ReservationService;
+﻿using ChefConnectMobileApp.Services.AuthService;
+using CSharpFunctionalExtensions;
+
+namespace ChefConnectMobileApp.Services.ReservationService;
 
 public class ReservationService : IReservationService
 {
@@ -15,5 +18,12 @@ public class ReservationService : IReservationService
     {
         //TODO: Call to API
         return _mockSlots;
+    }
+
+    public async Task<Result<string>> MakeReservation(int restaurantId, DateTime date, int numberOfTables)
+    {
+        //TODO: Call to API
+        //User ID will be in token
+        return new Result<string>();
     }
 }

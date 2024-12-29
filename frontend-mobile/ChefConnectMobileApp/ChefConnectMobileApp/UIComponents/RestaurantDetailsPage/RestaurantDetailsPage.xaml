@@ -148,6 +148,7 @@
                     Grid.Row="2" 
                     Text="Zatwierdź" 
                     IsEnabled="{Binding IsNumberOfTablesInputValid}"
+                    Command="{Binding MakeReservationCommand}"
                     BackgroundColor="White"/>
             </Grid>
 		</VerticalStackLayout>

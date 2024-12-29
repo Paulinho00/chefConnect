@@ -1,36 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ChefConnectMobileApp.Services.Navigation;
 
-namespace ChefConnectMobileApp.Services.Navigation
+internal class NavigationService : INavigationService
 {
-    internal class NavigationService : INavigationService
+    private NavigationPage _navigationpage;
+    public async Task TransitToPageAsync(Page page, bool clearStack = false)
     {
-        private NavigationPage _navigationpage;
-        public async Task TransitToPageAsync(Page page, bool clearStack = false)
+        if (clearStack)
         {
-            if (clearStack)
-            {
-                _navigationpage = new NavigationPage(page);
-                _navigationpage.BarBackgroundColor = Colors.Chocolate;
-                App.Current.MainPage = _navigationpage;
-            }
-            else
-            {
-                await _navigationpage.Navigation.PushAsync(page);
-            }
+            _navigationpage = new NavigationPage(page);
+            _navigationpage.BarBackgroundColor = Colors.Chocolate;
+            App.Current.MainPage = _navigationpage;
         }
+        else
+        {
+            await _navigationpage.Navigation.PushAsync(page);
+        }
+    }
 
-        public void SetNavigationPage(NavigationPage page)
-        {
-            _navigationpage = page;
-        }
+    public void SetNavigationPage(NavigationPage page)
+    {
+        _navigationpage = page;
+    }
 
-        public async Task ReturnToPreviousPageAsync()
-        {
-            await _navigationpage.Navigation.PopAsync();
-        }
+    public async Task ReturnToPreviousPageAsync()
+    {
+        await _navigationpage.Navigation.PopAsync();
     }
 }

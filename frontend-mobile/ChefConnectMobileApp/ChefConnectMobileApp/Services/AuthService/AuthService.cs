@@ -3,7 +3,7 @@ using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services.AuthService;
 
-public class AuthService : IAuthService
+internal class AuthService : IAuthService
 {
     private User? _currentUser;
 

@@ -15,13 +15,4 @@ public partial class RestaurantListElementView : ContentView
     {
         InitializeComponent();
     }
-
-    private async void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
-    {
-        var viewModel = (RestaurantListElementViewModel)BindingContext;
-        if (e.Value)
-            await viewModel.AddNewFavourite();
-        else
-            await viewModel.RemoveFavourite();
-    }
 }

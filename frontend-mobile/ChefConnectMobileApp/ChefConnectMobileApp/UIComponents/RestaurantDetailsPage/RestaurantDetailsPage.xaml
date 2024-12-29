@@ -107,11 +107,15 @@
                     Grid.ColumnSpan="3" 
                     Grid.Row="0"
                     MinimumDate="{Binding MinimumDate}"
+                    Date="{Binding SelectedDate}"
                     />
-                <TimePicker 
+                <Picker 
                     Grid.Column="0" 
                     Grid.ColumnSpan="3" 
-                    Grid.Row="1"/>
+                    Grid.Row="1"
+                    ItemsSource="{Binding TimeSlots}"
+                    SelectedItem="{Binding SelectedTimeSlot}"
+                    />
                 <Grid 
                     Grid.Column="0" 
                     Grid.Row="2">
@@ -130,18 +134,20 @@
                         Grid.Row="0" 
                         Grid.Column="1" 
                         Margin="0, 0, 0, 0"
-                        Text="{Binding}"/>
+                        Text="{Binding NumberOfFreeTablesForTimeSlot}"/>
                 </Grid>
                 <Entry 
                     Margin="0, 10, 0, 0" 
                     Grid.Column="0" 
                     Grid.Row="2" 
-                    Keyboard="Numeric"/>
+                    Keyboard="Numeric"
+                    Text="{Binding SelectedNumberOfTables}"/>
                 <Button 
                     Margin="5, 5, 5, 5" 
                     Grid.Column="2" 
                     Grid.Row="2" 
                     Text="Zatwierdź" 
+                    IsEnabled="{Binding IsNumberOfTablesInputValid}"
                     BackgroundColor="White"/>
             </Grid>
 		</VerticalStackLayout>

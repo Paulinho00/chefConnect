@@ -40,7 +40,7 @@
                 HorizontalOptions="Start"
                 Color="Goldenrod"
                 IsChecked="{Binding IsFavourite}"
-                CheckedChanged="CheckBox_OnCheckedChanged" />
+                />
 
             <HorizontalStackLayout
                 Grid.Column="2"

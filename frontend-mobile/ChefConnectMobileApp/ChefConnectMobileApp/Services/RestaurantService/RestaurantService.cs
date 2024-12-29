@@ -4,12 +4,10 @@ using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services;
 
-public class RestaurantService : IRestaurantService
+internal class RestaurantService : IRestaurantService
 {
     private readonly IAuthService _authService;
 
-    
-    
     public RestaurantService(IAuthService authService)
     {
         _authService = authService;

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChefConnectMobileApp.Services.Alert
+namespace ChefConnectMobileApp.Services.Alert;
+
+internal interface IAlertService
 {
-    internal interface IAlertService
-    {
-        Task ShowAlertAsync(string title, string message, string cancel = "OK");
-    }
+    Task ShowAlertAsync(string title, string message, string cancel = "OK");
 }

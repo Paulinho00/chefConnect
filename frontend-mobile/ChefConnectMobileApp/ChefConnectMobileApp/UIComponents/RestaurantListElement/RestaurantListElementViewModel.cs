@@ -37,6 +37,14 @@ public partial class RestaurantListElementViewModel : ObservableObject
         Init().Wait();
     }
 
+    partial void OnIsFavouriteChanged(bool value)
+    {
+        if (value)
+            AddNewFavourite().Wait();
+        else
+            RemoveFavourite().Wait();
+    }
+
     public async Task Init()
     {
         Rating = await _restaurantService.GetRatingOfRestaurant(_restaurant.Id);

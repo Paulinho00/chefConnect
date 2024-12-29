@@ -2,6 +2,8 @@
 using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.AuthService;
 using ChefConnectMobileApp.Services.Navigation;
+using ChefConnectMobileApp.Services.ReservationService;
+
 namespace ChefConnectMobileApp.DI;
 
 public static class DependencyInjection
@@ -12,7 +14,8 @@ public static class DependencyInjection
             .AddSingleton<IAuthService, AuthService>()
             .AddSingleton<INavigationService, NavigationService>()
             .AddTransient<IAlertService, AlertService>()
-            .AddTransient<IRestaurantService, RestaurantService>();
+            .AddTransient<IRestaurantService, RestaurantService>()
+            .AddTransient<IReservationService, ReservationService>();
 
     }
 }

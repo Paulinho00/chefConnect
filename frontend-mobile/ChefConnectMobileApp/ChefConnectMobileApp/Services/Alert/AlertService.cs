@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChefConnectMobileApp.Services.Alert
+namespace ChefConnectMobileApp.Services.Alert;
+
+internal class AlertService : IAlertService
 {
-    internal class AlertService : IAlertService
+    public Task ShowAlertAsync(string title, string message, string cancel = "OK")
     {
-        public Task ShowAlertAsync(string title, string message, string cancel = "OK")
-        {
-            return Application.Current!.MainPage!.DisplayAlert(title, message, cancel);
-        }
+        return Application.Current!.MainPage!.DisplayAlert(title, message, cancel);
     }
 }

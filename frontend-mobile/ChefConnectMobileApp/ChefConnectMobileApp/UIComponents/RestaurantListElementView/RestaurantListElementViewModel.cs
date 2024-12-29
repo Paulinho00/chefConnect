@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AsyncAwaitBestPractices;
-using ChefConnectMobileApp.DI;
+﻿using ChefConnectMobileApp.DI;
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services;
 using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CSharpFunctionalExtensions;
 
-namespace ChefConnectMobileApp.UIComponents.RestaurantListElement;
+namespace ChefConnectMobileApp.UIComponents.RestaurantListElementView;
 
 public partial class RestaurantListElementViewModel : ObservableObject
 {

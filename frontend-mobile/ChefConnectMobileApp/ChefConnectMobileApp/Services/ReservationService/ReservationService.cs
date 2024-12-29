@@ -1,19 +1,11 @@
-﻿using ChefConnectMobileApp.Services.AuthService;
+﻿using ChefConnectMobileApp.Models;
+using ChefConnectMobileApp.Services.AuthService;
 using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services.ReservationService;
 
-public class ReservationService : IReservationService
+internal class ReservationService : IReservationService
 {
-    private List<(TimeSpan, int)> _mockSlots = new List<(TimeSpan, int)>
-    {
-        (new TimeSpan(10, 0, 0), 5),
-        (new TimeSpan(11, 00, 0), 3),
-        (new TimeSpan(12, 00, 0), 1),
-        (new TimeSpan(13, 00, 0), 0),
-        (new TimeSpan(14, 00, 0), 10),
-    };
-
     public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
     {
         //TODO: Call to API
@@ -26,4 +18,55 @@ public class ReservationService : IReservationService
         //User ID will be in token
         return new Result<string>();
     }
+
+    public async Task<List<Reservation>> GetReservations()
+    {
+        //TODO: Call to API
+        return _reservations;
+    }
+
+    private List<(TimeSpan, int)> _mockSlots = new List<(TimeSpan, int)>
+    {
+        (new TimeSpan(10, 0, 0), 5),
+        (new TimeSpan(11, 00, 0), 3),
+        (new TimeSpan(12, 00, 0), 1),
+        (new TimeSpan(13, 00, 0), 0),
+        (new TimeSpan(14, 00, 0), 10),
+    };
+
+    private List<Reservation> _reservations = new List<Reservation>()
+    {
+        new Reservation
+        {
+            Address = "ul. XD 1 50-501 Wrocław",
+            Date = new DateTime(new DateOnly(2025, 1, 2), new TimeOnly(13, 30)),
+            Id = 1,
+            NumberOfTable = 2,
+            Status = ReservationStatus.Unconfirmed
+        },
+        new Reservation
+        {
+            Address = "ul. Beka 30 50-501 Wrocław",
+            Date = new DateTime(new DateOnly(2025, 2, 2), new TimeOnly(14, 0)),
+            Id = 2,
+            NumberOfTable = 4,
+            Status = ReservationStatus.Confirmed
+        },
+        new Reservation
+        {
+            Address = "ul. Siema 30 50-501 Wrocław",
+            Date = new DateTime(new DateOnly(2025, 1, 15), new TimeOnly(12, 0)),
+            Id = 3,
+            NumberOfTable = 9,
+            Status = ReservationStatus.Cancelled
+        },
+        new Reservation
+        {
+            Address = "ul. Nie działa 14 50-501 Wrocław",
+            Date = new DateTime(new DateOnly(2024, 12, 29), new TimeOnly(13, 0)),
+            Id = 4,
+            NumberOfTable = 9,
+            Status = ReservationStatus.Confirmed
+        }
+    };
 }

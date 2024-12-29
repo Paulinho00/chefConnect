@@ -66,6 +66,7 @@
         <PackageReference Include="CSharpFunctionalExtensions" Version="3.4.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+        <PackageReference Include="Plugin.ContextMenuContainer" Version="1.0.8" />
     </ItemGroup>
 
     <ItemGroup>
@@ -78,6 +79,9 @@
       </MauiXaml>
       <MauiXaml Update="UIComponents\AppShell\AppShell.xaml">
         <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="UIComponents\ReservationsListPage\ReservationsListPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="UIComponents\RestaurantDetailsPage\RestaurantDetailsPage.xaml">
         <Generator>MSBuild:Compile</Generator>
@@ -93,8 +97,17 @@
         <DependentUpon>AppShell.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="UIComponents\ReservationListElementView\ReservationListElementView.xaml.cs">
+        <DependentUpon>ReservationListElementView.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="UIComponents\ReservationsListPage\ReservationsListPage.xaml.cs">
+        <DependentUpon>ReservationsListPage.xaml</DependentUpon>
+      </Compile>
       <Compile Update="UIComponents\RestaurantDetailsPage\RestaurantDetailsPage.xaml.cs">
         <DependentUpon>RestaurantDetailsPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="UIComponents\RestaurantListElementView\RestaurantListElementView.xaml.cs">
+        <DependentUpon>RestaurantListElementView.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 

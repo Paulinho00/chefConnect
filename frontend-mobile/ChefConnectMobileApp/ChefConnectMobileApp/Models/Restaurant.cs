@@ -1,8 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+﻿
 namespace ChefConnectMobileApp.Models;
 
-public partial class Restaurant
+public record Restaurant
 {
     
     public int Id { get; init; }

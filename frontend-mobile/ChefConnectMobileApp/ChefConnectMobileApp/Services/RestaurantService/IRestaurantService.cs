@@ -3,7 +3,7 @@ using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services;
 
-public interface IRestaurantService
+internal interface IRestaurantService
 {
     Task<List<Restaurant>> GetAllRestaurants();
     Task<int> GetRatingOfRestaurant(int restaurantId);

@@ -1,6 +1,7 @@
 ﻿using ChefConnectMobileApp.DI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.ContextMenuContainer;
 
 namespace ChefConnectMobileApp;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+            .ConfigureContextMenuContainer()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

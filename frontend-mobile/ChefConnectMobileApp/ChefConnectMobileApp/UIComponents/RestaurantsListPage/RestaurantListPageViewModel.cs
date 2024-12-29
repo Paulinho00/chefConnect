@@ -1,7 +1,7 @@
 ﻿using ChefConnectMobileApp.DI;
 using ChefConnectMobileApp.Services;
-using ChefConnectMobileApp.UIComponents.RestaurantListElement;
 using CommunityToolkit.Mvvm.ComponentModel;
+using RestaurantListElementViewModel = ChefConnectMobileApp.UIComponents.RestaurantListElementView.RestaurantListElementViewModel;
 
 namespace ChefConnectMobileApp.UIComponents.RestaurantsListPage;
 
@@ -24,7 +24,7 @@ public partial class RestaurantListPageViewModel : ObservableObject
             restaurantViewModels.Add(restaurantViewModel);
         }
 
-        _restaurants = restaurantViewModels;
+        Restaurants = restaurantViewModels;
     }
     
     [ObservableProperty]

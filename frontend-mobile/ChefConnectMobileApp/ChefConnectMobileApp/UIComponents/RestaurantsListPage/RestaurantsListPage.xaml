@@ -5,6 +5,7 @@
              xmlns:restaurantsListPage="using:ChefConnectMobileApp.UIComponents.RestaurantsListPage"
              xmlns:restaurantListElement="using:ChefConnectMobileApp.UIComponents.RestaurantListElement"
              xmlns:models="using:ChefConnectMobileApp.Models"
+             xmlns:restaurantListElementView="clr-namespace:ChefConnectMobileApp.UIComponents.RestaurantListElementView"
              x:Class="ChefConnectMobileApp.UIComponents.RestaurantsListPage.RestaurantsListPage">
     <NavigationPage.TitleView>
         <topBar:TopBar/>
@@ -17,8 +18,8 @@
         <ScrollView>
             <StackLayout BindableLayout.ItemsSource="{Binding Restaurants}">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="restaurantListElement:RestaurantListElementViewModel">
-                        <restaurantListElement:RestaurantListElementView />
+                    <DataTemplate x:DataType="restaurantListElementView:RestaurantListElementViewModel">
+                        <restaurantListElementView:RestaurantListElementView />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>

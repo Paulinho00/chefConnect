@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:editAccountPage="clr-namespace:ChefConnectMobileApp.UIComponents.EditAccountPage"
+             x:Class="ChefConnectMobileApp.UIComponents.EditAccountPage.EditAccountPage">
+    <ContentPage.BindingContext>
+        <editAccountPage:EditAccountPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Margin="25, 25, 25, 25">
+            <Label Text="Email:"/>
+            <Entry Text="{Binding Email}"
+                   Keyboard="Email"/>
+            <Label Text="Imię:"/>
+            <Entry Text="{Binding FirstName}"/>
+            <Label Text="Nazwisko:"/>
+            <Entry Text="{Binding LastName}"/>
+            <Button Command="{Binding EditAccountCommand}"
+                    Margin="20, 20, 20, 20"
+                    Text="Edytuj" 
+                    HeightRequest="50"
+                    WidthRequest="100" 
+                    HorizontalOptions="Center"
+                    BackgroundColor="White">
+            </Button>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

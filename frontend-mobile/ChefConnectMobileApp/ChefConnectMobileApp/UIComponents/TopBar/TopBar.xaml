@@ -25,7 +25,8 @@
                                     Command="{Binding GoToAccountDetailsPageCommand}"/>
                 <cm:ContextMenuItem Text="Rezerwacje"
                                     Command="{Binding GoToReservationsListPageCommand}"/>
-                <cm:ContextMenuItem Text="Wyloguj" />
+                <cm:ContextMenuItem Text="Wyloguj" 
+                                    Command="{Binding SignOutCommand}"/>
             </cm:ContextMenuContainer.MenuItems>
             <cm:ContextMenuContainer.Content>
                 <toolkit:AvatarView HorizontalOptions="End"

@@ -26,4 +26,10 @@ public partial class AccountDetailsPageViewModel : ObservableObject
         await _navigationService.TransitToPageAsync(new EditAccountPage.EditAccountPage(), false);
     }
 
+    [RelayCommand]
+    private async Task GoToEditPasswordPage()
+    {
+        await _navigationService.TransitToPageAsync(new EditPasswordPage.EditPasswordPage(), false);
+    }
+
 }

@@ -28,7 +28,6 @@ internal class AuthService : IAuthService
             Email = "test@gmail.com",
             FirstName = "test",
             LastName = "Test",
-            Password = "test123"
         };
 
         return result;
@@ -40,10 +39,16 @@ internal class AuthService : IAuthService
         return new Result<string>();
     }
 
-    public async Task<Result<string>> EditAccount(EditAccountDto data)
+    public async Task<Result<string>> EditAccountAsync(EditAccountDto data)
     {
         //TODO: Call to Cognito
         return new Result<string>();
 
+    }
+
+    public async Task<Result<string>> EditPasswordAsync(string password)
+    {
+        //TODO: Call to Cognito
+        return new Result<string>();
     }
 }

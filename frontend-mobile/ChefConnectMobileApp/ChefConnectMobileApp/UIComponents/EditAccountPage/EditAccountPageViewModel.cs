@@ -53,7 +53,7 @@ public partial class EditAccountPageViewModel : ObservableValidator
             FirstName = FirstName,
             LastName = LastName,
         };
-        var result = await _authService.EditAccount(editDto);
+        var result = await _authService.EditAccountAsync(editDto);
 
         if (result.IsFailure)
         {

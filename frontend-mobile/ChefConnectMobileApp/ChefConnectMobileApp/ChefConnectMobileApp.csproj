@@ -77,6 +77,9 @@
       <MauiXaml Update="UIComponents\AccountDetailsPage\AccountDetailsPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="UIComponents\EditPasswordPage\EditPasswordPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="UIComponents\MainPage\MainPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
@@ -97,6 +100,9 @@
       </Compile>
       <Compile Update="UIComponents\EditAccountPage\EditAccountPage.xaml.cs">
         <DependentUpon>EditAccountPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="UIComponents\EditPasswordPage\EditPasswordPage.xaml.cs">
+        <DependentUpon>EditPasswordPage.xaml</DependentUpon>
       </Compile>
       <Compile Update="UIComponents\MainPage\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>

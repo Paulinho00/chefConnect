@@ -10,10 +10,10 @@
     <ContentPage.Content>
         <VerticalStackLayout
             Margin="25, 25, 25, 25">
-            <Label>Email:</Label>
+            <Label Text="Email:"/>
             <Entry Text="{Binding Email}"
                    Keyboard="Email"/>
-            <Label>Imię:</Label>
+            <Label Text="Imię:"/>
             <Entry Text="{Binding FirstName}"/>
             <Label Text="Nazwisko:"/>
             <Entry Text="{Binding LastName}"/>

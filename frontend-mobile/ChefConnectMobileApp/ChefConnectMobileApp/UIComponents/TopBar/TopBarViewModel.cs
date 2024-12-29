@@ -1,4 +1,5 @@
 ﻿using ChefConnectMobileApp.DI;
+using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.AuthService;
 using ChefConnectMobileApp.Services.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,6 +10,7 @@ namespace ChefConnectMobileApp.UIComponents.TopBar;
 public partial class TopBarViewModel : ObservableObject
 {
     private IAuthService _authService = ServiceHelper.GetService<IAuthService>();
+    private IAlertService _alertService = ServiceHelper.GetService<IAlertService>();
     private INavigationService _navigationService = ServiceHelper.GetService<INavigationService>();
     
     [ObservableProperty]
@@ -30,5 +32,21 @@ public partial class TopBarViewModel : ObservableObject
     private async Task GoToAccountDetailsPage()
     {
         await _navigationService.TransitToPageAsync(new AccountDetailsPage.AccountDetailsPage(), false);
+    }
+
+    [RelayCommand]
+    private async Task SignOut()
+    {
+        var result = await _authService.SignOutAsync();
+        if (result.IsFailure)
+        {
+            await _alertService.ShowAlertAsync("Nie zostałeś wylogowany",
+                "W wyniku błędu, nie zostałeś wylogowany. Spróbuj ponownie za chwilę");
+        }
+        else
+        {
+            await _alertService.ShowAlertAsync("Wylogowano", "Zostałeś wylogownay");
+            await _navigationService.TransitToPageAsync(new ChefConnectMobileApp.MainPage(), true);
+        }
     }
 }

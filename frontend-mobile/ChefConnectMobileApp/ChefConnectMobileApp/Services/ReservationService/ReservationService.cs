@@ -25,6 +25,19 @@ internal class ReservationService : IReservationService
         return _reservations;
     }
 
+    public async Task<Result<string>> CancelReservation(int reservationId)
+    {
+        //TODO: Call to API
+        _reservations.FirstOrDefault(x => x.Id == reservationId).Status = ReservationStatus.Cancelled;
+        return new Result<string>();
+    }
+
+    public async Task<Result<string>> SendOpinion(ReservationOpinionDTO opinion)
+    {
+        //TODO: Call to API
+        return new Result<string>();
+    }
+
     private List<(TimeSpan, int)> _mockSlots = new List<(TimeSpan, int)>
     {
         (new TimeSpan(10, 0, 0), 5),

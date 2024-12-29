@@ -1,4 +1,7 @@
-﻿using ChefConnectMobileApp.Models;
+﻿using ChefConnectMobileApp.DI;
+using ChefConnectMobileApp.Models;
+using ChefConnectMobileApp.Services.Alert;
+using ChefConnectMobileApp.Services.ReservationService;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -6,6 +9,9 @@ namespace ChefConnectMobileApp.UIComponents.ReservationListElementView;
 
 public partial class ReservationListElementViewModel : ObservableObject
 {
+    private IReservationService _reservationService = ServiceHelper.GetService<IReservationService>();
+    private IAlertService _alertService = ServiceHelper.GetService<IAlertService>();
+
     [ObservableProperty]
     private Reservation _reservation;
 
@@ -28,7 +34,7 @@ public partial class ReservationListElementViewModel : ObservableObject
     private int _opinionRate = 1;
 
     [ObservableProperty] 
-    private bool _isSendOpinionButtonEnabled;
+    private bool _isSendOpinionButtonEnabled = true;
 
     public ReservationListElementViewModel()
     {
@@ -70,6 +76,13 @@ public partial class ReservationListElementViewModel : ObservableObject
                 ReservationStatus = "Odwołana";
                 }
                 break;
+            case Models.ReservationStatus.OpinionSaved:
+            {
+                IsCancelButtonVisible = false;
+                IsRateButtonVisible = false;
+                ReservationStatus = "Potwierdzona - opinia wystawiona";
+            }
+                break;
             default:
             {
                 IsCancelButtonVisible = false;
@@ -84,5 +97,46 @@ public partial class ReservationListElementViewModel : ObservableObject
     private void ChangeVisibilityOfOpinionSection()
     {
         IsOpinionSectionVisible = !IsOpinionSectionVisible;
+    }
+
+    [RelayCommand]
+    private async Task CancelReservations()
+    {
+        var result = await _reservationService.CancelReservation(Reservation.Id);
+        if (result.IsFailure)
+        {
+            await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);
+        }
+        else
+        {
+            await _alertService.ShowAlertAsync("Anulowano rezerwacje", "Rezerwacja została anulowana");
+            Reservation.Status = Models.ReservationStatus.Cancelled;
+        }
+    }
+
+    [RelayCommand]
+    private async Task SendOpinion()
+    {
+        var opinionDto = new ReservationOpinionDTO()
+        {
+            Description = OpinionDescription,
+            Rate = OpinionRate,
+            ReservationId = Reservation.Id
+        };
+
+        var result = await _reservationService.SendOpinion(opinionDto);
+        if (result.IsFailure)
+        {
+            await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);
+        }
+        else
+        {
+            await _alertService.ShowAlertAsync("Opinia zapisana", "Twoja opinia została pomyślnie zapisana. Dziękujemy!");
+            IsCancelButtonVisible = false;
+            IsRateButtonVisible = false;
+            IsOpinionSectionVisible = false;
+            ReservationStatus = "Potwierdzona / opinia wystawiona";
+            Reservation.Status = Models.ReservationStatus.OpinionSaved;
+        }
     }
 }

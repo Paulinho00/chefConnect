@@ -112,6 +112,7 @@
                     WidthRequest="100"
                     HorizontalOptions="End"
                     Text="Wyślij"
+                    Command="{Binding SendOpinionCommand}"
                     IsEnabled="{Binding IsSendOpinionButtonEnabled}"
                     BackgroundColor="White"/>
             </Grid>

@@ -59,21 +59,28 @@ public class RestaurantService : IRestaurantService
             Address = "ul. xdxdxdxd",
             Id = 1,
             Name = "nazwa1",
-            NumberOfTables = 25
+            NumberOfTables = 25,
+            OpenTime = new TimeSpan(10, 0, 0),
+            CloseTime = new TimeSpan(18, 0, 0 )
+            
         },
         new Restaurant
         {
             Address = "ul. qewqeqweqe",
             Id = 2,
             Name = "nazwa2",
-            NumberOfTables = 20
+            NumberOfTables = 20,
+            OpenTime = new TimeSpan(9, 0, 0),
+            CloseTime = new TimeSpan(17, 0, 0 )
         },
         new Restaurant
         {
             Address = "ul. ggggggg",
             Id = 3,
             Name = "nazwa3",
-            NumberOfTables = 10
+            NumberOfTables = 10,
+            OpenTime = new TimeSpan(9, 30, 0),
+            CloseTime = new TimeSpan(17, 30, 0 )
         }
     };
 }

@@ -26,6 +26,11 @@ public partial class RestaurantListElementViewModel : ObservableObject
     [ObservableProperty]
     private bool _isFavourite;
 
+    public RestaurantListElementViewModel()
+    {
+
+    }
+
     public RestaurantListElementViewModel(Restaurant restaurant)
     {
         _restaurant = restaurant;

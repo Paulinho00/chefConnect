@@ -2,6 +2,7 @@
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ChefConnectMobileApp.UIComponents.RestaurantDetailsPage
 {
@@ -15,15 +16,26 @@ namespace ChefConnectMobileApp.UIComponents.RestaurantDetailsPage
         [ObservableProperty]
         private int _rating;
 
-        public RestaurantDetailsPageViewModel(Restaurant restaurant)
+        [ObservableProperty] 
+        private bool _isReservationsVisible = false;
+
+        [ObservableProperty]
+        private DateTime _minimumDate = DateTime.Now; 
+
+        partial void OnRestaurantChanged(Restaurant value)
         {
-            Restaurant = restaurant;
-            Init().Wait();
+            UpdateRating().Wait();
         }
 
-        public async Task Init()
+        private async Task UpdateRating()
         {
             Rating = await _restaurantService.GetRatingOfRestaurant(_restaurant.Id);
+        }
+
+        [RelayCommand]
+        private async Task ChangeReservationsVisibility()
+        {
+            IsReservationsVisible = !IsReservationsVisible;
         }
     }
 }

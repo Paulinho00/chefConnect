@@ -11,7 +11,8 @@ public partial class RestaurantDetailsPage : ContentPage
 {
     public RestaurantDetailsPage(Restaurant restaurant)
     {
-        BindingContext = new RestaurantDetailsPageViewModel(restaurant);
         InitializeComponent();
+        var viewModel = BindingContext as RestaurantDetailsPageViewModel;
+        viewModel.Restaurant = restaurant;
     }
 }

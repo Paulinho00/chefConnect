@@ -74,6 +74,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <MauiXaml Update="UIComponents\AccountDetailsPage\AccountDetailsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="UIComponents\MainPage\MainPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
@@ -89,6 +92,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="UIComponents\AccountDetailsPage\AccountDetailsPage.xaml.cs">
+        <DependentUpon>AccountDetailsPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="UIComponents\EditAccountPage\EditAccountPage.xaml.cs">
+        <DependentUpon>EditAccountPage.xaml</DependentUpon>
+      </Compile>
       <Compile Update="UIComponents\MainPage\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>
         <SubType>Code</SubType>

@@ -14,42 +14,36 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label 
-                Grid.Column="0" 
-                VerticalOptions="Center">
-                ChefConnect
-            </Label>
-            <Button 
-                x:Name="RegisterButton" 
-                Grid.Column="1" 
-                Text="Rejestracja" 
-                Command="{Binding GoToRegistrationPageCommand}" 
-                HeightRequest="50" 
-                WidthRequest="100" 
-                HorizontalOptions="End" 
-                BackgroundColor="White"/>
-            <Button 
-                x:Name="SignInButton" 
-                Grid.Column="2" 
-                Text="Logowanie" 
-                Command="{Binding GoToLoginPageCommand}" 
-                HeightRequest="50" 
-                WidthRequest="100" 
-                HorizontalOptions="End"
-                BackgroundColor="White"/>
+            <Label Grid.Column="0" 
+                   VerticalOptions="Center"
+                   Text="ChefConnect"/>
+            <Button x:Name="RegisterButton" 
+                    Grid.Column="1" 
+                    Text="Rejestracja" 
+                    Command="{Binding GoToRegistrationPageCommand}" 
+                    HeightRequest="50" 
+                    WidthRequest="100" 
+                    HorizontalOptions="End" 
+                    BackgroundColor="White"/>
+            <Button x:Name="SignInButton" 
+                    Grid.Column="2" 
+                    Text="Logowanie" 
+                    Command="{Binding GoToLoginPageCommand}" 
+                    HeightRequest="50" 
+                    WidthRequest="100" 
+                    HorizontalOptions="End"
+                    BackgroundColor="White"/>
         </Grid>
     </NavigationPage.TitleView>
     <StackLayout>
         <Label Margin="2, 2,2 , 2"
                FontSize="25"
-               HorizontalOptions="Center">
-            Witaj w aplikacji ChefConnect!
-        </Label>
+               HorizontalOptions="Center"
+               Text="Witaj w aplikacji ChefConnect!"/>
         <Label Margin="2, 2,2 , 2"
                FontSize="13"
-               HorizontalOptions="Center">
-            Zaloguj się lub stwórz konto
-        </Label>
+               HorizontalOptions="Center"
+               Text="Zaloguj się lub stwórz konto"/>
     </StackLayout>
 
 

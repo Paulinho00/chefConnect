@@ -13,26 +13,19 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label 
-                Grid.Column="0" 
-                VerticalOptions="Center">
-                ChefConnect
-            </Label>
+            <Label Grid.Column="0" 
+                   VerticalOptions="Center"
+                   Text="ChefConnect"/>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <VerticalStackLayout
-            Margin="25, 25, 25, 25">
-            <Label>Email:</Label>
-            <Entry
-                Text="{Binding Email}"
-                Keyboard="Email">
-            </Entry>
-            <Label>Hasło:</Label>
-            <Entry
-                Text="{Binding Password}"
-                IsPassword="True">
-            </Entry>
+        <VerticalStackLayout Margin="25, 25, 25, 25">
+            <Label Text="Email:"/>
+            <Entry Text="{Binding Email}"
+                   Keyboard="Email"/>
+            <Label Text="Hasło:"/>
+            <Entry Text="{Binding Password}"
+                   IsPassword="True"/>
             <Button x:Name="SignInButton" Grid.Column="2"
                     Command="{Binding Path=SignInCommand, Mode=TwoWay}"
                     Margin="20, 20, 20, 20" 
@@ -43,4 +36,4 @@
                     BackgroundColor="White"/>
         </VerticalStackLayout>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage> 

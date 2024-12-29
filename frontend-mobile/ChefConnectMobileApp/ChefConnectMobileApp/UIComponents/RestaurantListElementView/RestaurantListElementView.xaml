@@ -2,15 +2,13 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:restaurantListElement="using:ChefConnectMobileApp.UIComponents.RestaurantListElement"
              xmlns:restaurantListElementView="clr-namespace:ChefConnectMobileApp.UIComponents.RestaurantListElementView"
              x:Class="ChefConnectMobileApp.UIComponents.RestaurantListElementView.RestaurantListElementView">
     <ContentView.BindingContext>
         <restaurantListElementView:RestaurantListElementViewModel/>
     </ContentView.BindingContext>
-    <Grid
-        Margin="10, 10, 10, 10"
-        BackgroundColor="Goldenrod">
+    <Grid Margin="10, 10, 10, 10"
+          BackgroundColor="Goldenrod">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding GoToRestaurantsDetailsCommand}" />
         </Grid.GestureRecognizers>
@@ -19,10 +17,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid
-            Grid.Row="0"
-            Grid.Column="0"
-            BackgroundColor="Chocolate">
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              BackgroundColor="Chocolate">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
@@ -35,55 +32,54 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
-            <CheckBox
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
-                Color="Goldenrod"
-                IsChecked="{Binding IsFavourite}"
-                />
+            <Image Grid.Row="0" 
+                   Grid.Column="1" 
+                   Grid.ColumnSpan="3" />
+            <CheckBox VerticalOptions="Start"
+                      HorizontalOptions="Start"
+                      Color="Goldenrod"
+                      IsChecked="{Binding IsFavourite}"/>
 
-            <HorizontalStackLayout
-                Grid.Column="2"
-                Grid.Row="0">
-                <Label Margin="0, 0, 5, 0">Nazwa: </Label>
+            <HorizontalStackLayout Grid.Column="2"
+                                   Grid.Row="0">
+                <Label Margin="0, 0, 5, 0" 
+                       Text="Nazwa:"/>
                 <Label Text="{Binding Restaurant.Name}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout
-                Grid.Column="2"
-                Grid.Row="1">
+            <HorizontalStackLayout Grid.Column="2"
+                                   Grid.Row="1">
                 <Label Margin="0, 0, 5, 0">Godziny otwarcia:</Label>
                 <Label Text="{Binding Path=Restaurant.OpenTime, StringFormat='{0:hh\\:mm}'}" />
                 <Label Text="-"/>
                 <Label Text="{Binding Path=Restaurant.CloseTime, StringFormat='{0:hh\\:mm}'}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout
-                Grid.Column="2"
-                Grid.Row="2">
-                <Label Margin="0, 0, 5, 0">Liczba stolików: </Label>
+            <HorizontalStackLayout Grid.Column="2"
+                                   Grid.Row="2">
+                <Label Margin="0, 0, 5, 0" 
+                       Text="Liczba stolików:"/> 
                 <Label Text="{Binding Restaurant.NumberOfTables}" />
             </HorizontalStackLayout>
 
 
-            <HorizontalStackLayout Grid.Column="2" Grid.Row="3">
-                <Label>Odległość: </Label>
+            <HorizontalStackLayout Grid.Column="2" 
+                                   Grid.Row="3">
+                <Label Text="Odległość: "/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" Grid.Row="4">
+            <HorizontalStackLayout Grid.Column="2" 
+                                   Grid.Row="4">
                 <Label
-                    Margin="0, 0, 5, 0">
-                    Ocena:
-                </Label>
+                    Margin="0, 0, 5, 0"
+                    Text="Ocena:"/>
                 <Label Text="{Binding Rating}" />
-                <Label>/5</Label>
+                <Label Text="/5"/>
             </HorizontalStackLayout>
 
         </Grid>
-        <Label
-            Margin="5, 5, 5, 5"
-            HorizontalOptions="Center"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Grid.Row="1"
-            Text="{Binding Restaurant.Address}" />
+        <Label Margin="5, 5, 5, 5"
+               HorizontalOptions="Center"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Grid.Row="1"
+               Text="{Binding Restaurant.Address}" />
     </Grid>
 </ContentView>

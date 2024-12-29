@@ -33,4 +33,17 @@ internal class AuthService : IAuthService
 
         return result;
     }
+
+    public async Task<Result<string>> SignOutAsync()
+    {
+        //TODO: Call to Cognito
+        return new Result<string>();
+    }
+
+    public async Task<Result<string>> EditAccount(EditAccountDto data)
+    {
+        //TODO: Call to Cognito
+        return new Result<string>();
+
+    }
 }

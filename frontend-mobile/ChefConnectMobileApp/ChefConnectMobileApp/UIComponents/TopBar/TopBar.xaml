@@ -16,26 +16,22 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label
-            Grid.Column="0"
-            VerticalOptions="Center">
-            ChefConnect
-        </Label>
-        <cm:ContextMenuContainer
-            Grid.Column="1">
+        <Label Grid.Column="0"
+               VerticalOptions="Center"
+               Text="ChefConnect"/>
+        <cm:ContextMenuContainer Grid.Column="1">
             <cm:ContextMenuContainer.MenuItems>
-                <cm:ContextMenuItem Text="Moje konto" />
-                <cm:ContextMenuItem 
-                    Text="Rezerwacje"
-                    Command="{Binding GoToReservationsListPageCommand}"/>
+                <cm:ContextMenuItem Text="Moje konto"
+                                    Command="{Binding GoToAccountDetailsPageCommand}"/>
+                <cm:ContextMenuItem Text="Rezerwacje"
+                                    Command="{Binding GoToReservationsListPageCommand}"/>
                 <cm:ContextMenuItem Text="Wyloguj" />
             </cm:ContextMenuContainer.MenuItems>
             <cm:ContextMenuContainer.Content>
-                <toolkit:AvatarView
-                    HorizontalOptions="End"
-                    BackgroundColor="#6996ff"
-                    TextColor="Black"
-                    Text="{Binding InitialOfFirstNameOfCurrentUser}" />
+                <toolkit:AvatarView HorizontalOptions="End"
+                                    BackgroundColor="#6996ff"
+                                    TextColor="Black"
+                                    Text="{Binding InitialOfFirstNameOfCurrentUser}" />
             </cm:ContextMenuContainer.Content>
         </cm:ContextMenuContainer>
     </Grid>

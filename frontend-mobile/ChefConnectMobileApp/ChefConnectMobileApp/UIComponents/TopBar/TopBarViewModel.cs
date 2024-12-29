@@ -25,4 +25,10 @@ public partial class TopBarViewModel : ObservableObject
     {
         await _navigationService.TransitToPageAsync(new ReservationsListPage.ReservationsListPage(), false);
     }
+
+    [RelayCommand]
+    private async Task GoToAccountDetailsPage()
+    {
+        await _navigationService.TransitToPageAsync(new AccountDetailsPage.AccountDetailsPage(), false);
+    }
 }

@@ -1,0 +1,75 @@
+resource "aws_cognito_user_pool" "main_user_pool" {
+  name = "main-user-pool"
+
+  password_policy {
+    minimum_length    = 8
+    require_lowercase = true
+    require_numbers   = true
+    require_symbols   = true
+    require_uppercase = true
+  }
+
+  username_attributes = ["email"]
+  
+  schema {
+    name                = "email"
+    attribute_data_type = "String"
+    required            = true
+    mutable            = true
+    
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+  
+  schema {
+    name                = "given_name"
+    attribute_data_type = "String"
+    required            = true
+    mutable            = true
+    
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+  
+  schema {
+    name                = "family_name"
+    attribute_data_type = "String"
+    required            = true
+    mutable            = true
+    
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+
+  auto_verified_attributes = ["email"]
+  
+  verification_message_template {
+    default_email_option = "CONFIRM_WITH_CODE"
+    email_subject = "ChefConnect: Potwierdź konto"
+    email_message = "Twój kod potwierdzenia: {####}"
+  }
+}
+
+resource "aws_cognito_user_pool_client" "user_pool_client" {
+  name = "my-app-client"
+  
+  user_pool_id = aws_cognito_user_pool.main_user_pool.id
+  
+  # Generate secret for client
+  generate_secret = false
+}
+
+# Output values
+output "user_pool_id" {
+  value = aws_cognito_user_pool.main_user_pool.id
+}
+
+output "client_id" {
+  value = aws_cognito_user_pool_client.user_pool_client.id
+}

@@ -6,13 +6,13 @@ namespace ChefConnectMobileApp.Services.ReservationService;
 
 internal class ReservationService : IReservationService
 {
-    public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
+    public async Task<Result<List<(TimeSpan, int)>>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
     {
         //TODO: Call to API
         return _mockSlots;
     }
 
-    public async Task<Result<string>> MakeReservation(int restaurantId, DateTime date, int numberOfTables)
+    public async Task<Result> MakeReservation(int restaurantId, DateTime date, int numberOfTables)
     {
         //TODO: Call to API
         //User ID will be in token
@@ -25,14 +25,14 @@ internal class ReservationService : IReservationService
         return _reservations;
     }
 
-    public async Task<Result<string>> CancelReservation(int reservationId)
+    public async Task<Result> CancelReservation(int reservationId)
     {
         //TODO: Call to API
         _reservations.FirstOrDefault(x => x.Id == reservationId).Status = ReservationStatus.Cancelled;
         return new Result<string>();
     }
 
-    public async Task<Result<string>> SendOpinion(ReservationOpinionDTO opinion)
+    public async Task<Result> SendOpinion(ReservationOpinionDTO opinion)
     {
         //TODO: Call to API
         return new Result<string>();

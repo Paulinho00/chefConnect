@@ -13,34 +13,34 @@ internal class RestaurantService : IRestaurantService
         _authService = authService;
     }
     
-    public async Task<List<Restaurant>> GetAllRestaurants()
+    public async Task<Result<List<Restaurant>>> GetAllRestaurants()
     {
         return _restaurants;
     }
 
-    public async Task<int> GetRatingOfRestaurant(int restaurantId)
+    public async Task<Result<int>> GetRatingOfRestaurant(int restaurantId)
     {
         //TODO: Add call to API to get rating
         return 3;
     }
 
-    public async Task<bool> IsFavouriteForCurrentUser(int restaurantId)
+    public async Task<Result<bool>> IsFavouriteForCurrentUser(int restaurantId)
     {
         var user = _authService.GetCurrentUser();
         //TODO: Call to API
         return _favouriteRestaurants.Contains(restaurantId);
     }
 
-    public async Task<Result<string>> AddNewFavourite(int restaurantId)
+    public async Task<Result<Result<string>>> AddNewFavourite(int restaurantId)
     {
         var user = _authService.GetCurrentUser();
         //TODO: call to API
         _favouriteRestaurants.Add(restaurantId);
-        var result = new Result<string>();
+        var result = new Result();
         return result;
     }
 
-    public async Task<Result<string>> RemoveFavourite(int restaurantId)
+    public async Task<Result> RemoveFavourite(int restaurantId)
     {
         var user = _authService.GetCurrentUser();
         //TODO: call to API

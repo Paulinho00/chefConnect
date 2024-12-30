@@ -5,9 +5,9 @@ namespace ChefConnectMobileApp.Services;
 
 internal interface IRestaurantService
 {
-    Task<List<Restaurant>> GetAllRestaurants();
-    Task<int> GetRatingOfRestaurant(int restaurantId);
-    Task<bool> IsFavouriteForCurrentUser(int restaurantId);
-    Task<Result<string>> AddNewFavourite(int restaurantId);
-    Task<Result<string>> RemoveFavourite(int restaurantId);
+    Task<Result<List<Restaurant>>> GetAllRestaurants();
+    Task<Result<int>> GetRatingOfRestaurant(int restaurantId);
+    Task<Result<bool>> IsFavouriteForCurrentUser(int restaurantId);
+    Task<Result> AddNewFavourite(int restaurantId);
+    Task<Result> RemoveFavourite(int restaurantId);
 }

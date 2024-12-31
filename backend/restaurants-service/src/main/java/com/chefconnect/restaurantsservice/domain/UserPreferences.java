@@ -2,6 +2,7 @@ package com.chefconnect.restaurantsservice.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table
+@NoArgsConstructor
 public class UserPreferences {
 
     @Id

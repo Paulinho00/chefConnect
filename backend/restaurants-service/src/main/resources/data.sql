@@ -1,6 +1,6 @@
-INSERT INTO address (id, street, city, state, postal_code, country)
-VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', '123 Main St', 'Springfield', 'IL', '62704', 'USA'),
-       ('aab23c4e-1234-5678-9abc-12d34e5678f9', '456 Elm St', 'Gotham', 'NY', '10001', 'USA');
+INSERT INTO address (id, street, street_number, flat_number, postal_code, city)
+VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'ul. Kwiatowa', 12, NULL, '00-001', 'Warszawa'),
+       ('aab23c4e-1234-5678-9abc-12d34e5678f9', 'ul. Wesoła', 56, 3, '02-002', 'Kraków');
 
 INSERT INTO restaurant (id, number_of_tables, address_id, name, open_time, close_time)
 VALUES ('1e6101b4-4ae2-4c8c-92e2-0a62a3794877', 5, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'The Fancy Fork', '08:00',

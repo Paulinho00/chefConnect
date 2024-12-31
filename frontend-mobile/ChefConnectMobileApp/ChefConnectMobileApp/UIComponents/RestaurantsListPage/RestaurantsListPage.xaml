@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:topBar="using:ChefConnectMobileApp.UIComponents.TopBar"
              xmlns:restaurantsListPage="using:ChefConnectMobileApp.UIComponents.RestaurantsListPage"
-             xmlns:restaurantListElement="using:ChefConnectMobileApp.UIComponents.RestaurantListElement"
-             xmlns:models="using:ChefConnectMobileApp.Models"
              xmlns:restaurantListElementView="clr-namespace:ChefConnectMobileApp.UIComponents.RestaurantListElementView"
              x:Class="ChefConnectMobileApp.UIComponents.RestaurantsListPage.RestaurantsListPage">
     <NavigationPage.TitleView>

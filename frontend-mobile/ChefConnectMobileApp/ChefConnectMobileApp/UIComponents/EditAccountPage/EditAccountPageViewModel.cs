@@ -62,7 +62,7 @@ public partial class EditAccountPageViewModel : ObservableValidator
         else
         {
             await _alertService.ShowAlertAsync("Pomyślnie zmieniono dane", "Nowe dane zostały poprawnie zapisane");
-            await _navigationService.ReturnToPreviousPageAsync();
+            await _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
         }
     }
 }

@@ -31,16 +31,16 @@ internal class RestaurantService : IRestaurantService
         return _favouriteRestaurants.Contains(restaurantId);
     }
 
-    public async Task<Result<string>> AddNewFavourite(int restaurantId)
+    public async Task<Result> AddNewFavourite(int restaurantId)
     {
         var user = _authService.GetCurrentUser();
         //TODO: call to API
         _favouriteRestaurants.Add(restaurantId);
-        var result = new Result<string>();
+        var result = new Result();
         return result;
     }
 
-    public async Task<Result<string>> RemoveFavourite(int restaurantId)
+    public async Task<Result> RemoveFavourite(int restaurantId)
     {
         var user = _authService.GetCurrentUser();
         //TODO: call to API

@@ -126,6 +126,7 @@ internal class AuthService : IAuthService
             };
 
             await _cognitoClient.UpdateUserAttributesAsync(request);
+            _currentUser = await GetCurrentUserAsync();
             return Result.Success();
         }
         catch (Exception e)
@@ -229,26 +230,19 @@ internal class AuthService : IAuthService
 
     private async Task<User> GetCurrentUserAsync()
     {
-        try
+        var request = new GetUserRequest
         {
-            var request = new GetUserRequest
-            {
-                AccessToken = _accessToken
-            };
+            AccessToken = _accessToken
+        };
 
-            var response = await _cognitoClient.GetUserAsync(request);
+        var response = await _cognitoClient.GetUserAsync(request);
 
-            return new User
-            {
-                Id = Convert.ToInt32(response.Username),
-                Email = response.UserAttributes.FirstOrDefault(a => a.Name == "email")?.Value,
-                FirstName = response.UserAttributes.FirstOrDefault(a => a.Name == "given_name")?.Value,
-                LastName = response.UserAttributes.FirstOrDefault(a => a.Name == "family_name")?.Value
-            };
-        }
-        catch (Exception ex)
+        return new User
         {
-            throw new Exception($"Błąd pobieranie obecnego usera: {ex.Message}");
-        }
+            Id = response.Username,
+            Email = response.UserAttributes.FirstOrDefault(a => a.Name == "email")?.Value,
+            FirstName = response.UserAttributes.FirstOrDefault(a => a.Name == "given_name")?.Value,
+            LastName = response.UserAttributes.FirstOrDefault(a => a.Name == "family_name")?.Value
+        };
     }
 }

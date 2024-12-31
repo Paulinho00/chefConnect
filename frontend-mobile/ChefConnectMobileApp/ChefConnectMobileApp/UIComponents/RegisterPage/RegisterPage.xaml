@@ -39,7 +39,7 @@
                     WidthRequest="100" HorizontalOptions="Center" 
                     BackgroundColor="White"/>
             <Label Margin="30, 30, 30, 30"  Text="Masz już konto, ale chcesz je potwierdzić?"/>
-            <Label Text="Przejdź do potwierdzenia">
+            <Label Margin="30, 0" Text="Przejdź do potwierdzenia">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToConfirmationPageCommand}"/>
                 </Label.GestureRecognizers>

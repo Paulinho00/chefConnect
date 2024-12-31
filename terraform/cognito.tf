@@ -60,9 +60,14 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   name = "my-app-client"
   
   user_pool_id = aws_cognito_user_pool.main_user_pool.id
-  
-  # Generate secret for client
+
   generate_secret = false
+
+  explicit_auth_flows = [
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_PASSWORD_AUTH"
+  ]
 }
 
 # Output values

@@ -8,10 +8,9 @@
              x:Class="ChefConnectMobileApp.UIComponents.TopBar.TopBar"
              BackgroundColor="Chocolate">
     <ContentView.BindingContext>
-        <topBar:TopBarViewModel />
+        <topBar:TopBarViewModel/>
     </ContentView.BindingContext>
-    <Grid
-        Margin="10, 10, 10, 10">
+    <Grid Margin="10, 10, 10, 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />

@@ -4,6 +4,7 @@ using Amazon.CognitoIdentityProvider.Model;
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Utils;
 using CSharpFunctionalExtensions;
+using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace ChefConnectMobileApp.Services.AuthService;
 
@@ -12,7 +13,6 @@ internal class AuthService : IAuthService
     private User? _currentUser;
     private readonly IAmazonCognitoIdentityProvider _cognitoClient;
     private readonly string _clientId;
-    private readonly string _userPoolId;
     private string _accessToken;
 
     public User? GetCurrentUser()
@@ -167,6 +167,65 @@ internal class AuthService : IAuthService
             return Result.Failure($"Błąd zmiany hasła: {ex.Message}"); ;
         }
     }
+
+    public async Task<Result> ConfirmAccountAsync(string email, string confirmationCode)
+    {
+        try
+        {
+            var request = new ConfirmSignUpRequest
+            {
+                ClientId = _clientId,
+                Username = email,
+                ConfirmationCode = confirmationCode
+            };
+
+            await _cognitoClient.ConfirmSignUpAsync(request);
+            return Result.Success();
+        }
+        catch (CodeMismatchException)
+        {
+            return Result.Failure("Niepoprawny kod");
+        }
+        catch (ExpiredCodeException)
+        {
+            return Result.Failure("Kod wygasł");
+        }
+        catch (UserNotFoundException)
+        {
+            return Result.Failure("Niepoprawny email");
+        }
+        catch (Exception e)
+        {
+            return Result.Failure($"Błąd przy potwierdzaniu konta: {e.Message}");
+        }
+    }
+
+    public async Task<Result> ResendConfirmationCodeAsync(string email)
+    {
+        try
+        {
+            var request = new ResendConfirmationCodeRequest
+            {
+                ClientId = _clientId,
+                Username = email
+            };
+            var result = await _cognitoClient.ResendConfirmationCodeAsync(request);
+            return Result.Success();
+        }
+        catch (CodeDeliveryFailureException)
+        {
+            return Result.Failure("Błąd dostarczenia kodu, spróbuj ponownie później");
+        }
+        catch (UserNotFoundException)
+        {
+            return Result.Failure("Niepoprawny email");
+        }
+        catch (Exception e)
+        {
+            return Result.Failure($"Błąd wysyłania kodu: {e.Message}");
+        }
+    }
+
 
     private async Task<User> GetCurrentUserAsync()
     {

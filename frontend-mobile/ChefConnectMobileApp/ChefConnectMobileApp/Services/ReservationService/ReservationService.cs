@@ -6,7 +6,7 @@ namespace ChefConnectMobileApp.Services.ReservationService;
 
 internal class ReservationService : IReservationService
 {
-    public async Task<Result<List<(TimeSpan, int)>>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
+    public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
     {
         //TODO: Call to API
         return _mockSlots;

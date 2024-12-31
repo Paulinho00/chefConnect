@@ -59,7 +59,14 @@ public partial class RegisterPageViewModel : ObservableValidator
         }
         else
         {
-            await _navigationService.ReturnToPreviousPageAsync();
+            await _navigationService.TransitToPageAsync(new ConfirmAccountPage.ConfirmAccountPage(), false);
+            _navigationService.RemovePreviousPageFromStack();
         }
+    }
+
+    [RelayCommand]
+    private async Task GoToConfirmationPageAsync()
+    {
+        await _navigationService.TransitToPageAsync(new ConfirmAccountPage.ConfirmAccountPage(), false);
     }
 }

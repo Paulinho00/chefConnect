@@ -26,4 +26,10 @@ internal class NavigationService : INavigationService
     {
         await _navigationpage.Navigation.PopAsync();
     }
+
+    public void RemovePreviousPageFromStack()
+    {
+        var previousPage = _navigationpage.Navigation.NavigationStack[0];
+        _navigationpage.Navigation.RemovePage(previousPage);
+    }
 }

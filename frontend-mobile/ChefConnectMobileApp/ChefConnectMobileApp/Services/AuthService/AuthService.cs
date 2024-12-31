@@ -10,17 +10,17 @@ namespace ChefConnectMobileApp.Services.AuthService;
 internal class AuthService : IAuthService
 {
     private User? _currentUser;
-    private readonly AmazonCognitoIdentityProviderClient _cognitoClient;
+    private readonly IAmazonCognitoIdentityProvider _cognitoClient;
     private readonly string _clientId;
     private readonly string _userPoolId;
+    private string _accessToken;
 
     public User? GetCurrentUser()
         => _currentUser;
 
-    public AuthService()
+    public AuthService(AmazonCognitoIdentityProviderClient cognitoClient)
     {
-        var credentials = new Amazon.Runtime.BasicAWSCredentials(CloudConfig.AccessKeyId, CloudConfig.SecretAccessKey);
-        _cognitoClient = new AmazonCognitoIdentityProviderClient(credentials, RegionEndpoint.GetBySystemName("us-east-1"));
+        _cognitoClient = cognitoClient;
         _clientId = CloudConfig.CognitoClientId;
     }
 
@@ -30,9 +30,9 @@ internal class AuthService : IAuthService
         {
             var attributes = new List<AttributeType>
             {
-                new AttributeType { Name = "email", Value = data.Email },
-                new AttributeType { Name = "given_name", Value = data.FirstName },
-                new AttributeType { Name = "family_name", Value = data.LastName }
+                new() { Name = "email", Value = data.Email },
+                new() { Name = "given_name", Value = data.FirstName },
+                new() { Name = "family_name", Value = data.LastName }
             };
 
             var request = new SignUpRequest
@@ -62,35 +62,134 @@ internal class AuthService : IAuthService
 
     public async Task<Result> SignInAsync(string email, string password)
     {
-        //TODO: Add  call to API/Cognito
-        var result = new Result();
-
-        _currentUser = new User
+        try
         {
-            Email = "test@gmail.com",
-            FirstName = "test",
-            LastName = "Test",
-        };
+            var authParameters = new Dictionary<string, string>
+            {
+                { "USERNAME", email },
+                { "PASSWORD", password }
+            };
 
-        return result;
+            var request = new InitiateAuthRequest
+            {
+                AuthFlow = AuthFlowType.USER_PASSWORD_AUTH,
+                ClientId = _clientId,
+                AuthParameters = authParameters
+            };
+
+            var response = await _cognitoClient.InitiateAuthAsync(request);
+            _accessToken = response.AuthenticationResult.AccessToken;
+            _currentUser = await GetCurrentUserAsync();
+            return Result.Success();
+        }
+        catch (UserNotConfirmedException)
+        {
+            return Result.Failure("Musisz potwierdzić swoje konto");
+        }
+        catch (NotAuthorizedException)
+        {
+            return Result.Failure("Nieprawidłowe hasło lub email");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Błąd: {ex.Message}");
+        }
     }
 
     public async Task<Result> SignOutAsync()
     {
-        //TODO: Call to Cognito
+        _accessToken = string.Empty;
+        _currentUser = null;
         return new Result<string>();
     }
 
     public async Task<Result> EditAccountAsync(EditAccountDto data)
     {
-        //TODO: Call to Cognito
-        return new Result<string>();
+        if (string.IsNullOrEmpty(_accessToken))
+        {
+            return Result.Failure("Nie jesteś zalogowany");
+        }
+
+        try
+        {
+            var attributes = new List<AttributeType>
+            {
+                new AttributeType { Name = "given_name", Value = data.FirstName },
+                new AttributeType { Name = "family_name", Value = data.LastName },
+                new AttributeType { Name = "email", Value = data.Email }
+            };
+
+            var request = new UpdateUserAttributesRequest
+            {
+                AccessToken = _accessToken,
+                UserAttributes = attributes
+            };
+
+            await _cognitoClient.UpdateUserAttributesAsync(request);
+            return Result.Success();
+        }
+        catch (Exception e)
+        {
+            return Result.Failure($"Błąd zmiany danych: {e.Message}");
+        }
 
     }
 
-    public async Task<Result> EditPasswordAsync(string password)
+    public async Task<Result> EditPasswordAsync(string oldPassword, string newPassword)
     {
-        //TODO: Call to Cognito
-        return new Result<string>();
+        if (string.IsNullOrEmpty(_accessToken))
+        {
+            return Result.Failure("Nie jesteś zalogowany");
+        }
+
+        try
+        {
+            var request = new ChangePasswordRequest
+            {
+                AccessToken = _accessToken,
+                PreviousPassword = oldPassword,
+                ProposedPassword = newPassword
+            };
+
+            await _cognitoClient.ChangePasswordAsync(request);
+            return Result.Success();
+        }
+        catch (InvalidPasswordException)
+        {
+            return Result.Failure("Nowe hasło nie spełnia wymagań");
+        }
+        catch (NotAuthorizedException)
+        {
+            return Result.Failure("Obecne hasło jest nieprawidłowe");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Błąd zmiany hasła: {ex.Message}"); ;
+        }
+    }
+
+    private async Task<User> GetCurrentUserAsync()
+    {
+        try
+        {
+            var request = new GetUserRequest
+            {
+                AccessToken = _accessToken
+            };
+
+            var response = await _cognitoClient.GetUserAsync(request);
+
+            return new User
+            {
+                Id = Convert.ToInt32(response.Username),
+                Email = response.UserAttributes.FirstOrDefault(a => a.Name == "email")?.Value,
+                FirstName = response.UserAttributes.FirstOrDefault(a => a.Name == "given_name")?.Value,
+                LastName = response.UserAttributes.FirstOrDefault(a => a.Name == "family_name")?.Value
+            };
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Błąd pobieranie obecnego usera: {ex.Message}");
+        }
     }
 }

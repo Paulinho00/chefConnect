@@ -25,6 +25,11 @@ public partial class EditPasswordPageViewModel : ObservableValidator
     private string _newPasswordRepeated;
 
     [ObservableProperty]
+    [Required]
+    [MinLength(8)]
+    private string _oldPassword;
+
+    [ObservableProperty]
     private bool _arePasswordsEqual;
 
 
@@ -48,7 +53,7 @@ public partial class EditPasswordPageViewModel : ObservableValidator
             return;
         }
 
-        var result = await _authService.EditPasswordAsync(NewPassword);
+        var result = await _authService.EditPasswordAsync(OldPassword, NewPassword);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Błąd", result.Error);

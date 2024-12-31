@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:registerPage="clr-namespace:ChefConnectMobileApp.UIComponents.RegisterPage"
+             x:Class="ChefConnectMobileApp.UIComponents.RegisterPage.RegisterPage">
+    <ContentPage.BindingContext>
+        <registerPage:RegisterPageViewModel/>
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid Margin="10, 10, 10, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   VerticalOptions="Center"
+                   Text="ChefConnect"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <VerticalStackLayout Margin="25, 25, 25, 25">
+            <Label Text="Email:"/>
+            <Entry Text="{Binding Email}"
+                   Keyboard="Email"/>
+            <Label Text="Imię:"/>
+            <Entry Text="{Binding FirstName}"/>
+            <Label Text="Nazwisko:"/>
+            <Entry Text="{Binding LastName}"/>
+            <Label Text="Hasło:"/>
+            <Entry Text="{Binding Password}"
+                   IsPassword="True"/>
+            <Button x:Name="SignInButton" Grid.Column="2"
+                    Command="{Binding Path=SignUpCommand, Mode=TwoWay}"
+                    Margin="20, 20, 20, 20" 
+                    Text="Zatwierdź" HeightRequest="50"
+                    WidthRequest="100" HorizontalOptions="Center" 
+                    BackgroundColor="White"/>
+            <Label Margin="30, 30, 30, 30"  Text="Masz już konto, ale chcesz je potwierdzić?"/>
+            <Label Margin="30, 0" Text="Przejdź do potwierdzenia">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToConfirmationPageCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage> 

@@ -1,10 +1,8 @@
-﻿using Amazon;
-using Amazon.CognitoIdentityProvider;
+﻿using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Utils;
 using CSharpFunctionalExtensions;
-using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace ChefConnectMobileApp.Services.AuthService;
 
@@ -18,7 +16,7 @@ internal class AuthService : IAuthService
     public User? GetCurrentUser()
         => _currentUser;
 
-    public AuthService(AmazonCognitoIdentityProviderClient cognitoClient)
+    public AuthService(IAmazonCognitoIdentityProvider cognitoClient)
     {
         _cognitoClient = cognitoClient;
         _clientId = CloudConfig.CognitoClientId;

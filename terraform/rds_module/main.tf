@@ -9,6 +9,7 @@ resource "aws_db_instance" "rds_instance" {
   username               = var.username
   password               = var.password
 
+  publicly_accessible = true
   vpc_security_group_ids = var.vpc_security_group_ids
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
 

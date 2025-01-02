@@ -50,4 +50,7 @@ module "restaurant_service" {
   service_name = "restaurant-service"
   apigatewayv2_vpc_link_id = aws_apigatewayv2_vpc_link.main.id
   api_gateway_rest_api_execution_arn = aws_api_gateway_rest_api.microservices.execution_arn
+  cluster_name = aws_eks_cluster.main.name
+  subnet_ids = [aws_subnet.microservices_private_1.id, aws_subnet.microservices_private_2.id]
+  role_arn = data.aws_iam_role.lab_role.arn
 }

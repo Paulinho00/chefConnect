@@ -17,3 +17,15 @@ variable "apigatewayv2_vpc_link_id"{
 variable "api_gateway_rest_api_execution_arn" {
   type      = string
 }
+
+variable "cluster_name" {
+  type      = string
+}
+
+variable "subnet_ids" {
+  type        = list(string)
+}
+
+variable "role_arn" {
+  type = string
+}

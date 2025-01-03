@@ -6,7 +6,7 @@ module "restaurant_service_db" {
   db_name = "restaurantDb"
   identifier = "restaurant-db"
   vpc_security_group_ids = [aws_security_group.restaurant_db_security_group.id]
-  subnet_ids = [aws_subnet.main_first_subnet.id, aws_subnet.main_second_subnet.id]
+  subnet_ids = [aws_subnet.microservices_private_1.id, aws_subnet.microservices_private_2.id]
 }
 
 output "restaurant_ednpoint" {

@@ -1,6 +1,7 @@
 1. Run terraform from terraform directory
-2. aws eks update-kubeconfig --name microservices-cluster --region us-east-1
-3. kubectl apply -f .\restaurant.yml in kubernetes directory
-4. Go to AWS page and get ARN of relevant load balancer
-5. Fill all necessary input variables in input_variables.tf
-6. Run terraform apply in kubernetes directory
+2. Update env values in yamls
+3. aws eks update-kubeconfig --name microservices-cluster --region us-east-1
+4. kubectl apply -f .\restaurant.yml in kubernetes directory
+5. Go to AWS page and get ARN of relevant load balancer
+6. Fill all necessary input variables in input_variables.tf
+7. Run terraform apply in kubernetes directory

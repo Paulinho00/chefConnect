@@ -47,7 +47,7 @@ public class Reservation {
         joinColumns = @JoinColumn(name = "reservation_id"),
         inverseJoinColumns = @JoinColumn(name = "table_id")
     )
-    private Set<TableReservation> tableReservations = new HashSet<>();;
+    private Set<TableReservation> tableReservations = new HashSet<>();
 
     @Column(name = "userId", nullable = false)
     private UUID userId;

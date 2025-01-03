@@ -1,4 +1,4 @@
-package com.chefconnect.reservationservice.dto;
+package com.chefconnect.reservationservice.Dto;
 
 import java.util.UUID;
 

@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Table_Reservation")
+@Table(name = "TableReservation")
 public class TableReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

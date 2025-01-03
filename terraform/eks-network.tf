@@ -102,3 +102,11 @@ resource "aws_route_table_association" "microservices_public_1" {
   subnet_id      = aws_subnet.microservices_public_1.id
   route_table_id = aws_route_table.microservices_public.id
 }
+
+output "private_subnets_ids" {
+  value = [aws_subnet.microservices_private_1.id, aws_subnet.microservices_private_2.id]
+}
+
+output "vpc_id" {
+  value = aws_vpc.main_vpc.id
+}

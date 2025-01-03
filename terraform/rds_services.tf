@@ -1,3 +1,4 @@
+# Restaurant Service Db
 module "restaurant_service_db" {
   source = "./rds_module"
   username = "postgres"

@@ -17,7 +17,7 @@ spec:
           image: "259136/restaurant_service:latest"
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://restaurant-db.cynj7nxjfjns.us-east-1.rds.amazonaws.com:5432/restaurant-db
+              value: jdbc:postgresql://restaurant-db.cynj7nxjfjns.us-east-1.rds.amazonaws.com:5432/restaurantDb
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD

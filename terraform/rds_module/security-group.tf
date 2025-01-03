@@ -1,5 +1,5 @@
 resource "aws_security_group" "restaurant_db_security_group" {
-  name = "allow_access_to_restaurant_db"
+  name = "allow_access_to_${var.db_name}"
   description = "Allow access to DB from my IP and backend"
   vpc_id = aws_vpc.microservice_main.id
 

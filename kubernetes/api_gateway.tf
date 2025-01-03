@@ -18,6 +18,8 @@ resource "aws_apigatewayv2_stage" "prod" {
   auto_deploy = true
 }
 
+
+# Route to Restaurant Service
 module "restaurant_gateway_entry" {
   source = "./microservice_module"
   vpc_id = var.vpc_id

@@ -1,39 +1,19 @@
-variable "api_gateway_id" {
-  type        = string
-}
-
-variable "service_name" {
-  type        = string
-}
-
-variable "cluster_name" {
-  type      = string
-}
-
-variable "subnet_ids" {
-  type        = list(string)
-}
-
-variable "security_group_ids" {
-  type        = list(string)
-}
-
 variable "vpc_id" {
   type = string
 }
 
-variable "role_arn" {
+variable "subnet_ids" {
+  type = list(string)
+}
+
+variable "service_name" {
   type = string
 }
 
-variable "db_instance_identifier" {
+variable "api_id" {
   type = string
 }
 
-variable "db_password" {
-  type = string
-}
-
-variable "image_name" {
+variable "load_balancer_listener_arn" {
   type = string
 }

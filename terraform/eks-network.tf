@@ -107,6 +107,6 @@ output "private_subnets_ids" {
   value = [aws_subnet.microservices_private_1.id, aws_subnet.microservices_private_2.id]
 }
 
-output "vpc_id" {
-  value = aws_vpc.main_vpc.id
+output "microservice_vpc_id" {
+  value = aws_vpc.microservice_main.id
 }

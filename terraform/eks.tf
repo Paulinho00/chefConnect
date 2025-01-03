@@ -7,43 +7,6 @@ resource "aws_eks_cluster" "main" {
   }
 }
 
-resource "aws_apigatewayv2_api" "main" {
-  name          = "microservices-api"
-  protocol_type = "HTTP"
-}
-
-resource "aws_security_group" "vpc_link" {
-  name        = "api-gateway-vpc-link"
-  description = "Security group for API Gateway VPC Link"
-  vpc_id      = aws_vpc.microservice_main.id
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "api-gateway-vpc-link-sg"
-  }
-}
-
 output "cluster_name" {
   value = aws_eks_cluster.main.name
-}
-
-output "api_gateway_id" {
-  value = aws_apigatewayv2_api.main.id
-}
-
-output "security_group_id" {
-  value = aws_security_group.vpc_link.id
 }

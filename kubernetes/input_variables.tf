@@ -1,11 +1,11 @@
 variable "vpc_id" {
-  default = "vpc-0a6b7465e538dbb61"
+  default = "vpc-0496466555a3437eb"
 }
 
 variable "subnet_ids" {
-  default = [  "subnet-062a229b7abdd49c3", "subnet-0d18388c650237d7b"]
+  default = [  "subnet-03db230e8f8bcfb75", "subnet-0539a4533509f281c"]
 }
 
 variable "load_balancer_listener_arn" {
-  default = "arn:aws:elasticloadbalancing:us-east-1:935427774165:listener/net/a4a032f2d8a614954bfe99e64a21af2e/5762cd50f03151f1/39f3b3157ab3c749"
+  default = "arn:aws:elasticloadbalancing:us-east-1:935427774165:listener/net/a65b12459b05f41f78ffc85b15881b4d/5ce36f39e0262e93/0a037988daeb2536"
 }

@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class CustomerOpinion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "rate", nullable = false)

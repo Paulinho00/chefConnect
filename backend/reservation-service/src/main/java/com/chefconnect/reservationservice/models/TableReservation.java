@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "Table_Reservation")
 public class TableReservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToMany(mappedBy = "tableReservations")

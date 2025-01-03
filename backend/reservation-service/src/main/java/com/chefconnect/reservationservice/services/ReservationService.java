@@ -3,9 +3,12 @@ package com.chefconnect.reservationservice.services;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.repository.ReservationRepository;
 
+@Service
 public class ReservationService {
     private ReservationRepository reservationRepository;
 

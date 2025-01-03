@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "date", nullable = false)
@@ -38,7 +38,7 @@ public class Reservation {
     @Column(name = "numberOfPeople", nullable = false)
     private int numberOfPeople;
 
-    @OneToOne(mappedBy = "Reservation", optional = true, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "reservation", optional = true, cascade = CascadeType.ALL)
     private CustomerOpinion customerOpinion;
 
     @ManyToMany

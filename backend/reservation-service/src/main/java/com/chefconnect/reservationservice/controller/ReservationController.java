@@ -8,14 +8,19 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
+import com.chefconnect.reservationservice.Dto.CancelReservationResponseDto;
+import com.chefconnect.reservationservice.Dto.ReservationDto;
 import com.chefconnect.reservationservice.Dto.ReservationRequestDto;
+import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
 import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.services.ReservationService;
 
@@ -52,6 +57,24 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             return buildErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReservationDto>> getUserReservations() {
+        List<ReservationDto> reservations = reservationService.getUserReservations();
+
+        return ResponseEntity.ok(reservations);
+    }
+
+    @PutMapping("/cancel/{reservationId}")
+    public ResponseEntity<CancelReservationResponseDto> cancelReservation(@PathVariable UUID reservationId) {
+        try {
+            CancelReservationResponseDto response = reservationService.cancelReservation(reservationId);
+            return ResponseEntity.ok(response);
+        } catch (ReservationNotFoundException ex) {
+            CancelReservationResponseDto response = new CancelReservationResponseDto(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
 

@@ -1,16 +1,16 @@
 -- Przykładowe dane do tabeli RESERVATION
-INSERT INTO RESERVATION (id, approving_worker_id, date, is_approved, is_deleted, number_of_people, restaurant_id, user_id)
+INSERT INTO RESERVATION (id, approving_worker_id, date, is_approved, reservation_status, is_deleted, number_of_people, restaurant_id, user_id)
 VALUES
-  ('eab4b9e5-5c44-438f-bb23-36f3b24a9284', '0e674df3-a8c0-44d4-8d9a-4424b3f5746d', '2025-01-05T12:00:00', false, false, 4, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('4e3c2f88-7b3a-4d1f-95cf-ff18a1cc3eab', 'a90aa581-3579-4cc4-9f00-67557371714b', '2025-01-05T14:00:00', false, false, 6, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('08be0d57-2276-4b47-9c81-c82615e62309', 'bc4189d9-afb7-47d5-8401-588eb273f639', '2025-01-06T10:00:00', false, false, 2, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('e438fd77-9258-4ed3-9f4a-2d7c6d04cd83', '40c7fbb3-5c64-4cce-aed1-c0eea909a4da', '2025-01-06T12:00:00', false, false, 8, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('10ab2f3a-cc9e-4b82-bc88-bb39413f59a5', '38c14b6a-aac8-4658-bf9e-2c8f970a5ea3', '2025-01-07T12:00:00', false, false, 3, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('ad7e9fd8-2b64-4e9d-9c89-dfa89a663f76', NULL, '2025-01-07T15:00:00', false, false, 5, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('55e5a9a2-c70d-4964-a319-cf6f9ea568d0', 'b9c894d2-47b6-40cf-8b9a-50e3f7b189d0', '2025-01-08T10:00:00', false, false, 10, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('8a653f1c-bf97-49a1-8e35-9ffcb7f8d358', '3deb69d8-a316-4893-9217-cdd790be700e', '2025-01-08T13:00:00', false, false, 7, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('442b61c8-e35f-4082-8d6c-f8595c18fa9c', '48b41b26-427e-44a1-a448-21243e327c65', '2025-01-09T11:00:00', false, false, 9, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
-  ('c1b674e2-d7c5-4861-a106-580988d515a2', NULL, '2025-01-09T16:00:00', false, false, 4, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245');
+  ('eab4b9e5-5c44-438f-bb23-36f3b24a9284', '0e674df3-a8c0-44d4-8d9a-4424b3f5746d', '2025-01-05T12:00:00', false, 'CONFIRMED', false, 4, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('4e3c2f88-7b3a-4d1f-95cf-ff18a1cc3eab', 'a90aa581-3579-4cc4-9f00-67557371714b', '2025-01-05T14:00:00', false, 'CONFIRMED', false, 6, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('08be0d57-2276-4b47-9c81-c82615e62309', 'bc4189d9-afb7-47d5-8401-588eb273f639', '2025-01-06T10:00:00', false, 'CONFIRMED', false, 2, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('e438fd77-9258-4ed3-9f4a-2d7c6d04cd83', '40c7fbb3-5c64-4cce-aed1-c0eea909a4da', '2025-01-06T12:00:00', false, 'CONFIRMED', false, 8, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('10ab2f3a-cc9e-4b82-bc88-bb39413f59a5', '38c14b6a-aac8-4658-bf9e-2c8f970a5ea3', '2025-01-07T12:00:00', false, 'CONFIRMED', false, 3, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('ad7e9fd8-2b64-4e9d-9c89-dfa89a663f76', NULL, '2025-01-07T15:00:00', false, 'UNCONFIRMED', false, 5, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('55e5a9a2-c70d-4964-a319-cf6f9ea568d0', 'b9c894d2-47b6-40cf-8b9a-50e3f7b189d0', '2025-01-08T10:00:00', false, 'CONFIRMED', false, 10, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('8a653f1c-bf97-49a1-8e35-9ffcb7f8d358', '3deb69d8-a316-4893-9217-cdd790be700e', '2025-01-08T13:00:00', false, 'CONFIRMED', false, 7, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('442b61c8-e35f-4082-8d6c-f8595c18fa9c', '48b41b26-427e-44a1-a448-21243e327c65', '2025-01-09T11:00:00', false, 'CONFIRMED', false, 9, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245'),
+  ('c1b674e2-d7c5-4861-a106-580988d515a2', NULL, '2025-01-09T16:00:00', false, 'UNCONFIRMED', false, 4, '26436fe8-e03c-4e2b-b763-897601033761', '071a66c5-9f85-465d-8430-e8b89fcf6245');
 
 
 -- Dodajemy przykładowe zarezerwowane stoliki o restauracji z danym UUID do tabeli TableReservation

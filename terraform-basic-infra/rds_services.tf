@@ -10,5 +10,5 @@ module "restaurants_service_db" {
 }
 
 output "restaurants_ednpoint" {
-  value = module.restaurants_service_db.rds_instance_endpoint
+  value="jdbc:postgresql://${module.restaurants_service_db.rds_instance_endpoint}/${module.restaurants_service_db.rds_db_name}"
 }

@@ -1,7 +1,6 @@
-resource "aws_security_group" "restaurant_db_security_group" {
+resource "aws_security_group" "service_db_security_group" {
   name = "allow_access_to_${var.db_name}"
-  description = "Allow access to DB from my IP and backend"
-  vpc_id = aws_vpc.microservice_main.id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 5432

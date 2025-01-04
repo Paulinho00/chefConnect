@@ -28,6 +28,10 @@ resource "aws_apigatewayv2_integration" "eks" {
 
 resource "aws_apigatewayv2_route" "main" {
   api_id = var.api_id
-  route_key = "ANY /restaurant/{proxy+}"
+  route_key = "ANY /${var.service_name}-service/{proxy+}"
   target = "integrations/${aws_apigatewayv2_integration.eks.id}"
+}
+
+output "service_route_key" {
+  value = "${var.service_name}-service"
 }

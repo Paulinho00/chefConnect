@@ -19,9 +19,8 @@ variable "password" {
   sensitive   = true
 }
 
-variable "vpc_security_group_ids" {
-  description = "List of VPC security group IDs to associate with the RDS instance"
-  type        = list(string)
+variable "vpc_id" {
+  type = string
 }
 
 variable "subnet_ids" {

@@ -78,3 +78,7 @@ output "user_pool_id" {
 output "client_id" {
   value = aws_cognito_user_pool_client.user_pool_client.id
 }
+
+output "issuer_uri" {
+  value = "https://cognito-idp.${var.region}.amazonaws.com/${aws_cognito_user_pool.main_user_pool.id}"
+}

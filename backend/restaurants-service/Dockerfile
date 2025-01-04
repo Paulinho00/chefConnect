@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-alpine AS build
+FROM openjdk:21-jdk AS build
 
 WORKDIR /app
 
@@ -15,18 +15,14 @@ COPY . .
 RUN ./mvnw clean package -DskipTests
 
 
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21-jdk
 
 WORKDIR /app
 
-COPY --from=build /app/target/chat-service-0.0.1-SNAPSHOT.jar /app/service.jar
-
+COPY --from=build /app/target/restaurants-service-0.0.1-SNAPSHOT.jar /app/
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=5 \
-  CMD wget -T5 -qO- http://localhost:8080/actuator/health | grep UP || exit 1
-
-CMD ["sh", "-c", "java -jar /app/service.jar \
+CMD ["sh", "-c", "java -jar /app/restaurants-service-0.0.1-SNAPSHOT.jar \
             --spring.datasource.url=${SPRING_DATASOURCE_URL} \
             --spring.datasource.username=${SPRING_DATASOURCE_USERNAME} \
             --spring.datasource.password=${SPRING_DATASOURCE_PASSWORD} \

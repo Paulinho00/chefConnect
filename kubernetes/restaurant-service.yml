@@ -17,15 +17,15 @@ spec:
           image: "259136/restaurant_service:latest"
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://restaurant-db.cynj7nxjfjns.us-east-1.rds.amazonaws.com:5432/restaurantDb
+              value: <PLACEHOLDER>
             - name: SPRING_DATASOURCE_USERNAME
-              value: postgres
+              value: <PLACEHOLDER>
             - name: SPRING_DATASOURCE_PASSWORD
-              value: postgres
+              value: <PLACEHOLDER>
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-              value: value2
+              value: <PLACEHOLDER>
             - name: EVENT_QUEUE_URL
-              value: value2
+              value: <PLACEHOLDER>
           ports:
             - containerPort: 8080
 

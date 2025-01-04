@@ -14,7 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
-import com.chefconnect.reservationservice.Dto.CancelReservationResponseDto;
+import com.chefconnect.reservationservice.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.Dto.ReservationDto;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
 import com.chefconnect.reservationservice.models.Reservation;
@@ -24,14 +24,15 @@ import com.chefconnect.reservationservice.repository.TableReservationRepository;
 
 @Service
 public class ReservationService {
+    
     private ReservationRepository reservationRepository;
     private TableReservationRepository tableReservationRepository;
     private RestaurantService restaurantService;
 
     public ReservationService(
-    ReservationRepository reservationRepository, 
-    TableReservationRepository tableReservationRepository,
-    RestaurantService restaurantService){
+        ReservationRepository reservationRepository, 
+        TableReservationRepository tableReservationRepository,
+        RestaurantService restaurantService){
         this.reservationRepository = reservationRepository;
         this.tableReservationRepository = tableReservationRepository;
         this.restaurantService = restaurantService;
@@ -99,7 +100,7 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public CancelReservationResponseDto cancelReservation(UUID reservationId) {
+    public MessageResponseDto cancelReservation(UUID reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ReservationNotFoundException(reservationId));
         
@@ -107,7 +108,7 @@ public class ReservationService {
         
         reservationRepository.save(reservation);
         
-        return new CancelReservationResponseDto("Pomyślnie anulowano");
+        return new MessageResponseDto("Pomyślnie anulowano");
     }
 
     private String formatTimeSpan(LocalDateTime dateTime) {

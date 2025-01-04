@@ -1,9 +1,9 @@
 package com.chefconnect.reservationservice.Dto;
 
-public class CancelReservationResponseDto {
+public class MessageResponseDto {
     private String message;
 
-    public CancelReservationResponseDto(String message) {
+    public MessageResponseDto(String message) {
         this.message = message;
     }
 

@@ -10,9 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Customer_Opinion")
+@Getter
+@Setter
 public class CustomerOpinion {
 
     @Id
@@ -29,7 +33,7 @@ public class CustomerOpinion {
     private String publishDate;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
     @Column(name = "isDeleted", nullable = false)

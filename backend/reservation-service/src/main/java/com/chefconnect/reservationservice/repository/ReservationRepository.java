@@ -11,4 +11,5 @@ import com.chefconnect.reservationservice.models.Reservation;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findByUserIdAndIsDeletedFalse(UUID userId);
     Optional<Reservation> findById(UUID reservationId);
+    List<Reservation> findByRestaurantId(UUID restaurantId);
 }

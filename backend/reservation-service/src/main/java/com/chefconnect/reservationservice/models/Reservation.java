@@ -71,9 +71,4 @@ public class Reservation {
         this.isDeleted = false;
         this.isApproved = false;
     }
-
-    public void setStatus(ReservationStatus cancelled) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
-    }
 }

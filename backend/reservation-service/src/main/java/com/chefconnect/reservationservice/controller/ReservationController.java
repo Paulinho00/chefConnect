@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
-import com.chefconnect.reservationservice.Dto.CancelReservationResponseDto;
+import com.chefconnect.reservationservice.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.Dto.ReservationDto;
 import com.chefconnect.reservationservice.Dto.ReservationRequestDto;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
@@ -68,12 +68,12 @@ public class ReservationController {
     }
 
     @PutMapping("/cancel/{reservationId}")
-    public ResponseEntity<CancelReservationResponseDto> cancelReservation(@PathVariable UUID reservationId) {
+    public ResponseEntity<MessageResponseDto> cancelReservation(@PathVariable UUID reservationId) {
         try {
-            CancelReservationResponseDto response = reservationService.cancelReservation(reservationId);
+            MessageResponseDto response = reservationService.cancelReservation(reservationId);
             return ResponseEntity.ok(response);
         } catch (ReservationNotFoundException ex) {
-            CancelReservationResponseDto response = new CancelReservationResponseDto(ex.getMessage());
+            MessageResponseDto response = new MessageResponseDto(ex.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }

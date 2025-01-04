@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("prod/restaurants-service/user-preferences")
+@RequestMapping("user-preferences")
 @AllArgsConstructor(onConstructor_ = @Autowired, access = AccessLevel.PROTECTED)
 public class UserPreferencesController {
 

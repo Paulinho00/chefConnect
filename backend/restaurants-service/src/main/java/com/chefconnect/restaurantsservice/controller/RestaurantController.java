@@ -17,7 +17,7 @@ import java.util.Collection;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("prod/restaurants-service/restaurants")
+@RequestMapping("restaurants")
 @AllArgsConstructor(onConstructor_ = @Autowired, access = AccessLevel.PROTECTED)
 public class RestaurantController {
 

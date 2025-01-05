@@ -3,6 +3,7 @@ using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services;
 using ChefConnectMobileApp.Services.Alert;
 using ChefConnectMobileApp.Services.Navigation;
+using ChefConnectMobileApp.Services.ReservationService;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -11,6 +12,7 @@ namespace ChefConnectMobileApp.UIComponents.RestaurantListElementView;
 public partial class RestaurantListElementViewModel : ObservableObject
 {
     private IRestaurantService _restaurantService = ServiceHelper.GetService<IRestaurantService>();
+    private IReservationService _reservationService = ServiceHelper.GetService<IReservationService>();
     private IAlertService _alertService = ServiceHelper.GetService<IAlertService>();
     private INavigationService _navigationService = ServiceHelper.GetService<INavigationService>();
 
@@ -44,7 +46,7 @@ public partial class RestaurantListElementViewModel : ObservableObject
 
     public async Task Init()
     {
-        Rating = await _restaurantService.GetRatingOfRestaurant(_restaurant.Id);
+        Rating = await _reservationService.GetRatingOfRestaurant(_restaurant.Id);
         IsFavourite = await _restaurantService.IsFavouriteForCurrentUser(_restaurant.Id);
     }
 
@@ -56,7 +58,7 @@ public partial class RestaurantListElementViewModel : ObservableObject
     
     public async Task AddNewFavourite()
     {
-        var result = await _restaurantService.AddNewFavourite(_restaurant.Id);
+        var result = await _restaurantService.AddNewFavourite(_restaurant.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Błąd", result.Error);
@@ -70,7 +72,7 @@ public partial class RestaurantListElementViewModel : ObservableObject
     
     public async Task RemoveFavourite()
     {
-        var result = await _restaurantService.RemoveFavourite(_restaurant.Id);
+        var result = await _restaurantService.RemoveFavourite(_restaurant.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Błąd", result.Error);

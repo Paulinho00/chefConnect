@@ -6,17 +6,23 @@ namespace ChefConnectMobileApp.Services.ReservationService;
 
 internal class ReservationService : IReservationService
 {
-    public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(int restaurantId, DateTime date)
+    public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(Guid restaurantId, DateTime date)
     {
         //TODO: Call to API
         return _mockSlots;
     }
 
-    public async Task<Result> MakeReservation(int restaurantId, DateTime date, int numberOfTables)
+    public async Task<Result> MakeReservation(Guid restaurantId, DateTime date, int numberOfTables)
     {
         //TODO: Call to API
         //User ID will be in token
         return new Result<string>();
+    }
+
+    public async Task<int> GetRatingOfRestaurant(Guid restaurantId)
+    {
+        //TODO: Add call to API to get rating
+        return 3;
     }
 
     public async Task<List<Reservation>> GetReservations()

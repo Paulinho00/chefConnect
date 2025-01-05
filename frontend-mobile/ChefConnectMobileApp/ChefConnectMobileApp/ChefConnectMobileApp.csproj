@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="ChefConnectMobileApp.Tests" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 
     <ItemGroup>

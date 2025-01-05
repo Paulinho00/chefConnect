@@ -16,7 +16,7 @@ public partial class RestaurantListPageViewModel : ObservableObject
 
     public async Task Init()
     {
-        var restaurants = await _restaurantService.GetAllRestaurants();
+        var restaurants = await _restaurantService.GetAllRestaurants().ConfigureAwait(false);
         var restaurantViewModels = new List<RestaurantListElementViewModel>();
         foreach (var restaurant in restaurants)
         {

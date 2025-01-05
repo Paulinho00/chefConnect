@@ -19,10 +19,12 @@ public static class DependencyInjection
             .AddTransient<IAlertService, AlertService>()
             .AddTransient<IRestaurantService, RestaurantService>()
             .AddTransient<IReservationService, ReservationService>()
-            .AddSingleton<IAmazonCognitoIdentityProvider>(new AmazonCognitoIdentityProviderClient(new Amazon.Runtime.BasicAWSCredentials(
+            .AddSingleton<IAmazonCognitoIdentityProvider>(new AmazonCognitoIdentityProviderClient(
+                new Amazon.Runtime.BasicAWSCredentials(
                     CloudConfig.AccessKeyId,
                     CloudConfig.SecretAccessKey),
-                RegionEndpoint.GetBySystemName("us-east-1")));
+                RegionEndpoint.GetBySystemName("us-east-1")))
+            .AddTransient<HttpClient>();
 
 
     }

@@ -81,7 +81,7 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
 
     private async Task UpdateRating()
     {
-        Rating = await _restaurantService.GetRatingOfRestaurant(Restaurant.Id);
+        Rating = await _reservationService.GetRatingOfRestaurant(Restaurant.Id);
     }
 
     [RelayCommand]

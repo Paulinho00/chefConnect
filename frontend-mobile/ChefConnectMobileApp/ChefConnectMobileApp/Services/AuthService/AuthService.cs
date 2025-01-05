@@ -16,6 +16,9 @@ internal class AuthService : IAuthService
     public User? GetCurrentUser()
         => _currentUser;
 
+    public string GetAccessToken() 
+        => _accessToken;
+
     public AuthService(IAmazonCognitoIdentityProvider cognitoClient)
     {
         _cognitoClient = cognitoClient;

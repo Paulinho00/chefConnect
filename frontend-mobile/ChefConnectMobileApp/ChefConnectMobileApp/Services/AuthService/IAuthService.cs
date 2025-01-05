@@ -6,6 +6,7 @@ namespace ChefConnectMobileApp.Services.AuthService;
 internal interface IAuthService
 {
     User? GetCurrentUser();
+    string GetAccessToken();
     Task<Result> SignUpAsync(SignUpData data);
     Task<Result> SignInAsync(string email, string password);
     Task<Result> SignOutAsync();

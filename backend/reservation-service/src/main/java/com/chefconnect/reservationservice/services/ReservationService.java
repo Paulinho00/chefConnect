@@ -13,14 +13,14 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
-import com.chefconnect.reservationservice.Dto.MessageResponseDto;
-import com.chefconnect.reservationservice.Dto.ReservationDto;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
 import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.models.ReservationStatus;
 import com.chefconnect.reservationservice.repository.ReservationRepository;
 import com.chefconnect.reservationservice.repository.TableReservationRepository;
+import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDto;
+import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
+import com.chefconnect.reservationservice.services.Dto.ReservationDto;
 
 @Service
 public class ReservationService {

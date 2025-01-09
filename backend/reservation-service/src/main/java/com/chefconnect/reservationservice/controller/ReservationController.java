@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
-import com.chefconnect.reservationservice.Dto.MessageResponseDto;
-import com.chefconnect.reservationservice.Dto.ReservationDto;
-import com.chefconnect.reservationservice.Dto.ReservationRequestDto;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
 import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.services.ReservationService;
+import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDto;
+import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
+import com.chefconnect.reservationservice.services.Dto.ReservationDto;
+import com.chefconnect.reservationservice.services.Dto.ReservationRequestDto;
 
 @RestController
 @RequestMapping("/reservations")

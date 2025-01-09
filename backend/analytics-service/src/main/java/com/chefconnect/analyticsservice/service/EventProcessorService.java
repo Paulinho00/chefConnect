@@ -1,9 +1,10 @@
-package com.chefconnect.analyticsservice.service.dto;
+package com.chefconnect.analyticsservice.service;
 
 import com.chefconnect.analyticsservice.domain.ReservationEvent;
 import com.chefconnect.analyticsservice.domain.Restaurant;
 import com.chefconnect.analyticsservice.repository.ReservationEventRepository;
 import com.chefconnect.analyticsservice.repository.RestaurantRepository;
+import com.chefconnect.analyticsservice.service.dto.ReservationEventDto;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -22,7 +22,7 @@ public class RestaurantService {
 
     @Value("${restaurants.service.url}")
     private String restaurantServiceUrl;
-
+    
     private final RestTemplate restTemplate;
 
     public RestaurantService(RestTemplate restTemplate) {
@@ -50,6 +50,17 @@ public class RestaurantService {
         );
 
         return response.getBody().getAddress();
+    }
+
+    public RestaurantDto getRestaurant(UUID restaurantId) {
+        String url = restaurantServiceUrl + "/prod/restaurants-service/restaurants/" + restaurantId;
+
+        ResponseEntity<RestaurantDto> response = sendRequest(
+            url,
+            new ParameterizedTypeReference<RestaurantDto>() {}
+        );
+
+        return response.getBody();
     }
 
     private <T> ResponseEntity<T> sendRequest(String url, ParameterizedTypeReference<T> responseType) {

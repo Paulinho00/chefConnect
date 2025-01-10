@@ -1,15 +1,20 @@
 package com.chefconnect.reservationservice.services;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +26,18 @@ import com.chefconnect.reservationservice.repository.TableReservationRepository;
 import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDto;
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.services.Dto.ReservationDto;
+import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.RestaurantDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 
 @Service
 public class ReservationService {
-    
+
+    @Value("${events.queues.event-queue}")
+    private String queueUrl;
+
+    private SqsTemplate sqsTemplate;
     private ReservationRepository reservationRepository;
     private TableReservationRepository tableReservationRepository;
     private RestaurantService restaurantService;
@@ -32,10 +45,12 @@ public class ReservationService {
     public ReservationService(
         ReservationRepository reservationRepository, 
         TableReservationRepository tableReservationRepository,
-        RestaurantService restaurantService){
+        RestaurantService restaurantService,
+        SqsTemplate sqsTemplate){
         this.reservationRepository = reservationRepository;
         this.tableReservationRepository = tableReservationRepository;
         this.restaurantService = restaurantService;
+        this.sqsTemplate = sqsTemplate;
     }
 
     public Reservation createReservation(UUID restaurantId, String date, int numberOfPeople) {
@@ -55,9 +70,35 @@ public class ReservationService {
             reservation.setApproved(false);
             reservation.setDeleted(false);
 
+            // SQS
+            this.sendToQueue(reservation, restaurantId, reservationDate);
+            
             return reservationRepository.save(reservation);
+
         } catch (Exception e) {
             throw new IllegalArgumentException("Błąd przy tworzeniu rezerwacji: " + e.getMessage());
+        }
+    }
+
+    private void sendToQueue(Reservation reservation, UUID restaurantId, LocalDateTime reservationDate){
+        Map<String, Object> reservationEvent = new HashMap<>();
+        RestaurantDto restaurant = restaurantService.getRestaurant(restaurantId);
+    
+        reservationEvent.put("date", reservationDate.atZone(ZoneId.systemDefault()).toInstant());
+        reservationEvent.put("restaurant", new HashMap<String, Object>() {{
+            put("id", restaurant.getId());
+            put("name", restaurant.getName());
+            put("address", restaurant.getAddress());
+        }});
+        reservationEvent.put("numberOfPeople", reservation.getNumberOfPeople());
+    
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        try {
+            String messageBody = objectMapper.writeValueAsString(reservationEvent);
+            sqsTemplate.send(queueUrl, messageBody);
+        } catch (Exception e) {
+            throw new RuntimeException("Błąd podczas serializacji do JSON: " + e.getMessage(), e);
         }
     }
 
@@ -111,14 +152,10 @@ public class ReservationService {
         return new MessageResponseDto("Pomyślnie anulowano");
     }
 
-    private String formatTimeSpan(LocalDateTime dateTime) {
-        return dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-    }
-
     private ReservationDto convertToDto(Reservation reservation) {
         return new ReservationDto(
             reservation.getId(),
-            restaurantService.getRestaurantAddress(reservation.getRestaurantId()),
+            restaurantService.getRestaurant(reservation.getRestaurantId()).getAddress(),
             reservation.getTableReservations().size(),
             reservation.getDate(),
             reservation.getReservationStatus()

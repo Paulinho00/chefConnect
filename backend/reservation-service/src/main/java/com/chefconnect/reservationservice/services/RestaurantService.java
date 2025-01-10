@@ -1,8 +1,10 @@
 package com.chefconnect.reservationservice.services;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,6 +15,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.RestaurantDto;
+import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.TableDto;
 
 @Service
 public class RestaurantService {
@@ -26,33 +29,30 @@ public class RestaurantService {
         this.restTemplate = restTemplate;
     }
 
-    // Mockup (komunikacja z mikroserwisem dla restauracji)
     public int getTotalNumberOfTables(UUID restaurantId) {
-        return 50;
+
+        String url = restaurantServiceUrl + "/prod/restaurants-service/tables/" + restaurantId;
+
+        ResponseEntity<Collection<TableDto>> response = sendRequest(
+            url,
+            new ParameterizedTypeReference<Collection<TableDto>>() {}
+        );
+        
+        return response.getBody().size();
     }
-
-    // public String getRestaurantAddress(@PathVariable UUID restaurantId) {
-
-    //     // Mockup (komunikacja z mikroserwisem dla restauracji)
-    //     AddressDto address = new AddressDto(
-    //         "Main St",
-    //         123,
-    //         "45B",
-    //         "01-234",
-    //         "Warsaw"
-    //     );
-
-    //     String addressString = address.getStreet() + " " +
-    //                         address.getStreetNumber() + ", " +
-    //                         address.getFlatNumber() + ", " +
-    //                         address.getPostalCode() + ", " +
-    //                         address.getCity();
-
-    //     return addressString;
-    // }
 
     public String getRestaurantAddress(UUID restaurantId) {
         String url = restaurantServiceUrl + "/prod/restaurants-service/restaurants/" + restaurantId;
+
+        ResponseEntity<RestaurantDto> response = sendRequest(
+            url,
+            new ParameterizedTypeReference<RestaurantDto>() {}
+        );
+
+        return response.getBody().getAddress();
+    }
+
+    private <T> ResponseEntity<T> sendRequest(String url, ParameterizedTypeReference<T> responseType) {
 
         // Tworzenie nagłówków i dodanie tokena
         HttpHeaders headers = new HttpHeaders();
@@ -60,13 +60,14 @@ public class RestaurantService {
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<RestaurantDto> response = restTemplate.exchange(
+        ResponseEntity<T> response = restTemplate.exchange(
             url,
             HttpMethod.GET,
             requestEntity,
-            RestaurantDto.class
+            responseType
         );
-        return response.getBody().getAddress();
+
+        return response;
     }
 
     private String getToken() {

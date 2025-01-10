@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.chefconnect.reservationservice.exceptions.InvalidReservationStatusException;
 import com.chefconnect.reservationservice.exceptions.OpinionAlreadyExistsException;
-import com.chefconnect.reservationservice.models.CustomerOpinion;
 import com.chefconnect.reservationservice.services.CustomerOpinionService;
 import com.chefconnect.reservationservice.services.Dto.AvarageRestaurantRateResponseDto;
 import com.chefconnect.reservationservice.services.Dto.CustomerOpinionRequestDto;
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/opinions")

@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.chefconnect.reservationservice.domain.Reservation;
+import com.chefconnect.reservationservice.domain.ReservationStatus;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
-import com.chefconnect.reservationservice.models.Reservation;
-import com.chefconnect.reservationservice.models.ReservationStatus;
 import com.chefconnect.reservationservice.repository.ReservationRepository;
 import com.chefconnect.reservationservice.repository.TableReservationRepository;
 import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDto;
@@ -109,8 +109,12 @@ public class ReservationService {
 
         List<AvailableTablesResponseDto> availability = new ArrayList<>();
 
-        int openingHour = 10;
-        int closingHour = 17;
+        String openingHourString = restaurantService.getRestaurant(restaurantId).getOpenTime();
+        String [] openingHourStringParts = openingHourString.split(":");
+        String closingHourString = restaurantService.getRestaurant(restaurantId).getCloseTime();
+        String [] closingHourStringParts = closingHourString.split(":");
+        int openingHour = Integer.parseInt(openingHourStringParts[0]);
+        int closingHour = Integer.parseInt(closingHourStringParts[0]);
         
         for (int hour = openingHour; hour < closingHour; hour++) {
             LocalDateTime startOfHour = requestedDate.atTime(hour, 0);

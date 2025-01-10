@@ -3,7 +3,7 @@ package com.chefconnect.reservationservice.services.Dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.chefconnect.reservationservice.models.ReservationStatus;
+import com.chefconnect.reservationservice.domain.ReservationStatus;
 
 public class ReservationDto {
 

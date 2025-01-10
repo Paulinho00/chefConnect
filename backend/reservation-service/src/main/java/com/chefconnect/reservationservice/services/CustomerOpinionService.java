@@ -8,10 +8,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chefconnect.reservationservice.domain.CustomerOpinion;
+import com.chefconnect.reservationservice.domain.Reservation;
 import com.chefconnect.reservationservice.exceptions.InvalidReservationStatusException;
 import com.chefconnect.reservationservice.exceptions.OpinionAlreadyExistsException;
-import com.chefconnect.reservationservice.models.CustomerOpinion;
-import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.repository.CustomerOpinionRepository;
 import com.chefconnect.reservationservice.repository.ReservationRepository;
 import com.chefconnect.reservationservice.services.Dto.CustomerOpinionRequestDto;

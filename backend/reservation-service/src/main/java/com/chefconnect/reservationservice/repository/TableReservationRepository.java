@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.chefconnect.reservationservice.models.TableReservation;
+import com.chefconnect.reservationservice.domain.TableReservation;
 
 public interface TableReservationRepository extends JpaRepository<TableReservation, Long> {
     @Query("SELECT COUNT(tr) FROM TableReservation tr " +

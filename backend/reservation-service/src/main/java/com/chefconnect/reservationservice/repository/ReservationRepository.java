@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.chefconnect.reservationservice.models.Reservation;
+import com.chefconnect.reservationservice.domain.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findByUserIdAndIsDeletedFalse(UUID userId);

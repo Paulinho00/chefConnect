@@ -41,17 +41,6 @@ public class RestaurantService {
         return response.getBody().size();
     }
 
-    public String getRestaurantAddress(UUID restaurantId) {
-        String url = restaurantServiceUrl + "/prod/restaurants-service/restaurants/" + restaurantId;
-
-        ResponseEntity<RestaurantDto> response = sendRequest(
-            url,
-            new ParameterizedTypeReference<RestaurantDto>() {}
-        );
-
-        return response.getBody().getAddress();
-    }
-
     public RestaurantDto getRestaurant(UUID restaurantId) {
         String url = restaurantServiceUrl + "/prod/restaurants-service/restaurants/" + restaurantId;
 

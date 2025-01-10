@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services.AuthService;
+using ChefConnectMobileApp.Utils;
 using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services;
@@ -8,19 +9,19 @@ namespace ChefConnectMobileApp.Services;
 internal class RestaurantService : IRestaurantService
 {
     private readonly HttpClient _httpClient;
-    private const string _baseUrl = "https://xydzsl34r0.execute-api.us-east-1.amazonaws.com";
+    private const string _baseUrl = "/prod/restaurants-service/";
 
     public RestaurantService(IAuthService authService, HttpClient httpClient)
     {
         _httpClient = httpClient;
-        httpClient.BaseAddress = new Uri(_baseUrl);
+        httpClient.BaseAddress = new Uri(CloudConfig.ApiGatewayBaseUrl);
         httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authService.GetAccessToken()}");
     }
     
     public async Task<List<Restaurant>> GetAllRestaurants()
     {
         
-        var response = await _httpClient.GetAsync("/prod/restaurants-service/restaurants/all").ConfigureAwait(false);
+        var response = await _httpClient.GetAsync(_baseUrl + "restaurants/all").ConfigureAwait(false);
         if(response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -33,7 +34,7 @@ internal class RestaurantService : IRestaurantService
 
     public async Task<bool> IsFavouriteForCurrentUser(Guid restaurantId)
     {
-        var response = await _httpClient.GetAsync($"/prod/restaurants-service/user-preferences").ConfigureAwait(false);
+        var response = await _httpClient.GetAsync(_baseUrl + $"user-preferences").ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -46,7 +47,7 @@ internal class RestaurantService : IRestaurantService
 
     public async Task<Result> AddNewFavourite(Guid restaurantId)
     {
-        var response = await _httpClient.PostAsync($"/prod/restaurants-service/user-preferences/add/{restaurantId}", null).ConfigureAwait(false);
+        var response = await _httpClient.PostAsync(_baseUrl + $"user-preferences/add/{restaurantId}", null).ConfigureAwait(false);
         if(response.IsSuccessStatusCode)
         {
             return Result.Success();
@@ -57,7 +58,7 @@ internal class RestaurantService : IRestaurantService
 
     public async Task<Result> RemoveFavourite(Guid restaurantId)
     {
-        var response = await _httpClient.PostAsync($"/prod/restaurants-service/user-preferences/remove/{restaurantId}", null).ConfigureAwait(false);
+        var response = await _httpClient.PostAsync(_baseUrl +$"user-preferences/remove/{restaurantId}", null).ConfigureAwait(false);
         if (response.IsSuccessStatusCode)
         {
             return Result.Success();

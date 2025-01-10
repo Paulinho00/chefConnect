@@ -1,11 +1,23 @@
-﻿using ChefConnectMobileApp.Models;
+﻿using System.Net.Http.Json;
+using ChefConnectMobileApp.Models;
 using ChefConnectMobileApp.Services.AuthService;
+using ChefConnectMobileApp.Utils;
 using CSharpFunctionalExtensions;
 
 namespace ChefConnectMobileApp.Services.ReservationService;
 
 internal class ReservationService : IReservationService
 {
+    private HttpClient _httpClient;
+    private const string _baseUrl = "/prod/reservations-service/";
+
+    public ReservationService(IAuthService authService, HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+        httpClient.BaseAddress = new Uri(CloudConfig.ApiGatewayBaseUrl);
+        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authService.GetAccessToken()}");
+    }
+    
     public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(Guid restaurantId, DateTime date)
     {
         //TODO: Call to API
@@ -14,9 +26,15 @@ internal class ReservationService : IReservationService
 
     public async Task<Result> MakeReservation(Guid restaurantId, DateTime date, int numberOfTables)
     {
-        //TODO: Call to API
-        //User ID will be in token
-        return new Result<string>();
+        var requestBody = new MakeReservationRequestDto()
+        {
+            RestaurantId = restaurantId,
+            DateTime = date,
+            NumberOfSeats = numberOfTables
+        };
+
+        var result = await _httpClient.PostAsJsonAsync<MakeReservationRequestDto>("reservations/reserve", requestBody);
+        return result.IsSuccessStatusCode ? Result.Success() : Result.Failure("Spróbuj ponownie za chwilę lub skontaktuj się z naszym działem wsparcia klienta");
     }
 
     public async Task<int> GetRatingOfRestaurant(Guid restaurantId)

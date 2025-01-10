@@ -16,6 +16,7 @@ import com.chefconnect.reservationservice.services.Dto.CustomerOpinionRequestDto
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/opinions")
 public class CustomerOpinionController {
 

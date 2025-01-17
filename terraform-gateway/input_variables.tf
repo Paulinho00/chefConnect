@@ -11,5 +11,5 @@ variable "restaurants_service_load_balancer_listener_arn" {
 }
 
 variable "reservations_service_load_balancer_listener_arn" {
-  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/ab4948cdc17034c78b1247e661e78f48/a0bb02ea4713c3ec/a5ad5f4118bbff5e"
+  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/a50102552a0b04ac29f602491788d768/091e10c2f567ab51/e614f897be961377"
 }

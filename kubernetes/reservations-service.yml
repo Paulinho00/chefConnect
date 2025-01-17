@@ -28,6 +28,15 @@ spec:
               value: "https://sqs.us-east-1.amazonaws.com/606529675772/analytic_event_queue"
             - name: RESTAURANTS_SERVICE_URL
               value: "http://172.20.228.196:8080"
+            - name: AWS_ACCESS_KEY_ID
+              value: "ASIAY2N74MH6OCBKZQKV"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "ZfMWH8Aj5RDXSk+wJ67LWg1dQnja8DH5WGuNICq8"
+            - name: AWS_SESSION_TOKEN
+              value: "IQoJb3JpZ2luX2VjEGwaCXVzLXdlc3QtMiJIMEYCIQDECm3f/Nsu5DY8qInkcwjE7eOsBvOtk5gV65Pi1RFvzwIhAL+HgO/joysAIyqdKTtmFhrnM8ptUcdz6CWuIA1EnR/YKqkCCGUQABoMNjA2NTI5Njc1NzcyIgyqMCseB+hHQSm/soQqhgKkMFF1sbGA4pAXxysuDdwts+JNtnbc7YkMV/wdRRpmy0xCFCmgkmhGn9BEgDSMCx7rXppDSJgbHCVb7UDJO9XJ+cNVgeLd1U6lWHaHuHqv+TANWZ7nIC5qJtHxAWpU4Q8F1MkWqm/bfVmYxb/3Ni9Ic36rnYzd+chJv+5fu48eacxi5QmoiXUTMMzucwwmXtjyFUp1ge2DIOZwmY1LetZput+umZgKw00zDZn4+r+OCEwSAsEim2fo+B/FD962NuEsSZ3ePskp0Q+OSxMCZZ3zj/RMuZLEE0dtCqqNUWCSIoRLLktptdJ4tKgzeBYiW3jnrWoDTx1GCTlbE6wrFnsSEoWFHThRMMLkqrwGOpwB1N5Gle602k/X0uYvCrmtk9gtT+2kozhpkTHMBjkjQBlrqhlxuQMUo9ewA8AguVb7hSk7eha+aBQcuoHioWFdPRtyomeJ1p8ULJtD4Z6s7EuUOAl6dHw+u8HSX7ioumlQsAsufNj8lslrnl/LP5zkBj1R7NKQc0beptazNbFcgJOCm1jLXxdeiFOp+MpEZpoXzqVIozVYGfFdf9oU"
+            - name: AWS_REGION
+              value: "us-east-1"
+
           ports:
             - containerPort: 8080
 

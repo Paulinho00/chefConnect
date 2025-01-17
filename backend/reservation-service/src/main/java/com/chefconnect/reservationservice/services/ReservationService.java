@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,9 @@ import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDt
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.services.Dto.ReservationDto;
 import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.RestaurantDto;
+import com.chefconnect.reservationservice.services.Dto.SqsDto.ReservationSqsDto;
+import com.chefconnect.reservationservice.services.Dto.SqsDto.RestaurantSqsDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.awspring.cloud.sqs.operations.SqsTemplate;
@@ -43,6 +50,8 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     private TableReservationRepository tableReservationRepository;
     private RestaurantService restaurantService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
     public ReservationService(
         ReservationRepository reservationRepository, 
@@ -73,7 +82,7 @@ public class ReservationService {
             reservation.setDeleted(false);
 
             // SQS
-            this.sendToQueue(reservation, restaurantId, reservationDate);
+            this.sendToQueue(reservation, restaurantId, date);
             
             return reservationRepository.save(reservation);
 
@@ -82,25 +91,26 @@ public class ReservationService {
         }
     }
 
-    private void sendToQueue(Reservation reservation, UUID restaurantId, LocalDateTime reservationDate){
-        Map<String, Object> reservationEvent = new HashMap<>();
+    private void sendToQueue(Reservation reservation, UUID restaurantId, String reservationDate){
         RestaurantDto restaurant = restaurantService.getRestaurant(restaurantId);
-    
-        reservationEvent.put("date", reservationDate.atZone(ZoneId.systemDefault()).toInstant().toString());
-        reservationEvent.put("restaurant", new HashMap<String, Object>() {{
-            put("id", restaurant.getId());
-            put("name", restaurant.getName());
-            put("address", restaurant.getAddress());
-        }});
-        reservationEvent.put("numberOfPeople", reservation.getNumberOfPeople());
-    
-        ObjectMapper objectMapper = new ObjectMapper();
+
+        ReservationSqsDto reservationSqsDto = new ReservationSqsDto();
+        reservationSqsDto.setDate(reservationDate + "Z");
+
+        RestaurantSqsDto restaurantSqsDto = new RestaurantSqsDto();
+        restaurantSqsDto.setId(restaurant.getId());
+        restaurantSqsDto.setName(restaurant.getName());
+        restaurantSqsDto.setAddress(restaurant.getAddress());
+        reservationSqsDto.setRestaurant(restaurantSqsDto);
+
+        reservationSqsDto.setNumberOfPeople(reservation.getNumberOfPeople());
         
         try {
-            String messageBody = objectMapper.writeValueAsString(reservationEvent);
-            sqsTemplate.send(queueUrl, messageBody);
-        } catch (Exception e) {
-            throw new RuntimeException("Błąd podczas serializacji do JSON: " + e.getMessage(), e);
+            sqsTemplate.send(queueUrl, reservationSqsDto);
+        }
+        catch (Exception e) {
+            logger.error("Nieoczekiwany błąd: {}", e.getMessage(), e);
+            throw new RuntimeException("Nieoczekiwany błąd przy wysyłaniu wiadomości", e);
         }
     }
 

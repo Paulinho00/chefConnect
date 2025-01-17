@@ -23,7 +23,7 @@ spec:
             - name: SPRING_DATASOURCE_PASSWORD
               value: "postgres"
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-              value: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_hU1k0OBpA"
+              value: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_7EOiXL2YW"
             - name: EVENT_QUEUE_URL
               value: "https://sqs.us-east-1.amazonaws.com/606529675772/analytic_event_queue"
           ports:

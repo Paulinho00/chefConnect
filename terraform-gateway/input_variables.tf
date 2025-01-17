@@ -1,15 +1,15 @@
 variable "vpc_id" {
-  default = "vpc-0a2b540e3f85e3d52"
+  default = "vpc-0585eb2b8226bb0de"
 }
 
 variable "subnet_ids" {
-  default = [  "subnet-08fbc3622ca1c4ea6", "subnet-0a26826e724ab9665"]
+  default = [  "subnet-06e942ce7554bc098", "subnet-0f9ace36b3121ef13"]
 }
 
 variable "restaurants_service_load_balancer_listener_arn" {
-  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/ab8d6b0205a674a6b9d1719463005170/6bc41956c94a826d/2a6eda70b0725d5d"
+  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/a78996514c98c45d78333fb00a12af82/7a343c66a37b937b/d6780747f1c50ec2"
 }
 
 variable "reservations_service_load_balancer_listener_arn" {
-  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/a1072554f9da3440ba1e63b3acaf7f3b/ca4daf645f670ff1/48791a432bd6a22b"
+  default = "arn:aws:elasticloadbalancing:us-east-1:606529675772:listener/net/ab4948cdc17034c78b1247e661e78f48/a0bb02ea4713c3ec/a5ad5f4118bbff5e"
 }

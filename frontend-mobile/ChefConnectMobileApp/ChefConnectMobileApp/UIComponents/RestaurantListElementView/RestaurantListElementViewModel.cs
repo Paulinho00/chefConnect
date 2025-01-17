@@ -46,8 +46,8 @@ public partial class RestaurantListElementViewModel : ObservableObject
 
     public async Task Init()
     {
-        Rating = await _reservationService.GetRatingOfRestaurant(_restaurant.Id);
-        IsFavourite = await _restaurantService.IsFavouriteForCurrentUser(_restaurant.Id);
+        Rating = await _reservationService.GetRatingOfRestaurant(_restaurant.Id).ConfigureAwait(false);
+        IsFavourite = await _restaurantService.IsFavouriteForCurrentUser(_restaurant.Id).ConfigureAwait(false);
     }
 
     [RelayCommand]

@@ -20,7 +20,7 @@ public partial class ReservationsListPageViewModel : ObservableObject
 
     public async Task Init()
     {
-        var reservations = await _reservationService.GetReservations();
+        var reservations = await _reservationService.GetReservations().ConfigureAwait(false);
         var reservationsViewModels = new List<ReservationListElementViewModel>();
         foreach (var reservation in reservations)
         {

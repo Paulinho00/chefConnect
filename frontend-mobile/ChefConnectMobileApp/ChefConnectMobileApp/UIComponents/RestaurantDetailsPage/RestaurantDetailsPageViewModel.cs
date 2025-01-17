@@ -76,12 +76,12 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
     private async Task GetTimeSlotsWithAvailableTables()
     {
         _timeSlotsWithNumberOfAvailableTables =
-            await _reservationService.GetTimeSlotsWithAvailableTables(Restaurant.Id, SelectedDate);
+            await _reservationService.GetTimeSlotsWithAvailableTables(Restaurant.Id, SelectedDate).ConfigureAwait(false);
     }
 
     private async Task UpdateRating()
     {
-        Rating = await _reservationService.GetRatingOfRestaurant(Restaurant.Id);
+        Rating = await _reservationService.GetRatingOfRestaurant(Restaurant.Id).ConfigureAwait(false);
     }
 
     [RelayCommand]
@@ -98,7 +98,7 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
     private async Task MakeReservation()
     {
         var date = SelectedDate + TimeSpan.Parse(SelectedTimeSlot);
-        var result = await _reservationService.MakeReservation(Restaurant.Id, date, NumberOfFreeTablesForTimeSlot);
+        var result = await _reservationService.MakeReservation(Restaurant.Id, date, NumberOfFreeTablesForTimeSlot).ConfigureAwait(false);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Rezerwacja nieudana", result.Error);

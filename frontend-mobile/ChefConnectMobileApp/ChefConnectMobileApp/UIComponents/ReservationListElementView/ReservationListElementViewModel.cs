@@ -102,7 +102,7 @@ public partial class ReservationListElementViewModel : ObservableObject
     [RelayCommand]
     private async Task CancelReservations()
     {
-        var result = await _reservationService.CancelReservation(Reservation.Id);
+        var result = await _reservationService.CancelReservation(Reservation.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);
@@ -124,7 +124,7 @@ public partial class ReservationListElementViewModel : ObservableObject
             ReservationId = Reservation.Id
         };
 
-        var result = await _reservationService.SendOpinion(opinionDto);
+        var result = await _reservationService.SendOpinion(opinionDto).ConfigureAwait(false);
         if (result.IsFailure)
         {
             await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);

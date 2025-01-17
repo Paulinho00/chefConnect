@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Collection;
 import java.util.UUID;
 
-public interface TableRepository extends JpaRepository<RestaurantTable, UUID> {
+public interface RestaurantTableRepository extends JpaRepository<RestaurantTable, UUID> {
     Collection<RestaurantTable> findByRestaurantId(UUID restaurantId);
 }

@@ -30,7 +30,9 @@ import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.Res
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.awspring.cloud.sqs.operations.SqsTemplate;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ReservationService {
 
@@ -84,7 +86,7 @@ public class ReservationService {
         Map<String, Object> reservationEvent = new HashMap<>();
         RestaurantDto restaurant = restaurantService.getRestaurant(restaurantId);
     
-        reservationEvent.put("date", reservationDate.atZone(ZoneId.systemDefault()).toInstant());
+        reservationEvent.put("date", reservationDate.atZone(ZoneId.systemDefault()).toInstant().toString());
         reservationEvent.put("restaurant", new HashMap<String, Object>() {{
             put("id", restaurant.getId());
             put("name", restaurant.getName());

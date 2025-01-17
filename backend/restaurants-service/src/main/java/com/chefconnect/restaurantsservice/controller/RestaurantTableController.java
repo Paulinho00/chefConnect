@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chefconnect.restaurantsservice.domain.RestaurantTable;
-import com.chefconnect.restaurantsservice.service.TableService;
+import com.chefconnect.restaurantsservice.service.RestaurantTableService;
+import com.chefconnect.restaurantsservice.service.dto.RestaurantTableDto;
 
 import lombok.AllArgsConstructor;
 import lombok.AccessLevel;
@@ -22,14 +23,20 @@ import lombok.AccessLevel;
 @CrossOrigin(origins = "*")
 @RequestMapping("tables")
 @AllArgsConstructor(onConstructor_ = @Autowired, access = AccessLevel.PROTECTED)
-public class TableController {
+public class RestaurantTableController {
 
-    private final TableService tableService;
+    private final RestaurantTableService tableService;
 
     @GetMapping("/{restaurantId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Collection<RestaurantTable>> getAllTablesForRestaurant(@PathVariable UUID restaurantId) {
+    public ResponseEntity<Collection<RestaurantTableDto>> getAllTablesForRestaurant(@PathVariable UUID restaurantId) {
         return ResponseEntity.ok(tableService.getAllTablesForRestaurant(restaurantId));
+    }
+
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Collection<RestaurantTable>> getAllTables() {
+        return ResponseEntity.ok(tableService.getAllTables());
     }
 
 }

@@ -8,7 +8,7 @@ internal interface IReservationService
     Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(Guid restaurantId, DateTime date);
     Task<Result> MakeReservation(Guid restaurantId, DateTime date, int numberOfTables);
     Task<List<Reservation>> GetReservations();
-    Task<Result> CancelReservation(int reservationId);
+    Task<Result> CancelReservation(Guid reservationId);
     Task<Result> SendOpinion(ReservationOpinionDTO opinion);
     Task<int> GetRatingOfRestaurant(Guid restaurantId);
 }

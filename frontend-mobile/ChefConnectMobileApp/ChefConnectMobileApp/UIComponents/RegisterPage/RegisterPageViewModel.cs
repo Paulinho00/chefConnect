@@ -41,7 +41,7 @@ public partial class RegisterPageViewModel : ObservableValidator
         if (HasErrors)
         {
             var error = GetErrors().FirstOrDefault();
-            await _alertService.ShowAlertAsync("Błędne dane", error.ErrorMessage);
+            _alertService.ShowAlert("Błędne dane", error.ErrorMessage);
             return;
         }
         var signUpRequest = new SignUpData()
@@ -55,7 +55,7 @@ public partial class RegisterPageViewModel : ObservableValidator
         var result = await _authService.SignUpAsync(signUpRequest);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
         }
         else
         {

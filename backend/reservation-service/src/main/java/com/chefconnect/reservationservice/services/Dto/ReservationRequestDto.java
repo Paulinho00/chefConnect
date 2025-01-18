@@ -6,7 +6,6 @@ public class ReservationRequestDto {
     private UUID restaurantId;
     private String date;
     private int numberOfPeople;
-    private UUID userId;
 
     public UUID getRestaurantId() {
         return restaurantId;
@@ -30,13 +29,5 @@ public class ReservationRequestDto {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
     }
 }

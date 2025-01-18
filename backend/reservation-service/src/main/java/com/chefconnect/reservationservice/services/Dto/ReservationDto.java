@@ -12,13 +12,15 @@ public class ReservationDto {
     private int numberOfTable;
     private LocalDateTime date;
     private ReservationStatus reservationStatus;
+    private boolean isOpinion;
 
-    public ReservationDto(UUID id, String address, int numberOfTable, LocalDateTime date, ReservationStatus reservationStatus) {
+    public ReservationDto(UUID id, String address, int numberOfTable, LocalDateTime date, ReservationStatus reservationStatus, boolean isOpinion) {
         this.id = id;
         this.address = address;
         this.numberOfTable = numberOfTable;
         this.date = date;
         this.reservationStatus = reservationStatus;
+        this.isOpinion = isOpinion;
     }
 
     public UUID getId() {
@@ -59,5 +61,13 @@ public class ReservationDto {
 
     public void setStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
+    }
+
+    public boolean isOpinion() {
+        return isOpinion;
+    }
+
+    public void setOpinion(boolean isOpinion) {
+        this.isOpinion = isOpinion;
     }
 }

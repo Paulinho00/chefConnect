@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ import com.chefconnect.reservationservice.repository.TableReservationRepository;
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.services.Dto.ReservationDto;
 import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.RestaurantDto;
+import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.TableDto;
 import com.chefconnect.reservationservice.services.Dto.SqsDto.ReservationSqsDto;
 import com.chefconnect.reservationservice.services.Dto.SqsDto.RestaurantSqsDto;
 
@@ -139,13 +142,20 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Rezerwacja nie została znaleziona"));
 
+        Set<TableDto> allTables = new HashSet<>(restaurantService.getAllTablesForRestaurant(reservation.getRestaurantId()));
+
+        // Przefiltruj allTables, aby wybrać tylko te, które odpowiadają tableIds
+        Set<TableReservation> reservedTables = allTables.stream()
+                .filter(tableDto -> tableIds.contains(tableDto.getId()))
+                .map(tableDto -> tableReservationRepository.findById(tableDto.getId()).orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+
         reservation.setReservationStatus(ReservationStatus.CONFIRMED);
         reservation.setApprovingWorkerId(getUserId());
         reservation.setApproved(true);
 
-        List<TableReservation> tables = tableReservationRepository.findAllById(tableIds);
-        Set<TableReservation> tablesSet = new HashSet<>(tables);
-        reservation.setTableReservations(tablesSet);
+        reservation.setTableReservations(reservedTables);
 
         reservationRepository.save(reservation);
     }
@@ -168,7 +178,8 @@ public class ReservationService {
             restaurantService.getRestaurant(reservation.getRestaurantId()).getAddress(),
             reservation.getTableReservations().size(),
             reservation.getDate(),
-            reservation.getReservationStatus()
+            reservation.getReservationStatus(),
+            Optional.ofNullable(reservation.getCustomerOpinion()).isPresent()
         );
     }
 }

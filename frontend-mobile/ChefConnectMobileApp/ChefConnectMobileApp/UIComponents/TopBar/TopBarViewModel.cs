@@ -40,13 +40,13 @@ public partial class TopBarViewModel : ObservableObject
         var result = await _authService.SignOutAsync();
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Nie zostałeś wylogowany",
+            _alertService.ShowAlert("Nie zostałeś wylogowany",
                 "W wyniku błędu, nie zostałeś wylogowany. Spróbuj ponownie za chwilę");
         }
         else
         {
-            await _alertService.ShowAlertAsync("Wylogowano", "Zostałeś wylogownay");
-            await _navigationService.TransitToPageAsync(new ChefConnectMobileApp.MainPage(), true);
+            _alertService.ShowAlert("Wylogowano", "Zostałeś wylogownay");
+            _navigationService.TransitToPageAsync(new ChefConnectMobileApp.MainPage(), true);
         }
     }
 }

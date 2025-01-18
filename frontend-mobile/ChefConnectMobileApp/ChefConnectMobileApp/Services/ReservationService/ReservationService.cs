@@ -9,26 +9,26 @@ namespace ChefConnectMobileApp.Services.ReservationService;
 
 internal class ReservationService : IReservationService
 {
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
     private const string _baseUrl = "/prod/reservations-service/";
 
     public ReservationService(IAuthService authService, HttpClient httpClient)
     {
         _httpClient = httpClient;
-        httpClient.BaseAddress = new Uri(CloudConfig.ApiGatewayBaseUrl);
-        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authService.GetAccessToken()}");
+        _httpClient.BaseAddress = new Uri(CloudConfig.ApiGatewayBaseUrl);
+        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authService.GetAccessToken()}");
     }
     
     public async Task<List<(TimeSpan, int)>> GetTimeSlotsWithAvailableTables(Guid restaurantId, DateTime date)
     {
         var result =
             await _httpClient.GetAsync(
-                _baseUrl + $"/available-tables?restaurantId={restaurantId.ToString()}&date={date:yyyy-MM-dd}");
+                _baseUrl + $"tables/available-tables/{restaurantId.ToString()}/{date:yyyy-MM-dd}");
         if (result.IsSuccessStatusCode)
         {
             var content = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var restaurants = JsonSerializer.Deserialize<List<(TimeSpan, int)>>(content);
-            return restaurants ?? [];
+            var restaurants = JsonSerializer.Deserialize<List<TimeSlotDto>>(content);
+            return restaurants?.Select(x => (x.Time, x.NumberOfFreePlaces)).ToList() ?? [];
         }
         return [];
     }
@@ -38,7 +38,7 @@ internal class ReservationService : IReservationService
         var requestBody = new MakeReservationRequestDto()
         {
             RestaurantId = restaurantId,
-            DateTime = date,
+            Date = date.ToString("yyyy-MM-ddThh:00:00"),
             NumberOfSeats = numberOfTables
         };
 
@@ -48,12 +48,12 @@ internal class ReservationService : IReservationService
 
     public async Task<int> GetRatingOfRestaurant(Guid restaurantId)
     {
-        var result = await _httpClient.GetAsync(_baseUrl + $"/opinions/average-rating/{restaurantId}");
+        var result = await _httpClient.GetAsync(_baseUrl + $"opinions/average-rating/{restaurantId}");
         if(result.IsSuccessStatusCode)
         {
             var content = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var averageOpinion = JsonSerializer.Deserialize<int>(content);
-            return averageOpinion;
+            var averageOpinion = JsonSerializer.Deserialize<RateDto>(content);
+            return averageOpinion.Rate;
         }
 
         return -1;
@@ -63,7 +63,7 @@ internal class ReservationService : IReservationService
     {
         var result =
             await _httpClient.GetAsync(
-                _baseUrl + "/reservations");
+                _baseUrl + "reservations").ConfigureAwait(false);
         if (result.IsSuccessStatusCode)
         {
             var content = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -81,7 +81,7 @@ internal class ReservationService : IReservationService
 
     public async Task<Result> SendOpinion(ReservationOpinionDTO opinion)
     {
-        var result = await _httpClient.PostAsJsonAsync(_baseUrl + "/opinions", opinion);
+        var result = await _httpClient.PostAsJsonAsync(_baseUrl + "opinions", opinion);
         return result.IsSuccessStatusCode ? Result.Success() : Result.Failure("Spróbuj ponownie za chwilę lub skontaktuj się z naszym działem wsparcia klienta");
     }
     

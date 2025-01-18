@@ -49,6 +49,7 @@
                     Margin="10"
                     BackgroundColor="White"
                     Text="Anuluj"
+                    Command="{Binding CancelReservationCommand}"
                     IsVisible="{Binding IsCancelButtonVisible}"/>
             <Button Grid.Column="2"
                     Grid.Row="2"

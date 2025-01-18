@@ -28,18 +28,18 @@ public partial class LoginPageViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            await _alertService.ShowAlertAsync("Błąd", "Pola nie mogą być puste");
+            _alertService.ShowAlert("Błąd", "Pola nie mogą być puste");
             return;
         }
 
         var result = await _authService.SignInAsync(_email, _password);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+           _alertService.ShowAlert("Błąd", result.Error);
         }
         else
         {
-            await _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
+            _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
         }
 
     }

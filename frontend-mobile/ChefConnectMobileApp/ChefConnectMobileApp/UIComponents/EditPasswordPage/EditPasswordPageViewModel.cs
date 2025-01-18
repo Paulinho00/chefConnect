@@ -49,19 +49,19 @@ public partial class EditPasswordPageViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            await _alertService.ShowAlertAsync("Błędne hasło", "Hasło jest za krótkie");
+            _alertService.ShowAlert("Błędne hasło", "Hasło jest za krótkie");
             return;
         }
 
         var result = await _authService.EditPasswordAsync(OldPassword, NewPassword);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
         }
         else
         {
-            await _alertService.ShowAlertAsync("Pomyślnie zmieniono hasło", "Hasło zostało pomyślnie ustawione");
-            await _navigationService.ReturnToPreviousPageAsync();
+            _alertService.ShowAlert("Pomyślnie zmieniono hasło", "Hasło zostało pomyślnie ustawione");
+            _navigationService.ReturnToPreviousPageAsync();
         }
     }
 }

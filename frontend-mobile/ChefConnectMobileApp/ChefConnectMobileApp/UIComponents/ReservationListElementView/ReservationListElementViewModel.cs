@@ -100,17 +100,28 @@ public partial class ReservationListElementViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task CancelReservations()
+    private async Task CancelReservation()
     {
         var result = await _reservationService.CancelReservation(Reservation.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);
+            _alertService.ShowAlert("Błąd: Spróbuj jeszcze raz", result.Error);
         }
         else
         {
-            await _alertService.ShowAlertAsync("Anulowano rezerwacje", "Rezerwacja została anulowana");
+            _alertService.ShowAlert("Anulowano rezerwacje", "Rezerwacja została anulowana");
             Reservation.Status = Models.ReservationStatus.Cancelled;
+            Reservation = new Reservation()
+            {
+                Address = Reservation.Address,
+                Date = Reservation.Date,
+                Id = Reservation.Id,
+                NumberOfTable = Reservation.NumberOfTable,
+                Status = Reservation.Status
+            };
+            
+            IsCancelButtonVisible = false;
+            IsRateButtonVisible = false;
         }
     }
 
@@ -127,11 +138,11 @@ public partial class ReservationListElementViewModel : ObservableObject
         var result = await _reservationService.SendOpinion(opinionDto).ConfigureAwait(false);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd: Spróbuj jeszcze raz", result.Error);
+            _alertService.ShowAlert("Błąd: Spróbuj jeszcze raz", result.Error);
         }
         else
         {
-            await _alertService.ShowAlertAsync("Opinia zapisana", "Twoja opinia została pomyślnie zapisana. Dziękujemy!");
+            _alertService.ShowAlert("Opinia zapisana", "Twoja opinia została pomyślnie zapisana. Dziękujemy!");
             IsCancelButtonVisible = false;
             IsRateButtonVisible = false;
             IsOpinionSectionVisible = false;

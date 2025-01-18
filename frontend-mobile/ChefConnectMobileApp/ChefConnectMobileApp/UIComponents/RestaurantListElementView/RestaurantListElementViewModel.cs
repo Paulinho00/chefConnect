@@ -61,7 +61,7 @@ public partial class RestaurantListElementViewModel : ObservableObject
         var result = await _restaurantService.AddNewFavourite(_restaurant.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
             IsFavourite = false;
         }
         else
@@ -75,7 +75,7 @@ public partial class RestaurantListElementViewModel : ObservableObject
         var result = await _restaurantService.RemoveFavourite(_restaurant.Id).ConfigureAwait(false);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
             IsFavourite = true;
         }
         else

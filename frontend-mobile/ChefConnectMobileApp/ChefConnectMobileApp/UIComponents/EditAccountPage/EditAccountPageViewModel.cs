@@ -43,7 +43,7 @@ public partial class EditAccountPageViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            await _alertService.ShowAlertAsync("Błędne dane", GetErrors().FirstOrDefault().ErrorMessage);
+            _alertService.ShowAlert("Błędne dane", GetErrors().FirstOrDefault().ErrorMessage);
             return;
         }
 
@@ -57,12 +57,12 @@ public partial class EditAccountPageViewModel : ObservableValidator
 
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
         }
         else
         {
-            await _alertService.ShowAlertAsync("Pomyślnie zmieniono dane", "Nowe dane zostały poprawnie zapisane");
-            await _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
+            _alertService.ShowAlert("Pomyślnie zmieniono dane", "Nowe dane zostały poprawnie zapisane");
+            _navigationService.TransitToPageAsync(new RestaurantsListPage.RestaurantsListPage(), true);
         }
     }
 }

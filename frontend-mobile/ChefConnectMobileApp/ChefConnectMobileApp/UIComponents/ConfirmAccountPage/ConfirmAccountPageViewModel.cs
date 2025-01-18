@@ -30,17 +30,17 @@ public partial class ConfirmAccountPageViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            await _alertService.ShowAlertAsync("Niepoprawne dane", "Kod lub email jest niepoprawny");
+            _alertService.ShowAlert("Niepoprawne dane", "Kod lub email jest niepoprawny");
             return;
         }
 
         var result = await _authService.ConfirmAccountAsync(Email, ConfirmationCode);
         if (result.IsFailure)
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
         else
         {
-            await _alertService.ShowAlertAsync("Konto potwierdzone", "");
-            await _navigationService.TransitToPageAsync(new ChefConnectMobileApp.MainPage(), true);
+            _alertService.ShowAlert("Konto potwierdzone", "");
+            _navigationService.TransitToPageAsync(new ChefConnectMobileApp.MainPage(), true);
         }
     }
 
@@ -49,15 +49,15 @@ public partial class ConfirmAccountPageViewModel : ObservableValidator
     {
         if (!string.IsNullOrWhiteSpace(_email))
         {
-            await _alertService.ShowAlertAsync("Niepoprawny email", "");
+            _alertService.ShowAlert("Niepoprawny email", "");
         }
 
         var result = await _authService.ResendConfirmationCodeAsync(Email);
         if (result.IsFailure)
-            await _alertService.ShowAlertAsync("Błąd", result.Error);
+            _alertService.ShowAlert("Błąd", result.Error);
         else
         {
-            await _alertService.ShowAlertAsync("Kod został wysłany", "");
+            _alertService.ShowAlert("Kod został wysłany", "");
         }
 
     }

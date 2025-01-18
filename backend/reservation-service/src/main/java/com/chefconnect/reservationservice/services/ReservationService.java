@@ -7,8 +7,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,17 +26,15 @@ import org.springframework.stereotype.Service;
 
 import com.chefconnect.reservationservice.domain.Reservation;
 import com.chefconnect.reservationservice.domain.ReservationStatus;
+import com.chefconnect.reservationservice.domain.TableReservation;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
 import com.chefconnect.reservationservice.repository.ReservationRepository;
 import com.chefconnect.reservationservice.repository.TableReservationRepository;
-import com.chefconnect.reservationservice.services.Dto.AvailableTablesResponseDto;
 import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.services.Dto.ReservationDto;
 import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.RestaurantDto;
 import com.chefconnect.reservationservice.services.Dto.SqsDto.ReservationSqsDto;
 import com.chefconnect.reservationservice.services.Dto.SqsDto.RestaurantSqsDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -114,39 +114,6 @@ public class ReservationService {
         }
     }
 
-    public List<AvailableTablesResponseDto> getAvailableTables(UUID restaurantId, String date) {
-        LocalDate requestedDate = LocalDate.parse(date);
-
-        int totalTables = restaurantService.getTotalNumberOfTables(restaurantId);
-
-        List<AvailableTablesResponseDto> availability = new ArrayList<>();
-
-        String openingHourString = restaurantService.getRestaurant(restaurantId).getOpenTime();
-        String [] openingHourStringParts = openingHourString.split(":");
-        String closingHourString = restaurantService.getRestaurant(restaurantId).getCloseTime();
-        String [] closingHourStringParts = closingHourString.split(":");
-        int openingHour = Integer.parseInt(openingHourStringParts[0]);
-        int closingHour = Integer.parseInt(closingHourStringParts[0]);
-        
-        for (int hour = openingHour; hour < closingHour; hour++) {
-            LocalDateTime startOfHour = requestedDate.atTime(hour, 0);
-            LocalDateTime endOfHour = startOfHour.plusHours(1);
-        
-            long reservedTablesCount = tableReservationRepository.countReservedTables(
-                    restaurantId, startOfHour, endOfHour);
-        
-            int availableTablesCount = totalTables - (int) reservedTablesCount;
-        
-            AvailableTablesResponseDto responseDto = new AvailableTablesResponseDto();
-            responseDto.setTimeSpan(startOfHour.toLocalTime().toString());
-            responseDto.setValue(availableTablesCount);
-        
-            availability.add(responseDto);
-        }
-        
-        return availability;
-    }
-
     public List<ReservationDto> getUserReservations() {
         UUID userId = this.getUserId();
 
@@ -168,6 +135,33 @@ public class ReservationService {
         return new MessageResponseDto("Pomyślnie anulowano");
     }
 
+    public void confirmReservation(UUID reservationId, List<UUID> tableIds) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new RuntimeException("Rezerwacja nie została znaleziona"));
+
+        reservation.setReservationStatus(ReservationStatus.CONFIRMED);
+        reservation.setApprovingWorkerId(getUserId());
+        reservation.setApproved(true);
+
+        List<TableReservation> tables = tableReservationRepository.findAllById(tableIds);
+        Set<TableReservation> tablesSet = new HashSet<>(tables);
+        reservation.setTableReservations(tablesSet);
+
+        reservationRepository.save(reservation);
+    }
+
+    public List<Reservation> getAllUnconfirmedReservationsForRestaurant(UUID restaurantId) {
+        return reservationRepository.findByReservationStatusAndRestaurantId(ReservationStatus.UNCONFIRMED, restaurantId);
+    }
+
+    private UUID getUserId(){
+        // Pobieramy użytkownika z Cognito
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        String userIdString = jwt.getClaimAsString("sub");
+        return UUID.fromString(userIdString);
+    }
+
     private ReservationDto convertToDto(Reservation reservation) {
         return new ReservationDto(
             reservation.getId(),
@@ -177,12 +171,4 @@ public class ReservationService {
             reservation.getReservationStatus()
         );
     }
-
-    private UUID getUserId(){
-        // Pobieramy użytkownika z Cognito
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        String userIdString = jwt.getClaimAsString("sub");
-        return UUID.fromString(userIdString);
-    }   
 }

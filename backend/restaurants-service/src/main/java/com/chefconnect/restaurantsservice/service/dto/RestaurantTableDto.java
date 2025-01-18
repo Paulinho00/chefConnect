@@ -6,13 +6,15 @@ import java.util.UUID;
 
 public record RestaurantTableDto(
         UUID id,
-        int numberOfSeats
+        int numberOfSeats,
+        UUID restaurantId
 ) {
 
     public static RestaurantTableDto fromEntity(RestaurantTable restaurantTable) {
         return new RestaurantTableDto(
                 restaurantTable.getId(),
-                restaurantTable.getNumberOfSeats()
+                restaurantTable.getNumberOfSeats(),
+                restaurantTable.getRestaurant().getId()
         );
     }
 }

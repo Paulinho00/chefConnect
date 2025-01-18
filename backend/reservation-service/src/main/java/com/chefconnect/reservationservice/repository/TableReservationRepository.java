@@ -1,15 +1,17 @@
 package com.chefconnect.reservationservice.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.chefconnect.reservationservice.domain.ReservationStatus;
 import com.chefconnect.reservationservice.domain.TableReservation;
 
-public interface TableReservationRepository extends JpaRepository<TableReservation, Long> {
+public interface TableReservationRepository extends JpaRepository<TableReservation, UUID> {
     @Query("SELECT COUNT(tr) FROM TableReservation tr " +
        "JOIN tr.reservations r " +
        "JOIN r.tableReservations trr " +

@@ -59,6 +59,33 @@ public class RestaurantService {
         }
     }
 
+    public List<TableDto> getAllTablesForRestaurant(UUID restaurantId) {
+        String url = restaurantServiceUrl + "/prod/restaurants-service/tables/" + restaurantId;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + getToken());
+
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        try {
+            ResponseEntity<List<TableDto>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<List<TableDto>>() {}
+            );
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null)
+                return response.getBody();
+            else
+                throw new IllegalStateException("Nieoczekiwany status odpowiedzi lub puste ciało odpowiedzi: " + response.getStatusCode());
+
+        }
+        catch (RestClientException e) {
+            throw new RuntimeException("Nie udało się pobrać danych restauracji z " + url, e);
+        }
+    }
+
 
     public RestaurantDto getRestaurant(UUID restaurantId) {
         String url = restaurantServiceUrl + "/prod/restaurants-service/restaurants/" + restaurantId;

@@ -40,8 +40,8 @@ public class CustomerOpinionController {
         }
     }
 
-    @GetMapping("/average-rating")
-    public ResponseEntity<?> getAverageRating(@RequestParam UUID restaurantId) {
+    @GetMapping("/average-rating/{restaurantId}")
+    public ResponseEntity<?> getAverageRating(@PathVariable UUID restaurantId) {
         try {
             double averageRating = customerOpinionService.calculateAverageRatingForRestaurant(restaurantId);
             

@@ -1,4 +1,4 @@
-package com.chefconnect.reservationservice.models;
+package com.chefconnect.reservationservice.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TableReservation")
+@Getter
+@Setter
 public class TableReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

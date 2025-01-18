@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: restaurants-service
+  name: reservations-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: restaurants-service
+      app: reservations-service
   template:
     metadata:
       labels:
-        app: restaurants-service
+        app: reservations-service
     spec:
       containers:
-        - name: restaurants-service
-          image: "mic029/restaurant_service:latest"
+        - name: reservations-service
+          image: "mic029/reservations_service:latest"
           env:
             - name: SPRING_DATASOURCE_URL
               value: <PLACEHOLDER>
@@ -26,6 +26,17 @@ spec:
               value: <PLACEHOLDER>
             - name: EVENT_QUEUE_URL
               value: <PLACEHOLDER>
+            - name: RESTAURANTS_SERVICE_URL
+              value: <PLACEHOLDER>
+            - name: AWS_ACCESS_KEY_ID
+              value: <PLACEHOLDER>
+            - name: AWS_SECRET_ACCESS_KEY
+              value: <PLACEHOLDER>
+            - name: AWS_SESSION_TOKEN
+              value: <PLACEHOLDER>
+            - name: AWS_REGION
+              value: <PLACEHOLDER>
+
           ports:
             - containerPort: 8080
 
@@ -33,10 +44,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: restaurants-service
+  name: reservations-service
 spec:
   selector:
-    app: restaurants-service
+    app: reservations-service
   ports:
     - port: 8080
       targetPort: 8080
@@ -47,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: restaurants-service
+  name: reservations-service
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
     service.beta.kubernetes.io/aws-load-balancer-internal: "true"
@@ -58,4 +69,4 @@ spec:
       protocol: TCP
   type: LoadBalancer
   selector:
-    app: restaurants-service
+    app: reservations-service

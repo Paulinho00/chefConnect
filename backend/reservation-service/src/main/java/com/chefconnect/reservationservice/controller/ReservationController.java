@@ -7,39 +7,31 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chefconnect.reservationservice.Dto.AvailableTablesResponseDto;
-import com.chefconnect.reservationservice.Dto.MessageResponseDto;
-import com.chefconnect.reservationservice.Dto.ReservationDto;
-import com.chefconnect.reservationservice.Dto.ReservationRequestDto;
+import com.chefconnect.reservationservice.domain.Reservation;
+import com.chefconnect.reservationservice.domain.TableReservation;
 import com.chefconnect.reservationservice.exceptions.ReservationNotFoundException;
-import com.chefconnect.reservationservice.models.Reservation;
 import com.chefconnect.reservationservice.services.ReservationService;
+import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
+import com.chefconnect.reservationservice.services.Dto.ReservationDto;
+import com.chefconnect.reservationservice.services.Dto.ReservationRequestDto;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/reservations")
 public class ReservationController {
     private final ReservationService reservationService;
 
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
-    }
-
-    @GetMapping("/available-tables")
-    public List<AvailableTablesResponseDto> getAvailableTables(
-            @RequestParam UUID restaurantId,
-            @RequestParam String date) {
-        
-        String trimmedDate = date.trim();
-        return reservationService.getAvailableTables(restaurantId, trimmedDate);
     }
 
     @PostMapping(value = "/reserve")
@@ -76,6 +68,23 @@ public class ReservationController {
             MessageResponseDto response = new MessageResponseDto(ex.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
+    }
+
+    @PutMapping("/confirm/{reservationId}")
+    public ResponseEntity<MessageResponseDto> confirmReservation(
+            @PathVariable UUID reservationId,
+            @RequestBody List<UUID> tableIds) {
+
+        reservationService.confirmReservation(reservationId, tableIds);
+
+        MessageResponseDto response = new MessageResponseDto("Rezerwacja została pomyślnie potwierdzona.");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{restaurantId}/unconfirmed")
+    public ResponseEntity<List<Reservation>> getAllUnconfirmedReservationsForRestaurant(@PathVariable UUID restaurantId) {
+        List<Reservation> reservations = reservationService.getAllUnconfirmedReservationsForRestaurant(restaurantId);
+        return ResponseEntity.ok(reservations);
     }
 
     private ResponseEntity<Map<String, String>> buildErrorResponse(HttpStatus status, String errorMessage) {

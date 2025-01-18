@@ -1,4 +1,4 @@
-package com.chefconnect.reservationservice.Dto;
+package com.chefconnect.reservationservice.services.Dto;
 
 public class AvailableTablesResponseDto {
 

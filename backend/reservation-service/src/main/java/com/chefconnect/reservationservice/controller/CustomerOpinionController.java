@@ -8,17 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.chefconnect.reservationservice.Dto.AvarageRestaurantRateResponseDto;
-import com.chefconnect.reservationservice.Dto.CustomerOpinionRequestDto;
-import com.chefconnect.reservationservice.Dto.MessageResponseDto;
 import com.chefconnect.reservationservice.exceptions.InvalidReservationStatusException;
 import com.chefconnect.reservationservice.exceptions.OpinionAlreadyExistsException;
-import com.chefconnect.reservationservice.models.CustomerOpinion;
 import com.chefconnect.reservationservice.services.CustomerOpinionService;
-
-import jakarta.validation.Valid;
+import com.chefconnect.reservationservice.services.Dto.AvarageRestaurantRateResponseDto;
+import com.chefconnect.reservationservice.services.Dto.CustomerOpinionRequestDto;
+import com.chefconnect.reservationservice.services.Dto.MessageResponseDto;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/opinions")
 public class CustomerOpinionController {
 
@@ -42,8 +40,8 @@ public class CustomerOpinionController {
         }
     }
 
-    @GetMapping("/average-rating")
-    public ResponseEntity<?> getAverageRating(@RequestParam UUID restaurantId) {
+    @GetMapping("/average-rating/{restaurantId}")
+    public ResponseEntity<?> getAverageRating(@PathVariable UUID restaurantId) {
         try {
             double averageRating = customerOpinionService.calculateAverageRatingForRestaurant(restaurantId);
             

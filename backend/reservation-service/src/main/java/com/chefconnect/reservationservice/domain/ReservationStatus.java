@@ -1,4 +1,4 @@
-package com.chefconnect.reservationservice.models;
+package com.chefconnect.reservationservice.domain;
 
 public enum ReservationStatus {
     CONFIRMED,

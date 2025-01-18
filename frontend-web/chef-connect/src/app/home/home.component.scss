@@ -1,0 +1,45 @@
+.home-container {
+  display: flex;
+  min-height: 100vh;
+
+  .content-left {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: rgba(0, 0, 0, 0.7);
+      max-width: 600px;
+    }
+
+    button {
+      width: fit-content;
+      padding: 0.5rem 2rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  .content-right {
+    flex: 1;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

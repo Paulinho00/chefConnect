@@ -1,0 +1,33 @@
+<mat-toolbar>
+  <div class="brand">
+    <span class="brand-name">ChefConnect</span>
+  </div>
+
+  <div class="nav-links">
+    @for (item of navigationItems; track item.route) {
+    <a
+      mat-button
+      [routerLink]="item.route"
+      routerLinkActive="active-link"
+      class="nav-link"
+    >
+      {{ item.name }}
+    </a>
+    }
+  </div>
+
+  <div class="user-section">
+    <div class="user-info">
+      <div class="avatar">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="user-details">
+        <span class="user-name">Jan Kowalski</span>
+        <span class="user-role">Szef Kuchni</span>
+      </div>
+    </div>
+    <button mat-icon-button (click)="logout()" class="logout-btn">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

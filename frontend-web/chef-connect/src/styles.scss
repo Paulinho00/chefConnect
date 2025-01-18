@@ -1,0 +1,44 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@use "../theme-colors" as chef-connect-theme;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: chef-connect-theme.$primary-palette,
+        tertiary: chef-connect-theme.$tertiary-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+} /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// button {
+//   all: unset;
+//   appearance: none;
+//   background: none;
+//   border: none;
+//   padding: 0;
+//   margin: 0;
+//   box-shadow: none;
+//   color: inherit;
+//   font: inherit;
+//   cursor: pointer;
+// }
+
+// button:focus {
+//   outline: none;
+// }

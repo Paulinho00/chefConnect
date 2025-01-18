@@ -1,0 +1,46 @@
+<div class="auth-container">
+  <div class="content-left">
+    <h1>Chef Connect</h1>
+    <p class="description">
+      Chef Connect to intuicyjny system dla sieci restauracji, który usprawnia
+      rezerwacje, zamówienia na wynos, zarządzanie zapasami i analizę danych.
+      Pomaga zwiększyć efektywność pracy, poprawić obsługę klientów i wspiera
+      rozwój biznesu.
+    </p>
+  </div>
+  <div class="content-right">
+    <div class="form-container">
+      <h2>Witaj ponownie!</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            placeholder="Enter your email"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Hasło</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            placeholder="Enter your password"
+          />
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Zaloguj się
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

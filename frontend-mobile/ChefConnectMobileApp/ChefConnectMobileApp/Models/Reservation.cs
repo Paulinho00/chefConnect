@@ -1,13 +1,20 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace ChefConnectMobileApp.Models;
 
 public class Reservation
 {
-    public int Id { get; init; }
+    [JsonPropertyName("id")]
+    public Guid Id { get; init; }
+    [JsonPropertyName("address")]
     public string Address { get; init; }
+    [JsonPropertyName("numberOfTable")]
     public int NumberOfTable { get; init; }
+    [JsonPropertyName("date")]
     public DateTime Date { get; init; }
-    //TODO: Change set to init after calls to API are implemented
+    [JsonPropertyName("reservationStatus")]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ReservationStatus Status { get; set; }
 }
 

@@ -47,9 +47,9 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
 
     private List<(TimeSpan TimeSlot, int NumberOfFreeTables)> _timeSlotsWithNumberOfAvailableTables;
 
-    partial void OnRestaurantChanged(Restaurant value)
+    async partial void OnRestaurantChanged(Restaurant value)
     {
-        UpdateRating().Wait();
+        await UpdateRating().ConfigureAwait(false);
     }
 
     partial void OnSelectedNumberOfTablesChanged(int value)
@@ -63,9 +63,9 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
         NumberOfFreeTablesForTimeSlot = _timeSlotsWithNumberOfAvailableTables.First(x => x.Item1 == timespan).NumberOfFreeTables;
     }
 
-    partial void OnSelectedDateChanged(DateTime value)
+    async partial void OnSelectedDateChanged(DateTime value)
     {
-        GetTimeSlotsWithAvailableTables().Wait();
+        await GetTimeSlotsWithAvailableTables().ConfigureAwait(false);
         TimeSlots = _timeSlotsWithNumberOfAvailableTables
             .Where(slot => slot.NumberOfFreeTables > 0)
             .Select(slot => slot.TimeSlot.ToString(@"hh\:mm"))
@@ -76,12 +76,12 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
     private async Task GetTimeSlotsWithAvailableTables()
     {
         _timeSlotsWithNumberOfAvailableTables =
-            await _reservationService.GetTimeSlotsWithAvailableTables(Restaurant.Id, SelectedDate);
+            await _reservationService.GetTimeSlotsWithAvailableTables(Restaurant.Id, SelectedDate.Date).ConfigureAwait(false);
     }
 
     private async Task UpdateRating()
     {
-        Rating = await _reservationService.GetRatingOfRestaurant(Restaurant.Id);
+        Rating = await _reservationService.GetRatingOfRestaurant(Restaurant.Id).ConfigureAwait(false);
     }
 
     [RelayCommand]
@@ -98,15 +98,15 @@ public partial class RestaurantDetailsPageViewModel : ObservableObject
     private async Task MakeReservation()
     {
         var date = SelectedDate + TimeSpan.Parse(SelectedTimeSlot);
-        var result = await _reservationService.MakeReservation(Restaurant.Id, date, NumberOfFreeTablesForTimeSlot);
+        var result = await _reservationService.MakeReservation(Restaurant.Id, date, SelectedNumberOfTables).ConfigureAwait(false);
         if (result.IsFailure)
         {
-            await _alertService.ShowAlertAsync("Rezerwacja nieudana", result.Error);
+            _alertService.ShowAlert("Rezerwacja nieudana", result.Error);
         }
         else
         {
             IsReservationsVisible = false;
-            await _alertService.ShowAlertAsync("Rezerwacja udana",
+            _alertService.ShowAlert("Rezerwacja udana",
                 "Twoja rezerwacja została zapisana. Sprawdź jej status, czy została zaakceptowana przez naszego pracownika");
         }
     }

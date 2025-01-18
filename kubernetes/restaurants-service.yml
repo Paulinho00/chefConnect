@@ -17,15 +17,15 @@ spec:
           image: "mic029/restaurant_service:latest"
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://restaurants-db.ci2b1rshho7r.us-east-1.rds.amazonaws.com:5432/restaurantsDb"
+              value: <PLACEHOLDER>
             - name: SPRING_DATASOURCE_USERNAME
-              value: "postgres"
+              value: <PLACEHOLDER>
             - name: SPRING_DATASOURCE_PASSWORD
-              value: "postgres"
+              value: <PLACEHOLDER>
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-              value: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_7EOiXL2YW"
+              value: <PLACEHOLDER>
             - name: EVENT_QUEUE_URL
-              value: "https://sqs.us-east-1.amazonaws.com/606529675772/analytic_event_queue"
+              value: <PLACEHOLDER>
           ports:
             - containerPort: 8080
 

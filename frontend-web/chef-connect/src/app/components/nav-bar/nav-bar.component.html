@@ -22,11 +22,19 @@
         <mat-icon>account_circle</mat-icon>
       </div>
       <div class="user-details">
-        <span class="user-name">Jan Kowalski</span>
-        <span class="user-role">Szef Kuchni</span>
+        @if (authService.getUser() | async; as user) {
+        <span class="user-name">{{
+          user.given_name + " " + user.family_name
+        }}</span>
+        } @else {
+        <div class="user-name__loader">
+          <mat-spinner diameter="20"></mat-spinner>
+        </div>
+        }
+        <span class="user-role"></span>
       </div>
     </div>
-    <button mat-icon-button (click)="logout()" class="logout-btn">
+    <button mat-icon-button (click)="signOut()" class="logout-btn">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

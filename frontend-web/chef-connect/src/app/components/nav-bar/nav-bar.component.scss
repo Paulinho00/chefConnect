@@ -64,10 +64,18 @@ mat-toolbar {
       display: flex;
       flex-direction: column;
       line-height: 1.2;
+      min-width: 150px;
 
       .user-name {
+        text-align: center;
         font-weight: 500;
         font-size: 0.9rem;
+
+        &__loader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
 
       .user-role {

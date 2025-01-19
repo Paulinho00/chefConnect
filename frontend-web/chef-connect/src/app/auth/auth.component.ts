@@ -8,7 +8,8 @@ import {
   AmplifyAuthenticatorModule,
   AuthenticatorService,
 } from '@aws-amplify/ui-angular';
-import { fetchUserAttributes } from 'aws-amplify/auth';
+import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +24,13 @@ import { fetchUserAttributes } from 'aws-amplify/auth';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent implements OnInit {
+  private readonly GROUP_ROUTES = {
+    admin: '/panel-administratora',
+    manager: '/panel-managera',
+    'pracownik-restauracji': '/panel-pracownika',
+  };
   authenticator = inject(AuthenticatorService);
+  authService = inject(AuthService);
   router = inject(Router);
 
   ngOnInit(): void {
@@ -37,8 +44,25 @@ export class AuthComponent implements OnInit {
 
   async handleAuthentication() {
     try {
-      const attributes = await fetchUserAttributes();
-      this.router.navigate(['/panel-pracownika']);
+      const authSession = await fetchAuthSession();
+      this.authService.refreshUser();
+      this.authService.refreshUserGroups();
+      const userGroups =
+        (authSession.tokens?.idToken?.payload['cognito:groups'] as string[]) ||
+        [];
+
+      const userGroup = Object.keys(this.GROUP_ROUTES).find((group) =>
+        userGroups.includes(group)
+      );
+
+      if (userGroup) {
+        await this.router.navigate([
+          this.GROUP_ROUTES[userGroup as keyof typeof this.GROUP_ROUTES],
+        ]);
+      } else {
+        console.warn('User has no recognized groups');
+        await this.router.navigate(['/unauthorized']);
+      }
     } catch (error) {
       console.error('Error fetching user attributes:', error);
       await this.router.navigate(['/']);

@@ -31,11 +31,20 @@ export class NavBarComponent {
   authService = inject(AuthService);
   authenticator = inject(AuthenticatorService);
   router = inject(Router);
-  navigationItems: NavItem[] = [
-    { name: 'Zamówienia', route: '/zamowienia' },
-    { name: 'Rezerwacje', route: '/rezerwacje' },
-    { name: 'Magazyn', route: '/magazyn' },
-  ];
+  navigationItems: Record<string, NavItem[]> = {
+    admin: [
+      { name: 'Pracownicy', route: 'pracownicy' },
+      { name: 'Restauracje', route: 'restauracje' },
+      { name: 'Użytkownicy', route: 'uzytkownicy' },
+    ],
+    manager: [],
+    'pracownik-restauracji': [
+      { name: 'Zamówienia', route: 'zamowienia' },
+      { name: 'Rezerwacje', route: 'rezerwacje' },
+      { name: 'Magazyn', route: 'magazyn' },
+    ],
+    '': [],
+  };
 
   public signOut() {
     this.authenticator.signOut();

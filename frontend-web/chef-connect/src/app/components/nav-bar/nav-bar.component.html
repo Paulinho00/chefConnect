@@ -4,7 +4,8 @@
   </div>
 
   <div class="nav-links">
-    @for (item of navigationItems; track item.route) {
+    @for (item of navigationItems[(authService.getUserGroup() | async) || ''];
+    track item.route) {
     <a
       mat-button
       [routerLink]="item.route"
@@ -28,10 +29,11 @@
         }}</span>
         } @else {
         <div class="user-name__loader">
-          <mat-spinner diameter="20"></mat-spinner>
+          <mat-spinner diameter="15"></mat-spinner>
         </div>
+        } @if (authService.getUserGroup() | async; as group) {
+        <span class="user-role">{{ group }}</span>
         }
-        <span class="user-role"></span>
       </div>
     </div>
     <button mat-icon-button (click)="signOut()" class="logout-btn">

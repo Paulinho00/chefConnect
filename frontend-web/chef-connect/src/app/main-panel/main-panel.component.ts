@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatToolbar } from '@angular/material/toolbar';
 import { NavBarComponent } from '../components/nav-bar/nav-bar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-panel',
-  imports: [NavBarComponent],
+  imports: [NavBarComponent, RouterOutlet],
   templateUrl: './main-panel.component.html',
   styleUrl: './main-panel.component.scss',
 })

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { RestaurantService } from './services/restaurant.service';
+import { ReservationService } from './services/reservation.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,9 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'chef-connect';
+  restaurantService = inject(RestaurantService);
+  reservationService = inject(ReservationService);
+  ngOnInit(): void {}
 }

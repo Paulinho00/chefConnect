@@ -16,12 +16,13 @@ public class Reservation
     [JsonPropertyName("reservationStatus")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public ReservationStatus Status { get; set; }
+    [JsonPropertyName("isOpinion")]
+    public bool HasOpinion { get; set; }
 }
 
 public enum ReservationStatus
 {
     Unconfirmed,
     Confirmed,
-    Cancelled,
-    OpinionSaved
+    Cancelled
 }

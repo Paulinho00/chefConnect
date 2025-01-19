@@ -70,6 +70,7 @@ internal class ReservationService : IReservationService
             var reservations = JsonSerializer.Deserialize<List<Reservation>>(content);
             return reservations ?? [];
         }
+        
         return [];
     }
 

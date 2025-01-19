@@ -64,10 +64,19 @@ public partial class ReservationListElementViewModel : ObservableObject
                 break;
             case Models.ReservationStatus.Confirmed:
             {
-                IsCancelButtonVisible = Reservation.Date > DateTime.Now;
-                IsRateButtonVisible = Reservation.Date <= DateTime.Now;
-                ReservationStatus = "Potwierdzona";
+                if (Reservation.HasOpinion)
+                {
+                    IsCancelButtonVisible = false;
+                    IsRateButtonVisible = false;
+                    ReservationStatus = "Potwierdzona - opinia wystawiona";
                 }
+                else
+                {
+                    IsCancelButtonVisible = Reservation.Date > DateTime.Now;
+                    IsRateButtonVisible = Reservation.Date <= DateTime.Now;
+                    ReservationStatus = "Potwierdzona";
+                }
+            }
                 break;
             case Models.ReservationStatus.Cancelled:
             {
@@ -75,13 +84,6 @@ public partial class ReservationListElementViewModel : ObservableObject
                 IsRateButtonVisible = false;
                 ReservationStatus = "Odwołana";
                 }
-                break;
-            case Models.ReservationStatus.OpinionSaved:
-            {
-                IsCancelButtonVisible = false;
-                IsRateButtonVisible = false;
-                ReservationStatus = "Potwierdzona - opinia wystawiona";
-            }
                 break;
             default:
             {
@@ -117,7 +119,8 @@ public partial class ReservationListElementViewModel : ObservableObject
                 Date = Reservation.Date,
                 Id = Reservation.Id,
                 NumberOfTable = Reservation.NumberOfTable,
-                Status = Reservation.Status
+                Status = Reservation.Status,
+                HasOpinion = Reservation.HasOpinion
             };
             
             IsCancelButtonVisible = false;
@@ -147,7 +150,7 @@ public partial class ReservationListElementViewModel : ObservableObject
             IsRateButtonVisible = false;
             IsOpinionSectionVisible = false;
             ReservationStatus = "Potwierdzona / opinia wystawiona";
-            Reservation.Status = Models.ReservationStatus.OpinionSaved;
+            Reservation.HasOpinion = true;
         }
     }
 }

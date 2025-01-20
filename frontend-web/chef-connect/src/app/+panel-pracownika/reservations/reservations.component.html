@@ -1,1 +1,27 @@
-<p>reservations works!</p>
+<div class="reservation-container">
+  <div class="reservation-left-side">
+    <app-reservation-table
+      [reservations]="reservations"
+      (selectionChange)="onReservationSelected($event)"
+    >
+      >
+    </app-reservation-table>
+  </div>
+  <div class="reservation-right-side">
+    <app-reservation-confirmation-form
+      [reservation]="selectedReservation"
+      (confirm)="onSubmit($event)"
+    ></app-reservation-confirmation-form>
+    <div class="tables">
+      <mat-chip-listbox [multiple]="true">
+        @for (table of freeTables; track table.table.id) {
+        <mat-chip-option [disabled]="table.isFree" [value]="table">
+          <mat-icon> table_restaurant </mat-icon
+          >{{ table.table.numberOfSeats }}</mat-chip-option
+        >
+
+        }
+      </mat-chip-listbox>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<mat-card class="reservation-card">
+  <mat-card-header>
+    <mat-card-title>Reservation Details</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="card-content">
+    <div class="info-row">
+      <div class="info-field">
+        <span class="label">Reservation ID</span>
+        <span class="value">{{ reservationValue?.id }}</span>
+      </div>
+
+      <div class="info-field">
+        <span class="label">Date</span>
+        <span class="value">{{ reservationValue?.date }}</span>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-field">
+        <span class="label">Number of People</span>
+        <span class="value">{{ reservationValue?.numberOfPeople }}</span>
+      </div>
+
+      <div class="info-field">
+        <span class="label">Restaurant ID</span>
+        <span class="value">{{ reservationValue?.restaurantId }}</span>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-field">
+        <span class="label">User ID</span>
+        <span class="value">{{ reservationValue?.userId }}</span>
+      </div>
+      <div class="info-field">
+        <span class="label">Status</span>
+        <span class="value">{{ reservationValue?.reservationStatus }}</span>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="reservationValue === null || reservationValue === undefined"
+      (click)="onConfirm()"
+    >
+      Confirm
+    </button>
+  </mat-card-actions>
+</mat-card>

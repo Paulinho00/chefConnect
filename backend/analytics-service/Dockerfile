@@ -19,7 +19,7 @@ FROM openjdk:21-jdk
 
 WORKDIR /app
 
-COPY --from=build /app/target/restaurants-service-0.0.1-SNAPSHOT.jar /app/
+COPY --from=build /app/target/analytics-service-0.0.1-SNAPSHOT.jar /app/
 EXPOSE 8080
 
 CMD ["sh", "-c", "java -jar /app/restaurants-service-0.0.1-SNAPSHOT.jar \

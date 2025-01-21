@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: analytics-service
+  template:
+    metadata:
+      labels:
+        app: analytics-service
+    spec:
+      containers:
+        - name: analytics-service
+          image: "zwir001/analytics-service:latest"
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: <PLACEHOLDER>
+            - name: SPRING_DATASOURCE_USERNAME
+              value: <PLACEHOLDER>
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: <PLACEHOLDER>
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              value: <PLACEHOLDER>
+            - name: EVENT_QUEUE_URL
+              value: <PLACEHOLDER>
+            - name: RESTAURANTS_SERVICE_URL
+              value: <PLACEHOLDER>
+            - name: AWS_ACCESS_KEY_ID
+              value: <PLACEHOLDER>
+            - name: AWS_SECRET_ACCESS_KEY
+              value: <PLACEHOLDER>
+            - name: AWS_SESSION_TOKEN
+              value: <PLACEHOLDER>
+            - name: AWS_REGION
+              value: <PLACEHOLDER>
+
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: analytics-service
+spec:
+  selector:
+    app: analytics-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: analytics-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app: analytics-service

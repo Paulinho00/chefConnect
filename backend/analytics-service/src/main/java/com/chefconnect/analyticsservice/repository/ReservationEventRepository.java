@@ -13,12 +13,12 @@ import java.util.UUID;
 public interface ReservationEventRepository extends JpaRepository<ReservationEvent, UUID> {
 
     @Query("SELECT new com.chefconnect.analyticsservice.service.dto.EventCountDto(" +
-            "DATE_TRUNC('day', e.date), COUNT(e)) " +
+            "DATE_TRUNC('hour', e.date), COUNT(e)) " +
             "FROM ReservationEvent e " +
             "WHERE e.restaurant.id = :restaurantId " +
             "AND e.date BETWEEN :startDate AND :endDate " +
-            "GROUP BY DATE_TRUNC('day', e.date) " +
-            "ORDER BY DATE_TRUNC('day', e.date) ASC")
+            "GROUP BY DATE_TRUNC('hour', e.date) " +
+            "ORDER BY DATE_TRUNC('hour', e.date) ASC")
     List<EventCountDto> countEventsByDateRangeAndRestaurant(
             @Param("restaurantId") UUID restaurantId,
             @Param("startDate") Instant startDate,

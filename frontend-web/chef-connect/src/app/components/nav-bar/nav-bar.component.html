@@ -1,0 +1,43 @@
+<mat-toolbar>
+  <div class="brand">
+    <span class="brand-name">ChefConnect</span>
+  </div>
+
+  <div class="nav-links">
+    @for (item of navigationItems[(authService.getUserGroup() | async) || ''];
+    track item.route) {
+    <a
+      mat-button
+      [routerLink]="item.route"
+      routerLinkActive="active-link"
+      class="nav-link"
+    >
+      {{ item.name }}
+    </a>
+    }
+  </div>
+
+  <div class="user-section">
+    <div class="user-info">
+      <div class="avatar">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="user-details">
+        @if (authService.getUser() | async; as user) {
+        <span class="user-name">{{
+          user.given_name + " " + user.family_name
+        }}</span>
+        } @else {
+        <div class="user-name__loader">
+          <mat-spinner diameter="15"></mat-spinner>
+        </div>
+        } @if (authService.getUserGroup() | async; as group) {
+        <span class="user-role">{{ group }}</span>
+        }
+      </div>
+    </div>
+    <button mat-icon-button (click)="signOut()" class="logout-btn">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

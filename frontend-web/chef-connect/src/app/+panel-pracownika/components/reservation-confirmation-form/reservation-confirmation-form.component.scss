@@ -1,0 +1,40 @@
+.reservation-card {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.info-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.info-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+}
+
+.value {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+mat-card-actions {
+  padding: 8px;
+  gap: 8px;
+}

@@ -70,6 +70,25 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   ]
 }
 
+# # Cognito groups
+# resource "aws_cognito_user_group" "admin_group" {
+#   user_pool_id = aws_cognito_user_pool.main_user_pool.id
+#   name         = "admin"
+#   description  = "Administratorzy"
+# }
+
+# resource "aws_cognito_user_group" "manager_group" {
+#   user_pool_id = aws_cognito_user_pool.main_user_pool.id
+#   name         = "manager"
+#   description  = "Manadżerowie restauracji"
+# }
+
+# resource "aws_cognito_user_group" "pracownik_restauracji_group" {
+#   user_pool_id = aws_cognito_user_pool.main_user_pool.id
+#   name         = "pracownik-restauracji"
+#   description  = "Pracownicy restauracji"
+# }
+
 # Output values
 output "user_pool_id" {
   value = aws_cognito_user_pool.main_user_pool.id

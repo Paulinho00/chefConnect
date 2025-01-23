@@ -1,0 +1,94 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.brand {
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #b88b58;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+
+  .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 1rem;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 18px;
+
+    &.active-link {
+      background-color: rgba(25, 118, 210, 0.1);
+      color: #1976d2;
+    }
+  }
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.04);
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      min-width: 150px;
+
+      .user-name {
+        text-align: center;
+        font-weight: 500;
+        font-size: 0.9rem;
+        height: 20px;
+
+        &__loader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 20px;
+        }
+      }
+
+      .user-role {
+        font-size: 0.8rem;
+        color: rgba(0, 0, 0, 0.54);
+        text-align: center;
+      }
+    }
+  }
+
+  .logout-btn {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

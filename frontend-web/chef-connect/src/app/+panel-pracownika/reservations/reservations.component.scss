@@ -1,0 +1,25 @@
+.reservation-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.reservation-left-side {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.reservation-right-side {
+  width: 100%;
+}
+
+.tables {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}

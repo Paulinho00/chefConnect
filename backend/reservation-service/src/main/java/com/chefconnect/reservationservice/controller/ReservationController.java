@@ -75,15 +75,21 @@ public class ReservationController {
             @PathVariable UUID reservationId,
             @RequestBody List<UUID> tableIds) {
 
-        reservationService.confirmReservation(reservationId, tableIds);
+        try{
+            reservationService.confirmReservation(reservationId, tableIds);
 
-        MessageResponseDto response = new MessageResponseDto("Rezerwacja została pomyślnie potwierdzona.");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+            MessageResponseDto response = new MessageResponseDto("Rezerwacja została pomyślnie potwierdzona.");
+            return new ResponseEntity<>(response, HttpStatus.OK);    
+        }
+        catch (Exception e) {
+            MessageResponseDto response = new MessageResponseDto(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);  
+        }
     }
 
     @GetMapping("/{restaurantId}/unconfirmed")
-    public ResponseEntity<List<Reservation>> getAllUnconfirmedReservationsForRestaurant(@PathVariable UUID restaurantId) {
-        List<Reservation> reservations = reservationService.getAllUnconfirmedReservationsForRestaurant(restaurantId);
+    public ResponseEntity<List<Reservation>> getAllReservationsForRestaurant(@PathVariable UUID restaurantId) {
+        List<Reservation> reservations = reservationService.getAllReservationsForRestaurant(restaurantId);
         return ResponseEntity.ok(reservations);
     }
 

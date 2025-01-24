@@ -13,5 +13,4 @@ public class TableDto {
 
     private UUID id;
     private int numberOfSeats;
-    private UUID restaurantId;
 }

@@ -50,10 +50,9 @@ public class TableReservationService {
         
         for (int hour = openingHour; hour < closingHour; hour++) {
             LocalDateTime startOfHour = requestedDate.atTime(hour, 0);
-            LocalDateTime endOfHour = startOfHour.plusHours(1);
         
             long reservedTablesCount = tableReservationRepository.countReservedTables(
-                    restaurantId, startOfHour, endOfHour);
+                    restaurantId, startOfHour);
         
             int availableTablesCount = totalTables - (int) reservedTablesCount;
         
@@ -84,7 +83,7 @@ public class TableReservationService {
     private boolean isTableAvailable(TableDto table, List<Reservation> reservations) {
         return reservations.stream()
                 .noneMatch(reservation -> reservation.getTableReservations().stream()
-                        .anyMatch(reservedTable -> reservedTable.getId().equals(table.getId()))
+                        .anyMatch(reservedTable -> reservedTable.getTableId().equals(table.getId()))
                         && reservation.getApprovingWorkerId() != null
                         && reservation.getReservationStatus() == ReservationStatus.CONFIRMED);
     }

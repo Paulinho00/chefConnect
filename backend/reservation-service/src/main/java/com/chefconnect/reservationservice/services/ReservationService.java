@@ -71,6 +71,10 @@ public class ReservationService {
         try {
             LocalDateTime reservationDate = LocalDateTime.parse(date);
 
+            if (reservationDate.isBefore(LocalDateTime.now())) {
+                throw new IllegalArgumentException("Nie można zarezerwować stolika w przeszłości.");
+            }
+
             // User user = userRepository.findById(userId)
             //     .orElseThrow(() -> new IllegalArgumentException("Użytkownik o podanym ID nie istnieje."));
 
@@ -146,10 +150,41 @@ public class ReservationService {
 
         // Przefiltruj allTables, aby wybrać tylko te, które odpowiadają tableIds
         Set<TableReservation> reservedTables = allTables.stream()
-                .filter(tableDto -> tableIds.contains(tableDto.getId()))
-                .map(tableDto -> tableReservationRepository.findById(tableDto.getId()).orElse(null))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+            .filter(tableDto -> tableIds.contains(tableDto.getId()))
+            .map(tableDto -> {
+                TableReservation tableReservation = TableReservation.fromTableDto(tableDto, reservation.getRestaurantId());
+                tableReservation.getReservations().add(reservation);
+                
+                return tableReservation;
+            })
+            .collect(Collectors.toSet());
+
+        int totalSeats = reservedTables.stream()
+            .mapToInt(tableReservation -> 
+                allTables.stream()
+                .filter(tableDto -> tableDto.getId().equals(tableReservation.getTableId()))
+                .findFirst()
+                .map(TableDto::getNumberOfSeats)
+                .orElse(0)
+            ).sum();
+
+        if (totalSeats < reservation.getNumberOfPeople()) {
+            throw new IllegalArgumentException("Za mało miejsc w wybranych stolikach dla tej rezerwacji.");
+        }
+
+        for (TableReservation tableReservation : reservedTables) {
+            boolean isTableAlreadyReserved = tableReservationRepository.existsByTableIdRestaurantIdAndReservationDate(
+                    tableReservation.getTableId(),
+                    tableReservation.getRestaurantId(),
+                    reservation.getDate()
+            );
+            
+            if (isTableAlreadyReserved) {
+                throw new IllegalArgumentException("Stolik o ID " + tableReservation.getTableId() + " jest już zarezerwowany w tym terminie.");
+            }
+        }
+        
+        tableReservationRepository.saveAll(reservedTables);
 
         reservation.setReservationStatus(ReservationStatus.CONFIRMED);
         reservation.setApprovingWorkerId(getUserId());
@@ -160,8 +195,8 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    public List<Reservation> getAllUnconfirmedReservationsForRestaurant(UUID restaurantId) {
-        return reservationRepository.findByReservationStatusAndRestaurantId(ReservationStatus.UNCONFIRMED, restaurantId);
+    public List<Reservation> getAllReservationsForRestaurant(UUID restaurantId) {
+        return reservationRepository.findByRestaurantId(restaurantId);
     }
 
     private UUID getUserId(){

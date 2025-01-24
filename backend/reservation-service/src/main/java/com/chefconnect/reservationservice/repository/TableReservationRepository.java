@@ -12,15 +12,22 @@ import com.chefconnect.reservationservice.domain.ReservationStatus;
 import com.chefconnect.reservationservice.domain.TableReservation;
 
 public interface TableReservationRepository extends JpaRepository<TableReservation, UUID> {
-    @Query("SELECT COUNT(tr) FROM TableReservation tr " +
-       "JOIN tr.reservations r " +
-       "JOIN r.tableReservations trr " +
-       "WHERE trr.restaurantId = :restaurantId " +
-       "AND r.isDeleted = false " +
-       "AND r.date >= :startTime " +
-       "AND r.date < :endTime " +
-       "AND (r.approvingWorkerId IS NOT NULL)")
+   @Query("SELECT COUNT(DISTINCT tr) FROM TableReservation tr " +
+      "JOIN tr.reservations r " +
+      "WHERE tr.restaurantId = :restaurantId " +
+      "AND r.isDeleted = false " +
+      "AND r.date = :startTime " +
+      "AND (r.approvingWorkerId IS NOT NULL)")
     long countReservedTables(@Param("restaurantId") UUID restaurantId,
-                            @Param("startTime") LocalDateTime startTime,
-                            @Param("endTime") LocalDateTime endTime);
+                            @Param("startTime") LocalDateTime startTime);
+
+   @Query("SELECT COUNT(tr) > 0 FROM TableReservation tr " +
+      "JOIN tr.reservations r " +
+      "WHERE tr.tableId = :tableId " +
+      "AND tr.restaurantId = :restaurantId " +
+      "AND tr.isDeleted = false " +
+      "AND r.date = :reservationDate")
+   boolean existsByTableIdRestaurantIdAndReservationDate(@Param("tableId") UUID tableId, 
+                                                         @Param("restaurantId") UUID restaurantId,
+                                                         @Param("reservationDate") LocalDateTime reservationDate);
 }

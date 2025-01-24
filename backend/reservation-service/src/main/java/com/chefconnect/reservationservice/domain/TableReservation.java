@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.chefconnect.reservationservice.services.Dto.RestaurantServicesDto.TableDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +26,7 @@ public class TableReservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tableReservations")
     private Set<Reservation> reservations = new HashSet<>();
 
@@ -37,5 +41,15 @@ public class TableReservation {
 
     public TableReservation(){
         this.isDeleted = false;
+    }
+
+    public TableReservation(UUID tableId, UUID restaurantId) {
+        this.tableId = tableId;
+        this.restaurantId = restaurantId;
+        this.isDeleted = false;
+    }
+
+    public static TableReservation fromTableDto(TableDto tableDto, UUID restaurantId) {
+        return new TableReservation(tableDto.getId(), restaurantId);
     }
 }

@@ -79,7 +79,7 @@
         - Pobieranie średniej oceny danej restauracji
 - Testy jednostkowe dla serwisów integrujących się z backendem
 - Multi-platformowość
-    - Pisanie zgodnie ze standardami MAUI, zapewniającymi multi-platformowość. Aplikacja powinna zadziałać na iOS, lecz nie byliśmy w stanie tego sprawdzić (nie mieliśmy MacBooka, iPhone + koszty uzyskania licencji na platformie Apple)
+    - Pisanie zgodnie ze standardami MAUI, zapewniającymi multi-platformowość. Aplikacja powinna zadziałać na iOS, lecz nie byliśmy w stanie tego sprawdzić (nie mieliśmy MacBooka, iPhone + zasobów na uzyskanie licencji na platformie Apple)
 
 ### Mikroserwisy
 

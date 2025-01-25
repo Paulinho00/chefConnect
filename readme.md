@@ -149,7 +149,7 @@
     - Simple Queue Service (SQS)
     - VPC
         - VPC subnets
-            - Prywatne podsieci dla instancji (tworzony przez Kubernetesa) mikroserwisów. Instancje znajdują się w tem samej podsieci prywatnej co baza danych dla danego mikroserwisu. 
+            - Prywatne podsieci dla instancji (tworzone przez Kubernetesa) mikroserwisów. Instancje znajdują się w tem samej podsieci prywatnej co baza danych dla danego mikroserwisu. 
             - Dla podsieci mamy również skonfigurowane tabele routingu, umożliwiające odpowiednią komunikację
         - VPC Internet Gateway
         - VPC Elastic IP

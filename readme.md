@@ -168,7 +168,7 @@
 #### Jenkins
 
 - Osobna konfiguracja terraform do infrastruktury odpowiedzialnej za CI/CD.
-- Wykorzystanie osobnej sieci VPC, wraz z security groupami. Infrastruktura systemu i środowisko CI/CD znajdują się na kompletnie odosobnionych zasobach
+- Wykorzystanie osobnej sieci VPC, wraz z security groupami. Infrastruktura systemu i środowisko CI/CD znajdują się na odosobnionych zasobach i są od siebie niezależne
 - Instancja EC2 dla serwera Jenkins
     - Automatyczna instalacja, przy pomocy Ansible, wszystkich niezbędnych narzędzi do działania serwera Jenkins oraz jego wstępnej inicjalizacji (aktywowanie konta administratora)
 - Instancje EC2 dla worker node:

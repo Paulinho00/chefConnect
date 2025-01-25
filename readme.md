@@ -165,7 +165,7 @@
     - API Gateway
         - Api gateway przekierowuje ruch przychodzący z internetu do odpowiedniego load balancera dla danego mikroserwisu. 
 
-#### Jenkins
+#### Jenkins - CI/CD
 
 - Osobna konfiguracja terraform do infrastruktury odpowiedzialnej za CI/CD.
 - Wykorzystanie osobnej sieci VPC, wraz z security groupami. Infrastruktura systemu i środowisko CI/CD znajdują się na odosobnionych zasobach i są od siebie niezależne
@@ -177,7 +177,7 @@
 - Konfiguracja WebHooka w GitHubie do wysyłania triggera do Jenkinsa przy wykonaniu commita na branchu main
 - Konfiguracja pipelinów w jenkins
     - Pipeliny do automatycznego przebudowania i wypushowania obrazu, do Docker Hub, dla każdego mikroserwisu. Poszczególne pipeline triggerują się tylko dla zmian w danym mikroserwisie.
-    - Pipeliny do automatycznego deploymentu, wykorzystujący Kubernetes CLI do wymuszenia pobrania nowego obrazu w danym mikroserwisie. Triggerowany po pomyślnym wykonaniu Build (poprzedniego pipeline)
+    - Pipeliny do automatycznego deploymentu, wykorzystujący Kubernetes CLI do wymuszenia pobrania nowego obrazu w danym mikroserwisie. Triggerowany po pomyślnym wykonaniu Builda (poprzedniego pipeline)
 
 
 ### Niezrealizowane cele

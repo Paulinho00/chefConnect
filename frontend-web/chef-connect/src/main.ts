@@ -1,10 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
-import { cognitoConfig } from './environments/awsconfig';
 import { Amplify } from 'aws-amplify';
-
 import { Hub } from 'aws-amplify/utils';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+import { cognitoConfig } from './environments/awsconfig';
 
 Hub.listen('auth', ({ payload }) => {
   switch (payload.event) {

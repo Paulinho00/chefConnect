@@ -66,14 +66,12 @@ export class ReservationsComponent implements OnInit {
       .subscribe((tables) => {
         this.freeTables = this.tables.map((table) => ({
           table,
-          isFree: tables.includes(table),
+          isFree: tables.map((table) => table.id).includes(table.id),
         }));
       });
   }
 
   public onSubmit($event: Reservation) {
-    console.log(this.chipListbox.selected);
-
     const tableIds = (this.chipListbox.selected as MatChipOption[])
       .map((chip) => chip.value)
       .map((value) => value.table.id);
@@ -85,6 +83,7 @@ export class ReservationsComponent implements OnInit {
         setTimeout(() => {
           ref.dismiss();
           this.selectedReservation = null;
+          this.freeTables = [];
           this.chipListbox.writeValue([]);
         }, 5000);
       });

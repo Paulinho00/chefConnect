@@ -2,7 +2,7 @@
 
 set -e
 
-BUCKET_NAME="frontend-chef-connect"
+BUCKET_NAME="frontend-chef-connect-259136"
 
 # Colors for output
 GREEN='\033[0;32m'

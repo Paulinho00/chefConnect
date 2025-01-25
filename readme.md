@@ -71,7 +71,7 @@
         - Pobieranie listy restauracji jak i podstawowych danych o poszczególnych restauracjach (liczba stolików, godziny otwarcia, adres itp.)
         - Zapisywanie ulubionej restauracji dla danego użytkownika
     - Integracja z reservations-service
-        - Pobieranie listy rezerwacji wraz z ich statusami
+        - Pobieranie listy rezerwacji wraz z ich statusami dla danego użytkownika
         - Pobieranie dostępnych time slotów przy dokonywaniu rezerwacji wraz z liczbą dostępnych miejsc
         - Odwoływanie rezerwacji
         - Tworzenie rezerwacji

@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "kubectl rollout restart deploy <SERVICE_NAME>"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Image successfully built and pushed to registry.'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for more details.'
+        }
+    }
+}

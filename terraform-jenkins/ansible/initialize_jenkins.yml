@@ -1,0 +1,39 @@
+- name: Initialize Jenkins
+  hosts: jenkins
+  become: yes
+  tasks:
+    - name: Pull jenkins
+      community.docker.docker_image:
+        name: "jenkins/jenkins:lts-jdk17"
+        source: pull
+
+    - name: Run Jenkins container
+      community.docker.docker_container:
+        name: jenkins
+        image: jenkins/jenkins:lts-jdk17
+        state: started
+        detach: true
+        ports:
+          - "8080:8080"
+          - "50000:50000"
+        volumes:
+          - "jenkins_home:/var/jenkins_home"
+
+    - name: Wait for initial admin password to be generated
+      ansible.builtin.command: >
+        docker exec jenkins test -f /var/jenkins_home/secrets/initialAdminPassword
+      register: password_check
+      retries: 10
+      delay: 10
+      until: password_check.rc == 0
+
+    - name: Retrieve initial admin password from Jenkins container
+      ansible.builtin.command: >
+        docker exec jenkins
+        cat /var/jenkins_home/secrets/initialAdminPassword
+      register: jenkins_admin_password
+      changed_when: false
+
+    - name: Display the Jenkins initial admin password
+      ansible.builtin.debug:
+        msg: "JENKINS: The initial admin password for Jenkins is: {{ jenkins_admin_password.stdout }}"

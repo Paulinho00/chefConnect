@@ -1,0 +1,40 @@
+- name: Instialize Agents
+  hosts: agents
+  become: yes
+  tasks:
+    - name: Update repositories
+      ansible.builtin.apt:
+        update_cache: 'yes'
+
+    - name: Create jenkins catalog
+      file:
+        path: /var/jenkins
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+        
+    - name: Download and install AWS CLI
+      ansible.builtin.shell:
+        cmd: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          rm -rf aws awscliv2.zip
+
+    - name: Add Kubernetes repository key
+      ansible.builtin.shell:
+        cmd: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Add Kubernetes repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
+        state: present
+
+    - name: Install Kubernetes components
+      ansible.builtin.apt:
+        name:
+          - kubectl
+          - kubelet
+          - kubeadm
+        state: present

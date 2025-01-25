@@ -1,0 +1,45 @@
+- name: Install Java and Docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update repositories
+      ansible.builtin.apt:
+        update_cache: 'yes'
+
+    - name: Install OpenJDK 17 Headless
+      ansible.builtin.apt:
+        name: openjdk-17-jdk-headless
+        state: present
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Add the ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes

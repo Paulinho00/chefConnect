@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    environment {
+        REGISTRY = '<REGISTRY_NAME>'
+        IMAGE_NAME = '<IMAGE_NAME>'
+        IMAGE_TAG = "${env.BUILD_NUMBER}" // Use the build number as the tag
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                # add checkout
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dir("backedn/<SERVICE_NAME>") {
+                        sh "sudo docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -f Dockerfile ."
+                    } 
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                script {
+                    sh "docker rmi ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} || true"
+
+
+                    // clean local git repo
+                    sh "rm -rf ./* || true"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Image successfully built and pushed to registry.'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for more details.'
+        }
+    }
+}

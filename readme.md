@@ -9,9 +9,9 @@
 - `/frontend-web/chef-connect` - zawiera kod źródłowy frontendu napisanego w Angular
 - `/frontend-web/e2e` - zawiera skonfigurowany projekt w Cypress i test integracyjny E2E wybranego wycinka naszego systemu
 - `/kubernetes` - zawiera konfiguracje, wykorzystywane przez kubernetesa, do deploymentu poszczególnych mikroserwisów. Dla każdego mikroserwisu jest stworzony plik `yml`
-- `/terraform-basic-infra` - zawiera terraform do budowy podstawowej infrastruktury (tworzenie klastra i node group w EKS, sieci VPC, baz RDS, Cognito, S3 Bucket)
-- `/terraform-gateway` - zawiera terraform do tworzenia API Gateway oraz tworzenia ścieżek do stworzonych mikroserwisów
-- `/terraform-jenkins` - zawiera terraform do tworzenia osobnego VPC i EC2 na których znajduje się: serwer jenkins oraz worker node do wykonywania buildów
+- `/terraform-basic-infra` - zawiera skrypty terraform do budowy podstawowej infrastruktury (tworzenie klastra i node group w EKS, sieci VPC, baz RDS, Cognito, S3 Bucket)
+- `/terraform-gateway` - zawiera skrypty terraform do tworzenia API Gateway oraz tworzenia ścieżek do stworzonych mikroserwisów
+- `/terraform-jenkins` - zawiera skrypty terraform do tworzenia osobnego VPC i EC2 na których znajduje się: serwer jenkins oraz worker node do wykonywania buildów
 
 ## Zrealizowane cele
 

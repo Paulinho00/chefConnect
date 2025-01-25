@@ -119,7 +119,7 @@
     - Pobranie wszystkich rezerwacji dla danej restauracji, w której pracuje pracownik
     - Pobranie wszystkich dostępnych stolików w restauracji dla danej wybranej godziny rezerwacji
     - Potwierdzanie rezerwacji klienta. Pracownik wybiera stoliki w restauracji i przypisuje je do rezerwacji
-        - Sprawdzanie, czy liczba miejsc przy stolikach, które wybrał pracownik nie jest mniejsza niż wyamagana ilość miejsc podana przez klienta w utworzonej przez siebie rezerwacji
+        - Sprawdzanie, czy liczba miejsc przy stolikach, które wybrał pracownik nie jest mniejsza niż wymagana ilość miejsc podana przez klienta w utworzonej przez siebie rezerwacji
         - Brak możliwości rezerwacji niedostępnego stolika
 
 

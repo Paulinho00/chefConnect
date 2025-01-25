@@ -15,11 +15,10 @@
     <div class="tables">
       <mat-chip-listbox [multiple]="true">
         @for (table of freeTables; track table.table.id) {
-        <mat-chip-option [disabled]="table.isFree" [value]="table">
+        <mat-chip-option [disabled]="!table.isFree" [value]="table">
           <mat-icon> table_restaurant </mat-icon
           >{{ table.table.numberOfSeats }}</mat-chip-option
         >
-
         }
       </mat-chip-listbox>
     </div>

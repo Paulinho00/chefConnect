@@ -153,7 +153,6 @@
             - Dla podsieci mamy również skonfigurowane tabele routingu, umożliwiające odpowiednią komunikację
         - VPC Internet Gateway
         - VPC Elastic IP
-            - Stały, publiczny adres IP do umożliwienia komunikacji z endpointami naszych mikroserwisów
         - VPC NAT Gateway
             - Brama NAT do umożliwienia komunikacji mikroserwisów z publicznym internetem (z klientami)
     - Elastic Kubernetes Service (EKS)

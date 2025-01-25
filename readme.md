@@ -159,7 +159,7 @@
         - Cluster
         - Node Groupy
         - Load Balancery
-            - Przekierowuje ruch przychodzący z api gateway do odpowiedniego, najmniej obciążonego poda, działającego w ramach serwisu.
+            - Przekierowują ruch przychodzący z api gateway do odpowiedniego, najmniej obciążonego poda, działającego w ramach serwisu.
     - S3
         - Bucket do hostowania aplikacji webowej
     - API Gateway

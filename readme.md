@@ -184,7 +184,7 @@
 ### Niezrealizowane cele
 
 - Orders-Service, Inventory-Service - ze względu na brak czasu oraz skupienie się na zaimplementowaniu w całości jednego większego feature (rezerwacji), nie zdążyliśmy zaimplementować tych dwóch serwisów oraz wymagań funkcjonalnych związanych z nimi
-- Pełna integracja z Analytics-Service - zdążyliśmy zaimplementować analytics-service oraz zintegrować go z innymi mikroserwisami (reservations-service), tak aby wysyłały dane do kolejki SQS, natomiast nie zdążyliśmy zintegrować analytiki z naszym frontendem webowym. Planowaliśmy wyświetlać wykresy oraz statystyki dla menadżera
+- Pełna integracja z Analytics-Service - zdążyliśmy zaimplementować analytics-service oraz zintegrować go z innymi mikroserwisami (reservations-service), tak aby wysyłały dane do kolejki SQS, natomiast nie zdążyliśmy zintegrować analitiki z naszym frontendem webowym. Planowaliśmy wyświetlać wykresy oraz statystyki dla menadżera
 - Integracja z zewnętrznymi systemami (płatności, Google Distance API, hurtownia)
 - Wykonywanie backupu dla RDS i przechowaynie kopii na S3
 - Wykorzystanie ECR do przechowywania obrazu dockerowych (wykorzystywaliśmy Docker Hub)

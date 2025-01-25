@@ -187,4 +187,4 @@
 - Integracja z zewnętrznymi systemami (płatności, Google Distance API, hurtownia)
 - Wykonywanie backupu dla RDS i przechowaynie kopii na S3
 - Wykorzystanie ECR do przechowywania obrazu dockerowych (wykorzystywaliśmy Docker Hub)
-- Skonfigurowanie CloudTrail do logowania wszystkich zdarzeń w infrastrukturze (też byliśmy mocno ograniczeni przez uprawnienia w naszym koncie studenckim na AWS)
+- Skonfigurowanie CloudTrail do logowania wszystkich zdarzeń w infrastrukturze (byliśmy mocno ograniczeni przez uprawnienia na naszym koncie studenckim na AWS)
